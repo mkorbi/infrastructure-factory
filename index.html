@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Infrastructure Factory</title>
+<meta name="description" content="Software factories need infrastructure factories. A working definition, the evidence that the bottleneck has moved from code to environments, the lineage, one production line built from open source building blocks, and the metrics to run it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Sections">
+  <div class="frame">
+    <a class="wordmark" href="#top"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <ul>
+      <li><a href="#what">What it is</a></li>
+      <li><a href="#numbers">Evidence</a></li>
+      <li><a href="#symmetry">Symmetry</a></li>
+      <li><a href="#challenge">Why now</a></li>
+      <li><a href="#lineage">Lineage</a></li>
+      <li><a href="#line">The line</a></li>
+      <li><a href="#terrain">Terrain</a></li>
+      <li><a href="#metrics">Metrics</a></li>
+      <li><a href="#factors">Factors</a></li>
+      <li><a href="#prior-art">Prior art</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ul>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch color theme">Theme: auto</button>
+  </div>
+</nav>
+
+<header class="hero frame" id="top">
+  <p class="eyebrow">Platform engineering in the agentic era · <em>Working concept</em> · October 2026 · Max Körbächer</p>
+  <h1>The Infrastructure Factory</h1>
+  <p class="tagline">Software factory is what everyone wants to have. But this is what it runs on.</p>
+  <p class="lede">Coding agents now write most new code at Google, Uber and Anthropic. Code became cheap. The environment that code needs still works in tickets. The Infrastructure Factory is the production system that closes that gap.</p>
+
+  <div class="definition">
+    <p class="eyebrow">Definition</p>
+    <p class="def">An Infrastructure Factory is a platform that turns intents, from humans or agents, into compliant, owned, observable, cost-attributed environments, with no ticket in the path.</p>
+    <ul>
+      <li>Not an AI factory in NVIDIA's sense. No racks of GPUs turning energy into tokens.</li>
+      <li>Not only an account vending machine. It contains vending lines such as AWS Account Factory and Azure subscription vending, and everything around them that a human still adds by hand.</li>
+    </ul>
+  </div>
+
+  <figure class="demo">
+    <div class="demo-head">
+      <p class="eyebrow">Live model · where the queue forms</p>
+      <div class="seg" role="group" aria-label="Choose what sits between the software factory and its environments">
+        <button type="button" id="mode-ticket" aria-pressed="true">Ticket in the path</button>
+        <button type="button" id="mode-factory" aria-pressed="false">Infrastructure Factory</button>
+      </div>
+    </div>
+    <div class="demo-stage">
+      <canvas id="demo-canvas" role="img" aria-label="Animated model: pull requests leave the software factory at agent speed while environment requests pile up behind a ticket gate. With an Infrastructure Factory the gate becomes an automated policy check and the queue drains."></canvas>
+      <div class="demo-counters" aria-live="off">
+        <div><span class="k">Pull requests shipped</span><span class="v"><i class="blue"></i><span id="c-prs">0</span></span></div>
+        <div><span class="k">Waiting for an environment</span><span class="v"><i class="orange"></i><span id="c-wait">0</span></span></div>
+        <div><span class="k">Environments delivered</span><span class="v"><i class="orange"></i><span id="c-env">0</span></span></div>
+      </div>
+    </div>
+    <figcaption>Both lines receive work at the same rate. The software factory ships it at agent speed. Every change also needs an environment, and today that request stops at a gate a human opens a few times a day. Built an Infrastructure Factory and the gate becomes a policy check that answers in seconds. The queue is the thesis.</figcaption>
+  </figure>
+</header>
+
+<main>
+<!-- ============================================================ WHAT IT IS -->
+<section class="section" id="what">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">What it is</p>
+      <h2>What an Infrastructure Factory is</h2>
+    </div>
+
+    <h3>The definition, taken apart</h3>
+    <p class="defn-big">An Infrastructure Factory is a <mark>platform<sup>1</sup></mark> that turns <mark>intents<sup>2</sup></mark>, from <mark>humans or agents<sup>3</sup></mark>, into <mark>compliant, owned, observable, cost-attributed<sup>4</sup></mark> <mark>environments<sup>5</sup></mark>, with <mark>no ticket in the path<sup>6</sup></mark>.</p>
+    <ol class="annos">
+      <li><span class="n">1</span><div><h4>Platform</h4><p>A production system that a team runs as a product, with customers, a backlog and a service level. Not a project, not a folder of modules, not a committee of approvers. Its operators build the line.</p></div></li>
+      <li><span class="n">2</span><div><h4>Intents</h4><p>A request that says what the environment is for, who owns it, what data it touches and how long it lives. The factory translates the intent into resources. The requester never has to.</p></div></li>
+      <li><span class="n">3</span><div><h4>Humans or agents</h4><p>The same contract serves a developer in a portal, a delivery pipeline, an operations agent remediating an incident, and a coding agent validating a change in the middle of the night. If an agent cannot use it unaided, it is a portal, not a factory.</p></div></li>
+      <li><span class="n">4</span><div><h4>Compliant, owned, observable, cost-attributed</h4><p>Four properties present on arrival, never added later. Compliant: every policy evaluated, every decision recorded. Owned: a cost center, a compliance owner and an on-call owner that resolve to real people. Observable: telemetry flowing before the first request arrives. Cost-attributed: every euro lands on the owner's line.</p></div></li>
+      <li><span class="n">5</span><div><h4>Environments</h4><p>The factory's unit of product: a bounded set of resources with a name, an owner, a lifetime, a data classification, a network position, an identity, telemetry and a cost line. An account, a namespace, a cluster, a sandbox or a set of managed services can each be an environment. A virtual machine is a part.</p></div></li>
+      <li><span class="n">6</span><div><h4>No ticket in the path</h4><p>No human action between the intent and the environment. Humans decide at the contract, once, and the decisions live on as defaults, delegations and policies. A human may be notified, asked to approve a renewal above a threshold, or paged when a policy fails. A human is never a station.</p></div></li>
+    </ol>
+
+    <h3>What it is made of</h3>
+    <p class="measure">Each of the parts exists as open source or as a cloud primitive today. The factory is the arrangement, not any one of them.</p>
+    <div class="parts">
+      <article class="part"><h4>The front door</h4><p>One API, exposed to agents as a tool surface over MCP. Portals and command lines are views on it, never separate paths with their own rules.</p><p class="ex">MCP tool server · Backstage · a CLI</p></article>
+      <article class="part"><h4>The contract registry</h4><p>Versioned, machine-readable contracts that state what the requester may choose and what the platform decides. The requester reads the contract before asking, so the first request is fulfillable.</p><p class="ex">Kratix Promises · Crossplane Compositions · Backstage templates</p></article>
+      <article class="part"><h4>The catalog</h4><p>The source of truth for ownership: teams, cost centers, compliance contacts, on-call rotations, data classifications, and for physical estates the assets themselves.</p><p class="ex">Backstage catalog · NetBox · the HR and finance systems behind them</p></article>
+      <article class="part"><h4>The policy engine and the defaults</h4><p>The pre-check that answers allow or deny with a reason, and the delegation rules that fill the fields no agent can sign.</p><p class="ex">Open Policy Agent · Kyverno · Gatekeeper</p></article>
+      <article class="part"><h4>The vending lines</h4><p>One per terrain: cloud accounts and projects, virtual machines, clusters, namespaces, sandboxes, bare metal. The contract hides which line runs.</p><p class="ex">Account Factory for Terraform · Cluster API · KubeVirt · Metal3 · Agent Sandbox</p></article>
+      <article class="part"><h4>The inventory</h4><p>Capacity held as stock: warm pools, quotas, reservations and, off the cloud, procurement forecasts with a published fill rate.</p><p class="ex">SandboxWarmPool · node pools · hardware pools</p></article>
+      <article class="part"><h4>The identity system</h4><p>Short-lived, scoped identities for every requester and every workload, agents included. Credentials move through it and nowhere else.</p><p class="ex">SPIFFE/SPIRE · Keycloak · cloud IAM</p></article>
+      <article class="part"><h4>The meter and the evidence store</h4><p>Telemetry, cost attribution and the decision record for every environment, kept as the factory's output rather than compiled for an audit afterwards.</p><p class="ex">OpenTelemetry · OpenCost · Prometheus · policy audit logs</p></article>
+    </div>
+
+    <h3>What it is not</h3>
+    <p class="measure">The table reads left to right as a history: most organizations have built the first three and call the result a platform.</p>
+    <div class="table-wrap stack notwhat">
+      <table>
+        <thead><tr><th scope="col">Dimension</th><th scope="col">Ticket desk with scripts</th><th scope="col">Developer portal</th><th scope="col">Platform orchestrator</th><th scope="col">Infrastructure Factory</th></tr></thead>
+        <tbody>
+          <tr><td>Who can ask</td><td data-label="Ticket desk with scripts">Humans, in a queue.</td><td data-label="Developer portal">Humans, through a form.</td><td data-label="Platform orchestrator">Humans and pipelines, through an API.</td><td data-label="Infrastructure Factory" class="inf">Humans and agents, through a contract the agent can read.</td></tr>
+          <tr><td>What they send</td><td data-label="Ticket desk with scripts">Free text.</td><td data-label="Developer portal">Form fields.</td><td data-label="Platform orchestrator">A specification or a claim.</td><td data-label="Infrastructure Factory" class="inf">An intent, with purpose, owner, data and lifetime.</td></tr>
+          <tr><td>Who decides</td><td data-label="Ticket desk with scripts">A person, per request.</td><td data-label="Developer portal">A person, per request, behind the form.</td><td data-label="Platform orchestrator">Partly encoded; the rest escalates.</td><td data-label="Infrastructure Factory" class="inf">Encoded once: policy, defaults, delegations. Nobody per request.</td></tr>
+          <tr><td>What comes back</td><td data-label="Ticket desk with scripts">Resources.</td><td data-label="Developer portal">Resources and a catalog entry.</td><td data-label="Platform orchestrator">An environment.</td><td data-label="Infrastructure Factory" class="inf">An environment with owner, evidence and cost attached.</td></tr>
+          <tr><td>How long it lives</td><td data-label="Ticket desk with scripts">Forever.</td><td data-label="Developer portal">Forever.</td><td data-label="Platform orchestrator">Sometimes until deleted.</td><td data-label="Infrastructure Factory" class="inf">Until its lifetime ends, then it is reclaimed.</td></tr>
+          <tr><td>Whose problem is capacity</td><td data-label="Ticket desk with scripts">Procurement's.</td><td data-label="Developer portal">Procurement's.</td><td data-label="Platform orchestrator">The cloud's.</td><td data-label="Infrastructure Factory" class="inf">The factory's, held as inventory with a fill rate.</td></tr>
+          <tr><td>How it is measured</td><td data-label="Ticket desk with scripts">Ticket SLA.</td><td data-label="Developer portal">Adoption.</td><td data-label="Platform orchestrator">Deployments.</td><td data-label="Infrastructure Factory" class="inf">Lead time, zero-touch rate, time to owner, orphan rate.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note measure">It is also not an AI factory in NVIDIA's sense, not an IaC generator, and not a product from any one vendor. A portal is its front door. An orchestrator is one of its stations. An IaC generator is a faster way to write the input the factory exists to make unnecessary.</p>
+
+    <h3>From ticket desk to factory</h3>
+    <p class="measure">Most organizations are somewhere on this ladder. Each stage keeps everything the previous one built and removes one kind of human from the path. The test at every stage is the same: can an agent with a scoped identity obtain an owned, compliant environment at any time?</p>
+    <ol class="ladder">
+      <li><span class="stage">0</span><div><h4>Ticket desk</h4><p>Requests arrive as text. People build what they understand. Lead time is days to weeks, and the organization measures the queue.</p><p class="fail">Fails the test: nobody is awake.</p></div></li>
+      <li><span class="stage">1</span><div><h4>Automated fulfilment</h4><p>Scripts and modules do the building, but a person still approves, classifies and assigns cost. Lead time drops; the queue stays.</p><p class="fail">Fails the test: the approval is a person.</p></div></li>
+      <li><span class="stage">2</span><div><h4>Self-service portal</h4><p>Humans fill forms. Decisions are still made per request, behind the form, and the form itself is unreadable to an agent.</p><p class="fail">Fails the test: the agent cannot fill the form, and the form cannot sign the owner.</p></div></li>
+      <li><span class="stage">3</span><div><h4>Contracted API</h4><p>Machine-readable contracts, a policy pre-check with readable denials, defaults for ownership. Agents can ask. Evidence, lifetime and capacity are still somebody else's problem.</p><p class="fail">Fails the test at volume: orphans accumulate and the audit is compiled by hand.</p></div></li>
+      <li class="pass"><span class="stage">4</span><div><h4>Infrastructure Factory</h4><p>Ownership by default, identity for every requester, a lifetime on everything, evidence shipped with the product, capacity held as inventory, and the factory publishing its own metrics.</p><p class="fail pass">Passes the test, at production volume, on every terrain.</p></div></li>
+    </ol>
+
+    <h3>You have an Infrastructure Factory when</h3>
+    <ul class="checks">
+      <li>An agent with a scoped identity can obtain an owned, compliant environment with nobody awake.</li>
+      <li>Every environment has a reachable owner, a cost center and a classification before it exists.</li>
+      <li>Every denial carries a reason the requester can act on without opening a ticket.</li>
+      <li>Every environment has a lifetime, and reclaim runs without a human.</li>
+      <li>Every environment ships with its decision record.</li>
+      <li>The factory publishes its own lead time, zero-touch rate, time to owner and orphan rate.</li>
+      <li>A contract can move to another terrain without changing what the requester asks for.</li>
+      <li>Platform engineers spend their time on contracts, policies and lines, and none of it fulfilling requests.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ EVIDENCE -->
+<section class="section" id="numbers">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Evidence</p>
+      <h2>The bottleneck has moved</h2>
+      <p>In software factories, agents write most new code, around the clock, and engineers build the factories that build the software. But the delivery side has not kept up, and the gap shows in the telemetry.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="side">Code supply</span><span class="value">75%</span><span class="label">of new code at Google is AI-generated and approved by engineers, up from 25% in October 2024.</span><span class="src">Sundar Pichai, Cloud Next, April 2026</span></div>
+      <div class="stat"><span class="side">Code supply</span><span class="value">70%+</span><span class="label">of pull requests at Uber are attributed to local or cloud agents. Engineers have built more than 3,600 agent skills.</span><span class="src">Uber Engineering, August 2026</span></div>
+      <div class="stat"><span class="side">Code supply</span><span class="value">90%+</span><span class="label">of Anthropic's code is written by Claude Code, according to its CFO. Self-reported, and definitions vary between companies.</span><span class="src">Krishna Rao, May 2026</span></div>
+      <div class="stat infra"><span class="side">Delivery side</span><span class="value">+441%</span><span class="label">median time a change spends in review, while task throughput per developer rose 33.7%.</span><span class="src">Faros AI, AI Engineering Report 2026, 22,000 developers</span></div>
+      <div class="stat infra"><span class="side">Delivery side</span><span class="value">−7%</span><span class="label">main-branch throughput for the median team, while daily workflow runs rose 59% year over year. Main-branch success fell to 70.8%, a five-year low.</span><span class="src">CircleCI, February 2026, 28.7 million workflows</span></div>
+      <div class="stat infra"><span class="side">Delivery side</span><span class="value">16×</span><span class="label">growth in sandboxes on GKE in under five months after the Agent Sandbox preview, with 300 sandboxes per second claimed at GA.</span><span class="src">Google Cloud, May 2026</span></div>
+    </div>
+
+    <div class="charts">
+      <figure class="chart">
+        <p class="chart-title">Share of new code at Google written by AI</p>
+        <p class="chart-sub">Percent of new code, as stated by Google executives. The definition shifted between statements.</p>
+        <svg class="linechart" viewBox="0 0 360 212" role="img" aria-label="Line chart: AI-generated share of new code at Google rose from over 25 percent in October 2024 to 75 percent in April 2026.">
+          <g class="grid">
+            <line x1="40" y1="16" x2="340" y2="16"></line>
+            <line x1="40" y1="56" x2="340" y2="56"></line>
+            <line x1="40" y1="96" x2="340" y2="96"></line>
+            <line x1="40" y1="136" x2="340" y2="136"></line>
+            <line x1="40" y1="176" x2="340" y2="176"></line>
+          </g>
+          <g class="axis-text">
+            <text x="34" y="20" text-anchor="end">100%</text>
+            <text x="34" y="60" text-anchor="end">75</text>
+            <text x="34" y="100" text-anchor="end">50</text>
+            <text x="34" y="140" text-anchor="end">25</text>
+            <text x="34" y="180" text-anchor="end">0</text>
+            <text x="40" y="200" text-anchor="start">Oct 2024</text>
+            <text x="140" y="200" text-anchor="middle">Apr 2025</text>
+            <text x="240" y="200" text-anchor="middle">Fall 2025</text>
+            <text x="340" y="200" text-anchor="end">Apr 2026</text>
+          </g>
+          <path class="area" d="M40,136 L140,128 L240,96 L340,56 L340,176 L40,176 Z"></path>
+          <path class="series" d="M40,136 L140,128 L240,96 L340,56"></path>
+          <g>
+            <circle class="hit" cx="40" cy="136" r="14" tabindex="0" data-tip="&gt;25% · October 2024|Sundar Pichai, Q3 2024 earnings call: more than a quarter of new code"></circle><circle class="pt" cx="40" cy="136" r="4.5"></circle>
+            <circle class="hit" cx="140" cy="128" r="14" tabindex="0" data-tip="well over 30% · April 2025|Pichai at Q1 2025 earnings; plotted at 30"></circle><circle class="pt" cx="140" cy="128" r="4.5"></circle>
+            <circle class="hit" cx="240" cy="96" r="14" tabindex="0" data-tip="~50% · fall 2025|Referenced by Pichai in April 2026 as the previous figure"></circle><circle class="pt" cx="240" cy="96" r="4.5"></circle>
+            <circle class="hit" cx="340" cy="56" r="14" tabindex="0" data-tip="75% · April 2026|Cloud Next keynote: new code, AI-generated and approved by engineers"></circle><circle class="pt" cx="340" cy="56" r="4.5"></circle>
+          </g>
+          <g class="pt-label">
+            <text x="40" y="124" text-anchor="start">&gt;25%</text>
+            <text x="140" y="114" text-anchor="middle">&gt;30%</text>
+            <text x="240" y="82" text-anchor="middle">~50%</text>
+            <text x="340" y="44" text-anchor="end">75%</text>
+          </g>
+        </svg>
+        <figcaption>The April 2025 point is plotted at 30 for a statement of "well over 30%". Always quote the latest figure with "new" and "approved by engineers".</figcaption>
+        <details><summary>View as table</summary>
+          <table><thead><tr><th>Date</th><th>Share stated</th></tr></thead><tbody>
+            <tr><td>October 2024</td><td>more than 25%</td></tr><tr><td>April 2025</td><td>well over 30%</td></tr><tr><td>Fall 2025</td><td>about 50%</td></tr><tr><td>April 2026</td><td>75%</td></tr>
+          </tbody></table>
+        </details>
+      </figure>
+
+      <figure class="chart">
+        <p class="chart-title">More runs, less shipped on main</p>
+        <p class="chart-sub">CircleCI, year-over-year change for the median team, 2026 report</p>
+        <div class="bars" role="img" aria-label="Bar chart: daily workflow runs up 59 percent, feature-branch throughput up 15 percent, main-branch throughput down 7 percent.">
+          <div class="bar-row"><span class="bar-label">Daily workflow runs</span><div class="bar-track"><span class="zero" style="left:25%"></span><span class="bar-fill" style="left:25%;width:73.75%" tabindex="0" data-tip="+59% · Daily workflow runs|Year over year, 28,738,317 workflows analyzed"></span></div><span class="bar-val">+59%</span></div>
+          <div class="bar-row"><span class="bar-label">Feature-branch throughput</span><div class="bar-track"><span class="zero" style="left:25%"></span><span class="bar-fill" style="left:25%;width:18.75%" tabindex="0" data-tip="+15% · Feature-branch throughput|Median team, year over year"></span></div><span class="bar-val">+15%</span></div>
+          <div class="bar-row"><span class="bar-label">Main-branch throughput</span><div class="bar-track"><span class="zero" style="left:25%"></span><span class="bar-fill neg hi" style="left:16.25%;width:8.75%" tabindex="0" data-tip="−7% · Main-branch throughput|Median team; main-branch success rate fell to 70.8%, a five-year low"></span></div><span class="bar-val">−7%</span></div>
+        </div>
+        <div class="bar-axis-wrap"><span></span><div class="bar-axis"><span>−20%</span><span>0</span><span>+20</span><span>+40</span><span>+60%</span></div><span></span></div>
+        <figcaption>Pipelines run more often and feature branches move faster. What reaches main fell. More code is not more shipped.</figcaption>
+        <details><summary>View as table</summary>
+          <table><thead><tr><th>Measure</th><th>Change</th></tr></thead><tbody>
+            <tr><td>Daily workflow runs</td><td>+59%</td></tr><tr><td>Feature-branch throughput (median team)</td><td>+15%</td></tr><tr><td>Main-branch throughput (median team)</td><td>−7%</td></tr><tr><td>Main-branch success rate</td><td>70.8%</td></tr>
+          </tbody></table>
+        </details>
+      </figure>
+
+      <figure class="chart">
+        <p class="chart-title">The acceleration whiplash</p>
+        <p class="chart-sub">Faros AI, AI Engineering Report 2026, change across 4,000+ teams</p>
+        <div class="bars" role="img" aria-label="Bar chart: task throughput per developer up 33.7 percent, pull requests merged with no review up 31.3 percent, median time in review up 441.5 percent.">
+          <div class="bar-row"><span class="bar-label">Task throughput per developer</span><div class="bar-track"><span class="zero" style="left:0"></span><span class="bar-fill" style="left:0;width:7.3%" tabindex="0" data-tip="+33.7% · Task throughput per developer|Faros AI telemetry, 22,000 developers"></span></div><span class="bar-val">+33.7%</span></div>
+          <div class="bar-row"><span class="bar-label">PRs merged with no review</span><div class="bar-track"><span class="zero" style="left:0"></span><span class="bar-fill" style="left:0;width:6.8%" tabindex="0" data-tip="+31.3% · PRs merged with no review|More changes bypass review entirely"></span></div><span class="bar-val">+31.3%</span></div>
+          <div class="bar-row"><span class="bar-label">Median time in review</span><div class="bar-track"><span class="zero" style="left:0"></span><span class="bar-fill hi" style="left:0;width:96%" tabindex="0" data-tip="+441.5% · Median time in review|The queue forms after the code is written"></span></div><span class="bar-val">+441.5%</span></div>
+        </div>
+        <div class="bar-axis-wrap"><span></span><div class="bar-axis"><span>0</span><span>+100</span><span>+200</span><span>+300</span><span>+400%</span></div><span></span></div>
+        <figcaption>Output per developer grew by a third. The wait after the code exists grew by a factor of five. Review is one station of that wait. Environments are the rest.</figcaption>
+        <details><summary>View as table</summary>
+          <table><thead><tr><th>Measure</th><th>Change</th></tr></thead><tbody>
+            <tr><td>Task throughput per developer</td><td>+33.7%</td></tr><tr><td>PRs merged with no review</td><td>+31.3%</td></tr><tr><td>Median time in review</td><td>+441.5%</td></tr>
+          </tbody></table>
+        </details>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h3>How to read these numbers</h3>
+        <p>Every figure above is reported by the organization that benefits from it, and Faros covers only its own customers. Read them as direction. The direction is consistent across sources that do not share incentives: code volume rises, delivery capacity stays flat, and queues form after the commit.</p>
+        <p>The consultancies assume the delivery side will simply keep up. BCG Platinion's agentic SDLC ends in an "operation" phase where agents "automate deployment, monitor production, and remediate incidents". Factory.ai, which sells software factories, concedes that "almost no one has meaningfully instrumented this loop to be fully AI-driven".</p>
+      </div>
+      <div>
+        <h3>Where the queue forms is the point</h3>
+        <p>Review is the station everyone measures because it is the station that leaves a timestamp in the repository. The stations after it leave timestamps in ticketing systems: the staging environment, the new account, the firewall rule, the cost center, the compliance owner. Bunnyshell's summary of the same Faros data reads "AI writes code in minutes, your team waits days for staging".</p>
+        <p>No software-factory definition owns those stations. That absence is what this concept names.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SYMMETRY -->
+<section class="section" id="symmetry">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Symmetry</p>
+      <h2>The Infrastructure Factory mirrors the software factory</h2>
+      <p>Factory.ai, BCG Platinion, StrongDM and Uber describe the software factory in the same terms: a production system with inputs, agent workers, quality gates and a throughput number. The Infrastructure Factory has the same shape. Its product is an environment instead of a pull request, and the software factory is one of its customers.</p>
+    </div>
+
+    <figure class="fig">
+      <div class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 1000 330" role="img" aria-label="Diagram of two parallel production lines. The software factory turns intent, issues and signals into pull requests and releases through plan, write, test, review, merge and deploy. The infrastructure factory turns intents, policies, budgets and owners into environments through request, pre-check, vend, attach, hand over and reclaim. The deploy station of the software factory, together with other consumers, sends environment requests to the infrastructure factory, which returns an environment with an owner and evidence.">
+          <defs>
+            <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="arrow-ink" d="M0,0 L10,5 L0,10 Z"></path></marker>
+            <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="arrow-blue" d="M0,0 L10,5 L0,10 Z"></path></marker>
+            <marker id="arr-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="arrow-orange" d="M0,0 L10,5 L0,10 Z"></path></marker>
+          </defs>
+
+          <!-- software factory band -->
+          <text class="t-title" x="20" y="34">Software factory</text>
+          <rect class="band sw" x="20" y="44" width="960" height="84" rx="4"></rect>
+          <line class="flow sw" x1="210" y1="86" x2="866" y2="86"></line>
+          <line class="flow sw" x1="28" y1="86" x2="208" y2="86" marker-end="url(#arr-blue)"></line>
+          <text class="t-small" x="28" y="76">intent · issues · signals</text>
+          <line class="flow sw" x1="866" y1="86" x2="966" y2="86" marker-end="url(#arr-blue)"></line>
+          <text class="t-small" x="916" y="76" text-anchor="middle">pull requests</text>
+          <text class="t-small" x="916" y="104" text-anchor="middle">releases</text>
+          <g>
+            <rect class="box sw" x="210" y="66" width="96" height="40" rx="3"></rect><text x="258" y="91" text-anchor="middle">Plan</text>
+            <rect class="box sw" x="322" y="66" width="96" height="40" rx="3"></rect><text x="370" y="91" text-anchor="middle">Write</text>
+            <rect class="box sw" x="434" y="66" width="96" height="40" rx="3"></rect><text x="482" y="91" text-anchor="middle">Test</text>
+            <rect class="box sw" x="546" y="66" width="96" height="40" rx="3"></rect><text x="594" y="91" text-anchor="middle">Review</text>
+            <rect class="box sw" x="658" y="66" width="96" height="40" rx="3"></rect><text x="706" y="91" text-anchor="middle">Merge</text>
+            <rect class="box sw" x="770" y="66" width="96" height="40" rx="3"></rect><text x="818" y="91" text-anchor="middle">Deploy</text>
+            </g>
+
+          <!-- requests and deliveries between the factories -->
+          <polyline class="link" points="836,108 836,160 290,160 290,232" marker-end="url(#arr-ink)"></polyline>
+          <line class="link" x1="28" y1="160" x2="290" y2="160"></line>
+          <text class="t-small" x="28" y="152">other consumers: ops agents · data platform · sandboxes</text>
+          <text class="t-small" x="300" y="172">needs an environment · today a ticket, here an API call</text>
+          <polyline class="link" points="706,232 706,184 800,184 800,110" marker-end="url(#arr-ink)"></polyline>
+          <text class="t-small" x="698" y="198" text-anchor="end">environment, with owner and evidence attached</text>
+
+          <!-- infrastructure factory band -->
+          <text class="t-title" x="20" y="206">Infrastructure factory</text>
+          <rect class="band inf" x="20" y="214" width="960" height="84" rx="4"></rect>
+          <line class="flow inf" x1="210" y1="256" x2="866" y2="256"></line>
+          <line class="flow inf" x1="28" y1="256" x2="208" y2="256" marker-end="url(#arr-orange)"></line>
+          <text class="t-small" x="28" y="246">intents · policies</text>
+          <text class="t-small" x="28" y="274">budgets · owners</text>
+          <line class="flow inf" x1="866" y1="256" x2="966" y2="256" marker-end="url(#arr-orange)"></line>
+          <text class="t-small" x="916" y="246" text-anchor="middle">environments</text>
+          <text class="t-small" x="916" y="274" text-anchor="middle">owned · compliant</text>
+          <text class="t-small" x="916" y="288" text-anchor="middle">cost-attributed</text>
+          <g>
+            <rect class="box inf" x="210" y="236" width="96" height="40" rx="3"></rect><text x="258" y="261" text-anchor="middle">Request</text>
+            <rect class="box inf" x="322" y="236" width="96" height="40" rx="3"></rect><text x="370" y="261" text-anchor="middle">Pre-check</text>
+            <rect class="box inf" x="434" y="236" width="96" height="40" rx="3"></rect><text x="482" y="261" text-anchor="middle">Vend</text>
+            <rect class="box inf" x="546" y="236" width="96" height="40" rx="3"></rect><text x="594" y="261" text-anchor="middle">Attach</text>
+            <rect class="box inf" x="658" y="236" width="96" height="40" rx="3"></rect><text x="706" y="261" text-anchor="middle">Hand over</text>
+            <rect class="box inf" x="770" y="236" width="96" height="40" rx="3"></rect><text x="818" y="261" text-anchor="middle">Reclaim</text>
+            </g>
+          <text class="t-small" x="20" y="322">Dashed lines are requests and deliveries between the two factories. Solid lines are each factory's own conveyor.</text>
+        </svg>
+      </div>
+      <figcaption>The software factory's deploy station is a customer of the infrastructure factory, and so are consumers that belong to no code pipeline. That is why the second line is a peer, and why its product needs an owner and evidence attached before it is handed back.</figcaption>
+    </figure>
+
+    <div class="stack compare-wrap">
+      <table class="compare">
+        <thead><tr><th scope="col">Element</th><th scope="col" class="sw">Software factory</th><th scope="col" class="inf">Infrastructure factory</th></tr></thead>
+        <tbody>
+          <tr><td>Product</td><td class="sw" data-label="Software factory">Pull requests, releases</td><td class="inf" data-label="Infrastructure factory">Environments: compliant, owned, observable, cost-attributed</td></tr>
+          <tr><td>Inputs</td><td class="sw" data-label="Software factory">Business intent, issues, signals, specifications</td><td class="inf" data-label="Infrastructure factory">Intents from humans or agents, policies, budgets, owners</td></tr>
+          <tr><td>Workers</td><td class="sw" data-label="Software factory">Coding agents, orchestrated by engineers who "build the factories that build the software"</td><td class="inf" data-label="Infrastructure factory">Provisioning agents and orchestrators, run by platform engineers who build the factory that builds the environments</td></tr>
+          <tr><td>Production line</td><td class="sw" data-label="Software factory">Plan, write, test, review, merge, deploy</td><td class="inf" data-label="Infrastructure factory">Request, policy pre-check, vend, attach identity and telemetry and cost, hand over, reclaim</td></tr>
+          <tr><td>Quality gates</td><td class="sw" data-label="Software factory">Tests, code review, CI, security scanning</td><td class="inf" data-label="Infrastructure factory">Policy as code, admission control, compliance evidence, cost guardrails</td></tr>
+          <tr><td>Unit of trust</td><td class="sw" data-label="Software factory">A reviewed, tested change</td><td class="inf" data-label="Infrastructure factory">A signed owner, a classified dataset, an attributed cost center</td></tr>
+          <tr><td>Throughput</td><td class="sw" data-label="Software factory">PRs merged per week, tokens per engineer, DORA metrics</td><td class="inf" data-label="Infrastructure factory">Environments per day, lead time from intent to compliant environment, zero-touch rate</td></tr>
+          <tr><td>Failure mode</td><td class="sw" data-label="Software factory">Review backlog, unverified code, main-branch regressions</td><td class="inf" data-label="Infrastructure factory">Ticket queues, orphaned resources, unowned spend, policy drift</td></tr>
+          <tr><td>Who already has one</td><td class="sw" data-label="Software factory">NVIDIA, EY, Adobe, Palo Alto Networks, Adyen, Uber, StrongDM, per their own accounts</td><td class="inf" data-label="Infrastructure factory">Platform One, AWS Control Tower users with Account Factory, landing-zone factories. None of them names it.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="objection">
+      <h3>"Isn't infrastructure just a station in the software factory?"</h3>
+      <p>Some definitions say yes. Encore's AI software factory "provisions and deploys to the team's own cloud account" and pays off "once standing up infrastructure for each experiment is the thing slowing the agents down". Port writes that platform engineering moved "from building a portal to building the software factory", and that the portal work "is largely finished". (voice from the off: I don't agree on how Port defines platform engineering, that was never about building a portal)</p>
+      <p>Those definitions treat infrastructure as one step inside one code pipeline. The Infrastructure Factory is a separate production system with its own inputs (intents, policies, budgets, owners), its own throughput and its own failure modes. It serves workloads that no single software factory owns: the data platform, the shared cluster fleet, the compliance boundary, and the sandbox an agent asks for at 3am on behalf of nobody's pipeline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CHALLENGE -->
+<section class="section" id="challenge">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Why now</p>
+      <h2>Why this is hard right now</h2>
+      <p>The market moves fast and we are swamped by changes in the way we do things. The first is the one no software-factory definition addresses, and the one the "AI writes your infrastructure code" vendors skip.</p>
+    </div>
+
+    <div class="reasons">
+      <div class="reason lead">
+        <h3>It's all about ownership, and not Terraform.</h3>
+        <div class="two-col">
+          <div>
+            <p>An environment request carries fields that no agent can sign: a cost center, a compliance owner, a data classification, an on-call owner, a network zone. Each is a human decision, made by hand, usually in a ticket, usually after the code already exists. StackGen's own example is a React application generated in three hours followed by two to three days of hand-written Terraform, and that is before anyone asks who pays for it.</p>
+          </div>
+          <div>
+            <p>A factory cannot wait for those signatures. It has to encode them as defaults, delegations and policies, so that a request from an agent arrives already owned. Generating the Terraform faster does nothing for the fields a human still fills in. The table shows the same request twice: as it is resolved today, and as a factory resolves it.</p>
+          </div>
+        </div>
+        <div class="stack table-wrap anatomy">
+          <table>
+            <caption class="visually-hidden">Anatomy of an environment request: who resolves each field today and how an infrastructure factory resolves it</caption>
+            <thead><tr><th scope="col">Field in the request</th><th scope="col">Who resolves it today</th><th scope="col">How the factory resolves it</th></tr></thead>
+            <tbody>
+              <tr><td>compute · network · database</td><td data-label="Who resolves it today">Terraform written by hand, or by an AI that freestyles it. <span class="tag human">human reviews</span></td><td data-label="How the factory resolves it">A golden-path contract exposes the choices the requester may make. The platform decides everything else. <span class="tag default">contract</span></td></tr>
+              <tr><td>cost_center</td><td data-label="Who resolves it today">A manager approves it in a ticket. <span class="tag human">human signs</span></td><td data-label="How the factory resolves it">Inherited from the owning team's catalog record, with a delegated budget ceiling the agent can spend within. <span class="tag default">default</span></td></tr>
+              <tr><td>compliance_owner</td><td data-label="Who resolves it today">Named by a human after a review meeting. <span class="tag human">human signs</span></td><td data-label="How the factory resolves it">A delegation rule: the service owner's registered compliance contact, enforced as policy. <span class="tag policy">policy</span></td></tr>
+              <tr><td>data_classification</td><td data-label="Who resolves it today">Someone guesses "internal". <span class="tag human">human guesses</span></td><td data-label="How the factory resolves it">Derived from the declared data sources. Higher classes need a human exactly once, when the contract is published. <span class="tag policy">policy</span></td></tr>
+              <tr><td>on_call_owner</td><td data-label="Who resolves it today">Blank until something breaks. <span class="tag human">nobody</span></td><td data-label="How the factory resolves it">Inherited from the catalog. No reachable owner, no environment. <span class="tag default">default</span></td></tr>
+              <tr><td>network_zone · egress</td><td data-label="Who resolves it today">A security-team ticket. <span class="tag human">human signs</span></td><td data-label="How the factory resolves it">Decided by policy from the classification and the contract. <span class="tag policy">policy</span></td></tr>
+              <tr><td>lifetime</td><td data-label="Who resolves it today">Forever. <span class="tag human">nobody</span></td><td data-label="How the factory resolves it">A TTL by default. Renewal is a request like any other and carries the same owner. <span class="tag default">default</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="reason">
+        <h3>Capacity was sized for humans</h3>
+        <p>Megaport asks whether coding agents are "the new CI bottleneck": validation capacity, meaning compute, caching and data movement, has to absorb agent spikes that arrive in bursts rather than at the pace of a working day. Bunnyshell makes the same point about staging. CircleCI's telemetry shows what that looks like in aggregate: pipelines run 59% more often, and the median team ships 7% less on main.</p>
+      </div>
+
+      <div class="reason">
+        <h3>Trust moved downstream</h3>
+        <p>Qodo's line, quoted by platformengineering.com, is that the bottleneck shifted "from writing code to trusting it". Gartner, cited by StackGen, expects better coding efficiency to create "a bigger backlog for code reviews and security reviews". StrongDM went furthest: "Code must not be written by humans. Code must not be reviewed by humans." To make that work it built behavioral clones of Okta, Jira and Slack to validate what the agents produced. Simulated environments on demand is an infrastructure-factory problem, whatever you call it.</p>
+      </div>
+
+      <div class="reason">
+        <h3>Agents are a new kind of customer</h3>
+        <p>Humanitec ships scoped, least-privilege service users for AI agents per project and environment. Kubernetes SIG Apps added Agent Sandbox, with Sandbox, SandboxTemplate, SandboxWarmPool and SandboxClaim resources for "isolated environments for executing untrusted, LLM-generated code". The CNCF blog followed with "why sandboxing your agent is not enough". Gartner's 2026 Hype Cycle for Platform Engineering, as summarized by TrueFoundry, names "Agent Experience" and rates it transformational: back-end systems prepared so that APIs, data, documentation and workflows are machine-readable and discoverable.</p>
+        <blockquote class="quote">If your documentation is trapped in PDFs or your security policies are inconsistent, an AI agent won't fix it and it will simply fail more efficiently.<cite>Rickey Zachary, Thoughtworks</cite></blockquote>
+      </div>
+
+      <div class="reason">
+        <h3>Everyone assumes the other side keeps up</h3>
+        <p>BCG's practitioners report productivity gains of 3 to 5x and factories where "as few as three engineers" run a line in which humans no longer write code. Their lifecycle ends with agents that "automate deployment, monitor production, and remediate incidents". TechTarget's survey of Robusta, Komodor and Akamas gives the operators' view: "platform engineering is about building platforms for AI agents, and the role of humans is to build a platform that agents can use effectively." Both sides describe the Infrastructure Factory from a distance. Neither builds it, because neither owns it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ LINEAGE -->
+<section class="section" id="lineage">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Lineage</p>
+      <h2>The Department of Defense learned this before the agents arrived</h2>
+      <p>The software factory is a fifty-year-old idea. Its most instructive chapter is the last one before the agents: the US Air Force built software factories, then discovered that they only scaled on top of a shared infrastructure platform.</p>
+    </div>
+
+    <ol class="timeline">
+      <li><span class="year">1968</span><div class="ev"><h3>The term is coined</h3><p>Bob Bemer proposes the "software factory".</p></div></li>
+      <li><span class="year">1975</span><div class="ev"><h3>The first one runs</h3><p>System Development Corporation operates its Software Factory.</p></div></li>
+      <li><span class="year">2004</span><div class="ev"><h3>The book</h3><p>Jack Greenfield and Keith Short publish <em>Software Factories</em> with Wiley and Microsoft.</p></div></li>
+      <li class="key2"><span class="year">2017</span><div class="ev"><h3>Kessel Run</h3><p>The US Air Force launches "DOD's first software factory".</p></div></li>
+      <li class="key"><span class="year">Dec 2019</span><div class="ev"><h3>Platform One</h3><p>Established to "assist software factories by helping them focus on building mission applications": DevSecOps as a service, Kubernetes, Iron Bank hardened images and the Big Bang tooling.</p><p>It was called a software factory. It was an infrastructure platform.</p></div></li>
+      <li><span class="year">2021</span><div class="ev"><h3>The lesson, stated</h3><p>Air Force CIO Lauren Knausenberger: "starting with Kessel Run smuggling DevSecOps into the DOD, and continuing with Platform One leading the way to Kubernetes, a common repo, and a desire to bring the entire community together and leverage common enterprise services."</p></div></li>
+      <li class="key2"><span class="year">2025–26</span><div class="ev"><h3>The agentic software factory</h3><p>Factory.ai's "Factory 2.0" (June 2026), BCG Platinion's "Agentic Software Factory" (March 2026), StrongDM's no-human rules (February 2026) and Uber's "Running a Software Factory Efficiently at Uber Scale" (August 2026). In Factory.ai's words, "the incremental units of this system are AI agents."</p></div></li>
+      <li class="key"><span class="year">2026 →</span><div class="ev"><h3>The Infrastructure Factory</h3><p>The platform the agentic software factory runs on, named as a production system of its own, with its own line and its own metrics.</p></div></li>
+    </ol>
+
+    <div class="spine">
+      <p>Platform engineering was never about Kubernetes. It was about letting factories run.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PRODUCTION LINE -->
+<section class="section" id="line">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Production line</p>
+      <h2>An end to end line</h2>
+      <p>An agent working a backlog at night needs an environment to validate a change against a real database and a public endpoint. Nobody is awake to open a ticket. This is the line that serves it, built from open source building blocks that exist today. Each station names the projects that implement it.</p>
+    </div>
+
+    <ol class="line">
+      <li class="station">
+        <div class="what"><h3>Intent arrives</h3><p>The agent calls a tool exposed over MCP or a plain API: an environment for the service <code>orders-api</code>, with Postgres, a public endpoint, classification derived from its data sources, for 48 hours. A human in a portal sends the same request through a form. Nobody writes Terraform here.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A structured intent, as YAML or JSON, validated against a published schema.</p><span class="k">Building blocks</span><ul class="chips"><li>MCP tool server</li><li class="cncf">Backstage</li><li>Portal or CLI</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Golden-path contract</h3><p>The intent resolves to a published abstraction: a Kratix Promise or a Crossplane Composition. The contract is versioned and machine-readable. It lists what the requester may choose and what the platform decides, which is exactly the information an agent needs to ask for something fulfillable the first time.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A claim against a named contract version.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Crossplane</li><li>Kratix</li><li class="cncf">Backstage software templates</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>A policy pre-check the agent can read</h3><p>OPA or Kyverno evaluates the claim before anything is created and returns allow or deny with a reason the agent can act on. Defaults fill the fields the agent cannot sign: the cost center from the owning team's catalog record, the compliance owner by delegation, the classification from the declared data. A denial is a usable answer, and never a ticket.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>An admitted claim with ownership, classification and budget attached, plus the policy decision kept as evidence.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Open Policy Agent</li><li class="cncf">Kyverno</li><li class="cncf">Gatekeeper</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Vend</h3><p>The vending lines that already exist do their work: an account or project from AWS Account Factory for Terraform, Azure subscription vending or Google's project factory; a cluster or namespace from Cluster API or a virtual cluster; the Postgres and the endpoint from OpenTofu modules. GitOps reconciles the result and keeps reconciling it.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A reconciled environment, with endpoints and a record of what was created.</p><span class="k">Building blocks</span><ul class="chips"><li>OpenTofu</li><li class="cncf">Argo CD</li><li class="cncf">Flux</li><li>Cluster API (Kubernetes SIG)</li><li>Account Factory for Terraform</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Execution sandbox for untrusted code</h3><p>When the environment exists to run code an LLM wrote, a Kubernetes Agent Sandbox supplies the isolated runtime from a warm pool, claimed in seconds. The sandbox is one station and never the whole factory. Stations three, six and seven are what the CNCF means by "sandboxing your agent is not enough".</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A SandboxClaim bound to a running, isolated workload.</p><span class="k">Building blocks</span><ul class="chips"><li>Agent Sandbox (SIG Apps)</li><li>gVisor or Kata Containers</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Attach what humans used to add by hand</h3><p>Workload identity for the environment, and a scoped, least-privilege identity for the agent that asked for it. Telemetry wired to the platform's collectors. Cost attribution tags that match the cost center from station three. The ownership record registered in the catalog. None of this needs a person, and all of it used to wait for one.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>An environment that is observable, attributable, and reachable only by the identities the policy allowed.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">SPIFFE / SPIRE</li><li class="cncf">OpenTelemetry</li><li class="cncf">OpenCost</li><li class="cncf">Backstage catalog</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Hand over, then reclaim</h3><p>The requester receives endpoints, credentials through the identity system, and the evidence bundle: policy decisions, owner, classification, budget. The TTL and the owner record make reclamation automatic. The factory emits its own metrics at this station: lead time, zero-touch, time to owner.</p></div>
+        <div class="moves"><span class="k">What leaves the line</span><p>An environment in use, a metrics record, and a scheduled reclaim.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Prometheus</li><li class="cncf">Kyverno cleanup policies</li><li class="cncf">Argo CD or Flux</li></ul></div>
+      </li>
+    </ol>
+    <p class="chip-legend"><i></i>CNCF project &nbsp;&nbsp; <i class="other"></i>Other open source, Kubernetes SIG or cloud-provider building block</p>
+  </div>
+</section>
+
+<!-- ============================================================ TERRAIN -->
+<section class="section" id="terrain">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Terrain</p>
+      <h2>A cloud Infrastructure Factory is the easy case</h2>
+      <p>Everything above quietly assumed a hyperscaler underneath: an API for every resource, capacity that appears in seconds, a meter on everything. That is the easy case. Many of the infrastructure that matters sits on something less cloud-like: a virtualization estate, bare metal, a sovereign or regulated cloud, factory floors and branch sites. The factory model holds there too. It has more stations and a harder first mile.</p>
+    </div>
+
+    <div class="stats four">
+      <div class="stat infra"><span class="side">Virtualization</span><span class="value">48%</span><span class="label">of VMware customers plan to reduce their footprint by 2028. Only 4% have completed a full migration. The estate most factories vend from is itself moving.</span><span class="src">Virtified, April 2026; CloudBolt, February 2026</span></div>
+      <div class="stat infra"><span class="side">Sovereign cloud</span><span class="value">$23bn</span><span class="label">forecast European spend on sovereign cloud infrastructure in 2027, up from $6.7bn in 2025. Europe is expected to pass North America that year.</span><span class="src">Gartner, February 2026</span></div>
+      <div class="stat infra"><span class="side">Supply chain</span><span class="value">35–40</span><span class="label">weeks of lead time for server power-management chips in 2026, up from 21 to 26 weeks. Capacity off the cloud arrives on a truck, on a schedule the factory does not control.</span><span class="src">TrendForce, April 2026</span></div>
+      <div class="stat infra"><span class="side">Self-service</span><span class="value">83%</span><span class="label">of organizations say they need to increase or improve self-service provisioning of on-premises storage. The demand for the factory is already there; the APIs are not.</span><span class="src">Enterprise Strategy Group, August 2025, 380 organizations</span></div>
+    </div>
+
+    <h3>Cloud-likeness, defined</h3>
+    <p class="measure">NIST's 2011 definition of cloud computing lists five essential characteristics: on-demand self-service, broad network access, resource pooling, rapid elasticity and measured service. An Infrastructure Factory consumes all five. A hyperscaler supplies them as APIs. Wherever one is missing, the factory has to manufacture it before it can vend anything, and that is the whole difference between the cloud factory and every other kind.</p>
+
+    <div class="table-wrap stack terrain-table">
+      <table>
+        <thead><tr><th scope="col">NIST characteristic</th><th scope="col">What a cloud factory gets for free</th><th scope="col">What a less cloud-like factory builds first</th><th scope="col">Building blocks</th></tr></thead>
+        <tbody>
+          <tr><td>On-demand self-service</td><td data-label="What a cloud factory gets for free">Every resource has an API: accounts, identity, networks, databases. Vending lines such as Account Factory already exist.</td><td data-label="What a less cloud-like factory builds first">APIs exist for compute (vSphere, OpenStack, KubeVirt), but network, firewall, IP addresses, DNS and storage sit behind tickets. The factory needs a source of truth and an API façade over every one of them.</td><td data-label="Building blocks">NetBox or Nautobot, Ansible, OpenTofu providers, Crossplane providers, Cluster API providers for vSphere, OpenStack and Metal3</td></tr>
+          <tr><td>Broad network access</td><td data-label="What a cloud factory gets for free">A global backbone, managed load balancers, DNS and certificates on request.</td><td data-label="What a less cloud-like factory builds first">VLANs per site, firewalls with change windows, load balancers as appliances. The network has to become a policy the factory enforces instead of a ticket it waits for.</td><td data-label="Building blocks">MetalLB, Cilium or Calico network policy, cert-manager, external-dns</td></tr>
+          <tr><td>Resource pooling</td><td data-label="What a cloud factory gets for free">Multi-tenant by construction. Isolation is an account boundary.</td><td data-label="What a less cloud-like factory builds first">Dedicated hardware per team, licenses per socket, snowflake clusters. The factory has to create the pool: a virtualization layer, and tenancy inside clusters.</td><td data-label="Building blocks">KubeVirt, OpenStack, vCluster, Capsule, Kamaji, namespaces with quotas</td></tr>
+          <tr><td>Rapid elasticity</td><td data-label="What a cloud factory gets for free">Capacity appears in seconds and leaves the bill when released.</td><td data-label="What a less cloud-like factory builds first">Capacity arrives on a truck. Lead time has a floor set by procurement, so the factory keeps inventory: warm pools, buffer stock, reservations and forecasts.</td><td data-label="Building blocks">Metal3, Tinkerbell, Ironic, MAAS, Cluster API, SandboxWarmPool</td></tr>
+          <tr><td>Measured service</td><td data-label="What a cloud factory gets for free">A billing API, tags, and cost allocation down to the resource.</td><td data-label="What a less cloud-like factory builds first">No meter. Cost is a depreciation line in a spreadsheet. The factory has to build metering and showback before cost attribution can be one of its outputs.</td><td data-label="Building blocks">OpenCost with on-premises pricing, Kepler, Prometheus</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note measure">Two things NIST does not list but a hyperscaler also supplies: one identity system across every resource, and a certified compliance posture under a shared-responsibility model. Off the cloud, the factory owns both. Keycloak and SPIFFE/SPIRE take the first; the evidence bundle from station seven takes the second.</p>
+
+    <h3>What changes on the line</h3>
+    <div class="two-col">
+      <p>The first three stations do not change. Intent, contract and pre-check look the same whether the environment lands in an AWS account or on a rack in Nuremberg, and that is the point of the contract: the requester cannot tell where the environment will run, and should not have to. Everything between the pre-check and the hand-over is where the terrain shows.</p>
+      <p>Lead time has a floor the factory cannot remove: a VM from a warm hypervisor in minutes, a bare-metal node with firmware, RAID and an operating system image in tens of minutes to hours, a new rack in the weeks to months that 2026 component lead times dictate. The factory's job is to hide that floor behind inventory, never to pretend it is zero.</p>
+    </div>
+    <div class="table-wrap stack stations-table">
+      <table>
+        <thead><tr><th scope="col">Station</th><th scope="col">Cloud factory</th><th scope="col">Less cloud-like factory</th></tr></thead>
+        <tbody>
+          <tr><td>1 to 3 · Intent, contract, pre-check</td><td data-label="Cloud factory">Unchanged.</td><td data-label="Less cloud-like factory">Unchanged. The contract hides the terrain.</td></tr>
+          <tr><td>4 · Vend</td><td data-label="Cloud factory">One call to a vending line.</td><td data-label="Less cloud-like factory">Splits into capacity reservation, node provisioning (firmware, RAID, image), network and storage attach, cluster bootstrap, and the GitOps hand-off.</td></tr>
+          <tr><td>5 · Sandbox</td><td data-label="Cloud factory">Agent Sandbox on a managed cluster.</td><td data-label="Less cloud-like factory">The same, on a cluster the factory built. Warm pools matter more, because nodes do not appear on demand.</td></tr>
+          <tr><td>6 · Attach</td><td data-label="Cloud factory">Identity, telemetry and cost tags exist as cloud primitives.</td><td data-label="Less cloud-like factory">Identity federation and metering have to be built before they can be attached.</td></tr>
+          <tr><td>7 · Hand over, reclaim</td><td data-label="Cloud factory">Delete the resources and the bill stops.</td><td data-label="Less cloud-like factory">Return the hardware to the pool, wipe it, and make it visible to station zero again.</td></tr>
+          <tr><td>0 · Supply (new)</td><td data-label="Cloud factory">None.</td><td data-label="Less cloud-like factory">Procurement, inventory and forecasting. Capacity as stock, with a published fill rate.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Different terrains, require one contract</h3>
+    <div class="terrains">
+      <article class="terrain">
+        <p class="eyebrow">Hyperscaler cloud · <em>the easy case</em></p>
+        <h4>Cloud-like on all five counts</h4>
+        <p>The vending lines exist: Account Factory, subscription vending, project factory. The hard stations are the non-technical ones, the fields no agent can sign. Factory effort goes into contracts, defaults and delegations, and almost none into supply.</p>
+        <p class="blocks">Account Factory for Terraform · Crossplane · Kratix · OPA · Kyverno · Agent Sandbox</p>
+      </article>
+      <article class="terrain">
+        <p class="eyebrow">Virtualization estates · <em>an estate in motion</em></p>
+        <h4>APIs exist, self-service does not</h4>
+        <p>vSphere, Nutanix, OpenStack, Proxmox and KubeVirt all have APIs. Few are exposed as self-service, because change advisory boards and per-socket licensing sit in front of them. The Broadcom licensing changes turned this terrain into a construction site: 48% of VMware customers plan to shrink their footprint by 2028, while only 4% have finished leaving. KubeVirt, a CNCF incubating project heading for graduation with release 1.8, and Forklift for moving VMs are the open source route out. An IDC-documented enterprise cut provisioning from three to four days to about thirty minutes once self-service replaced its approval queue.</p>
+        <p class="blocks">KubeVirt · Forklift · Cluster API for vSphere and OpenStack · Crossplane · NetBox · Ansible</p>
+      </article>
+      <article class="terrain">
+        <p class="eyebrow">Bare metal and edge · <em>physics in the loop</em></p>
+        <h4>Capacity arrives on a truck</h4>
+        <p>Factory floors, stores, telco sites and GPU clusters. In 2026, component lead times stretched to 35 to 40 weeks for power-management chips and 21 to 26 weeks for baseboard controllers, and HGX-class GPU systems quoted 8 to 20 weeks. Thousands of sites with intermittent connectivity mean pull-based GitOps and immutable images. Here the factory ships images, not environments, and station zero is the one that decides whether a request at 3am can be served at all.</p>
+        <p class="blocks">Metal3 (CNCF incubating since August 2025) · Tinkerbell · Ironic · Talos or Flatcar · Flux · Argo CD · Kepler</p>
+      </article>
+      <article class="terrain">
+        <p class="eyebrow">Sovereign and regulated · <em>evidence is the product</em></p>
+        <h4>The contract carries the jurisdiction</h4>
+        <p>NIS2 applies since October 2024, the Digital Operational Resilience Act since January 2025 (the EU regulation, not the metrics) and the Data Act since September 2025. Gartner expects European sovereign cloud spending to more than triple to $23bn by 2027. Sovereign providers expose thinner API surfaces and fewer managed services, so more of the five characteristics fall to the factory. Data residency and operator independence become contract fields, and the evidence bundle from station seven is the artifact the regulator reads.</p>
+        <p class="blocks">OPA · Kyverno · SPIFFE/SPIRE · Harbor · Zarf · Sigstore · OpenCost</p>
+      </article>
+    </div>
+
+    <div class="spine terrain-spine">
+      <p>The contract, the metrics and the first three stations are the same on every terrain. What changes is how much of the cloud the factory has to build before it can sell an environment. In the cloud, the factory is policy and ownership. Everywhere else, it is policy and ownership plus a supply chain. The hardest station in the cloud is a signature. The hardest station on bare metal is a truck.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ METRICS -->
+<section class="section" id="metrics">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Metrics</p>
+      <h2>Measure it like a factory</h2>
+      <p>The software-factory crowd brings numbers: pull requests per week, tokens per engineer, 3 to 5x. An Infrastructure Factory needs its own set, the equivalent of DORA for environments. Six are enough to start, and each has a counterpart on the software side.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><span class="mpair">Counterpart: lead time for changes</span><span class="mname">Lead time to a compliant environment</span><span class="mdef">From intent submitted to environment handed over, with its evidence attached.</span><span class="mwhy"><b>Factory target:</b> hours, measured per contract. Days means a ticket is still in the path.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: deployment frequency</span><span class="mname">Environments per day per platform engineer</span><span class="mdef">Delivered environments, normalized by the people who run the factory.</span><span class="mwhy"><b>Why it matters:</b> it is the number that justifies platform investment as agent demand scales.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: PRs merged with no human review</span><span class="mname">Zero-touch rate</span><span class="mdef">Share of requests fulfilled with no human action anywhere in the path.</span><span class="mwhy"><b>Why it matters:</b> its inverse is the ticket count. An agent at 3am only ever gets the zero-touch share.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: change failure rate</span><span class="mname">Policy-violation rate on agent requests</span><span class="mdef">Share of agent-originated requests the pre-check refuses, broken down by reason.</span><span class="mwhy"><b>Read it carefully:</b> a rising rate usually means the contract is unclear to the agent, and rarely that the agent is reckless.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: review pickup time</span><span class="mname">Time to owner</span><span class="mdef">Time until a cost center and a compliance owner are attached to the environment.</span><span class="mwhy"><b>Factory target:</b> zero. Ownership is a default of the golden path, never a step after it.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: age of unmerged work</span><span class="mname">Orphan rate</span><span class="mdef">Resources alive past their TTL with no reachable owner.</span><span class="mwhy"><b>Why it matters:</b> it is the day-2 health of the factory, and the first number finance will ask for.</span></div>
+    </div>
+
+    <div class="calc">
+      <div class="calc-in">
+        <p class="eyebrow" style="margin:0">Little's law for environment requests</p>
+        <label for="in-rate"><span class="lv"><span>Environment requests per day</span><output id="out-rate" for="in-rate">40</output></span><input type="range" id="in-rate" min="5" max="400" step="5" value="40"></label>
+        <label for="in-lead"><span class="lv"><span>Lead time with a ticket in the path</span><output id="out-lead" for="in-lead">3 days</output></span><input type="range" id="in-lead" min="2" max="240" step="1" value="72"></label>
+        <label for="in-fast"><span class="lv"><span>Lead time through the factory</span><output id="out-fast" for="in-fast">20 min</output></span><input type="range" id="in-fast" min="1" max="480" step="1" value="20"></label>
+      </div>
+      <div class="calc-out">
+        <div class="big"><span id="out-wip">120</span><small>requests open at any moment with a ticket in the path</small></div>
+        <div class="cmp">
+          <div><span class="n" id="out-wip-ticket">120</span><span class="l">In flight · ticket</span></div>
+          <div class="inf"><span class="n" id="out-wip-factory">0.6</span><span class="l">In flight · factory</span></div>
+        </div>
+        <p id="out-text">At 40 requests a day and a lead time of 3 days, 120 environment requests are open at any moment. Through a factory with a lead time of 20 min, fewer than one is.</p>
+        <p class="law">Work in progress = arrival rate × lead time. Little's law holds for any stable queue, whatever is in it. The inputs are yours; the arithmetic is the only claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FACTORS -->
+<section class="section" id="factors">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Factors</p>
+      <h2>Twelve factors of an Infrastructure Factory</h2>
+      <p>The Twelve-Factor App of 2011 told a generation how to write software that a platform could run. These twelve say how to build the platform that agents can run on. Each one is written as a test. A factory either passes it, or there is a ticket in the path somewhere.</p>
+    </div>
+
+    <div class="manifesto">
+      <p>Intents over resource lists.</p>
+      <p>Defaults over approvals.</p>
+      <p>Contracts over tickets.</p>
+      <p>Evidence over reports.</p>
+      <p class="note">There is value on the right of every line. The factory encodes it once, so that nobody has to supply it per request.</p>
+    </div>
+
+    <ol class="factors">
+      <li><span class="num">I</span><div><h3>Intent in</h3><p>The input is an intent: what the environment is for, who owns it, what data it touches, how long it lives. Never a resource list. A resource list is the factory's output, translated back into its inputs by a human.</p></div></li>
+      <li><span class="num">II</span><div><h3>Environment out</h3><p>The output is an environment that is owned, compliant, observable and cost-attributed on arrival. Anything less is a resource, and resources are what the ticket queue used to deliver.</p></div></li>
+      <li><span class="num">III</span><div><h3>Machine-readable contracts</h3><p>What the requester may choose and what the platform decides is a versioned schema. The API is the interface; portals and CLIs are views on it. Agents are first-class customers, and a contract an agent cannot read is a contract a human will be asked to interpret.</p></div></li>
+      <li><span class="num">IV</span><div><h3>No ticket in the path</h3><p>Humans decide once, at the contract, or encode the decision as a default, a delegation or a policy. A human may be notified. A human is never a blocking station. Platform engineers build the line; they do not fulfil requests.</p></div></li>
+      <li><span class="num">V</span><div><h3>Policy before provisioning</h3><p>The pre-check returns allow or deny, with a reason the requester can act on, before anything is created. Nothing is built to be torn down by a reviewer later, and a denial is an answer rather than an escalation.</p></div></li>
+      <li><span class="num">VI</span><div><h3>Ownership by default</h3><p>Cost center, compliance owner, on-call owner and data classification are inherited from the catalog, never typed into a form. No reachable owner, no environment.</p></div></li>
+      <li><span class="num">VII</span><div><h3>Scoped identity for every requester</h3><p>Every request runs under a short-lived, least-privilege identity, agents included. Credentials move through the identity system and never through a prompt, a ticket or a chat message.</p></div></li>
+      <li><span class="num">VIII</span><div><h3>Everything expires</h3><p>A lifetime is part of every intent. Renewal is a request like any other and carries the same owner. Reclaim is automatic, and an orphan is a defect of the factory, not of the requester.</p></div></li>
+      <li><span class="num">IX</span><div><h3>Evidence ships with the product</h3><p>The decision record travels with the environment: policies evaluated, owner, classification, budget, jurisdiction. An audit reads the factory's output, not a spreadsheet assembled afterwards.</p></div></li>
+      <li><span class="num">X</span><div><h3>Capacity is inventory</h3><p>Warm pools, quotas and buffer stock absorb bursts. Where elasticity is missing, the factory keeps stock and publishes its fill rate instead of pretending that lead time is zero.</p></div></li>
+      <li><span class="num">XI</span><div><h3>The factory measures itself</h3><p>Lead time to a compliant environment, environments per platform engineer, zero-touch rate, policy-violation rate, time to owner, orphan rate. Published to the factory's customers the way an SLO is, and argued about the same way.</p></div></li>
+      <li><span class="num">XII</span><div><h3>Built from replaceable parts</h3><p>Contracts outlive tools. Every station is a building block that can be swapped, Crossplane for Kratix, Kyverno for OPA, a hyperscaler for a rack, without changing what the requester asks for or what the requester gets back.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================ PRIOR ART -->
+<section class="section prior" id="prior-art">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Prior art</p>
+      <h2>What already exists, and what this is not</h2>
+      <p>The term is open. Any may have said since mid-2025 that the bottleneck moved from code to infrastructure delivery, and a few projects already use the words.</p>
+    </div>
+
+    <h3>Who uses the words</h3>
+    <div class="table-wrap stack">
+      <table>
+        <thead><tr><th scope="col">Usage</th><th scope="col">Who</th><th scope="col">What it means</th><th scope="col">Relation</th></tr></thead>
+        <tbody>
+          <tr><td>InfraFactory</td><td data-label="Who">MozeBaltyk, open source on GitHub</td><td data-label="What it means">"A factory for building cloud infrastructure, provider-agnostic and modular": OpenTofu, cloud-init, K3s or RKE2 and Flux to stamp out VMs and clusters.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>C.I. Factory, Capability Infrastructure Factory</td><td data-label="Who">bonometti718, open source on GitHub</td><td data-label="What it means">"Machine-native infrastructure for autonomous AI agents": small verifiable capabilities such as an "Agent Economic Action Gate".</td><td data-label="Relation"><span class="rel diff">Adjacent, tiny</span></td></tr>
+          <tr><td>AI Factory</td><td data-label="Who">NVIDIA, Presidio and others</td><td data-label="What it means">Physical accelerated datacenters that "convert energy into tokens".</td><td data-label="Relation"><span class="rel diff">Different thing</span></td></tr>
+          <tr><td>Account Factory, Account Factory for Terraform</td><td data-label="Who">AWS Control Tower, with HashiCorp</td><td data-label="What it means">A Terraform pipeline that vends and customizes governed AWS accounts inside a landing zone.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>Subscription vending</td><td data-label="Who">Microsoft Azure Architecture Center</td><td data-label="What it means">Bicep and Terraform modules that create workload landing zones at scale.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>Project factory</td><td data-label="Who">Google Cloud Foundation Fabric</td><td data-label="What it means">A Terraform module that vends GCP projects from YAML.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>"A factory with multiple production lines"</td><td data-label="Who">Cellenza, Azure consultancy</td><td data-label="What it means">Industrialized landing-zone delivery.</td><td data-label="Relation"><span class="rel lineage">Closest precedent</span></td></tr>
+          <tr><td>Platform One</td><td data-label="Who">US Air Force</td><td data-label="What it means">A "software factory" that in practice provides DevSecOps as a service, Kubernetes, hardened images and tooling to other software factories.</td><td data-label="Relation"><span class="rel lineage">Lineage</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+
+    <div class="adds">
+      <div><h3>The symmetry is explicit</h3><p>Both factories have inputs, production lines, quality gates and a throughput number. Nobody has drawn the second line next to the first.</p></div>
+      <div><h3>The queue is non-technical</h3><p>Cost center, compliance owner, data classification, on-call owner. Agents cannot sign them, so the factory encodes them as defaults, delegations and policies.</p></div>
+      <div><h3>Platform engineering was never about Kubernetes</h3><p>It was about letting factories run. Platform One proved it before the agents arrived.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SOURCES -->
+<section class="section sources" id="sources">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Sources</p>
+      <h2>Sources and caveats</h2>
+      <p>Everything quoted on this page comes from the publications below. Links are left out on purpose until each one has been re-verified against the original.</p>
+    </div>
+    <ol>
+      <li>Factory.ai, Matan Grinberg and Eno Reyes, "Factory 2.0: From coding agents to software factories", 15 June 2026.</li>
+      <li>BCG Platinion, "The Agentic Software Factory", 26 March 2026.</li>
+      <li>StrongDM engineering rules, February 2026, as reported by Simon Willison and Stanford CodeX; Justin McCarthy on token spend per engineer.</li>
+      <li>Sundar Pichai, Google Cloud Next keynote, 22 April 2026; earlier figures from Alphabet earnings calls, October 2024 and April 2025.</li>
+      <li>Anthropic spokesperson, January 2026; Krishna Rao, May 2026.</li>
+      <li>Uber Engineering, "Running a Software Factory Efficiently at Uber Scale", 27 August 2026.</li>
+      <li>Faros AI, "AI Engineering Report 2026: The Acceleration Whiplash", April 2026. 22,000 developers across more than 4,000 teams, telemetry from Faros customers only.</li>
+      <li>CircleCI, 2026 engineering telemetry, blog post of 18 February 2026. 28,738,317 workflows.</li>
+      <li>Google Cloud, "Bringing you Agent Sandbox on GKE and Agent Substrate", May 2026; Kubernetes blog on Agent Sandbox, March 2026.</li>
+      <li>CNCF blog, "Why sandboxing your agent is not enough", July 2026.</li>
+      <li>StackGen, Asif Awan, "Intent-to-Infrastructure: Platform engineers break bottlenecks with AI", platformengineering.org, sponsored, June 2025.</li>
+      <li>platformengineering.com, "AI Writes Code Faster Than Most Engineering Organizations Can Ship It".</li>
+      <li>Port, "AI Software Factory: What It Is, Why You Need One, Who Owns It".</li>
+      <li>Encore, on AI software factories and provisioning to the team's own cloud account.</li>
+      <li>Syntasso, Kratix and Kratix Agentic documentation and customer quotes.</li>
+      <li>Humanitec, Platform Orchestrator documentation on service users for AI agents.</li>
+      <li>Bunnyshell, "AI Writes Code in Minutes, Your Team Waits Days for Staging"; Megaport, "Are AI Coding Agents the New CI Bottleneck?"; Augment Code, "AI-Native Engineering".</li>
+      <li>TechTarget, "AI agents' role in IT infrastructure is expanding".</li>
+      <li>AWS re:Invent 2025, session OPN303, "Building agentic AI platform engineering solutions with open source".</li>
+      <li>Gartner, Hype Cycle for Platform Engineering 2026, as summarized by TrueFoundry.</li>
+      <li>Thoughtworks, Rickey Zachary, on documentation and policy consistency for agents.</li>
+      <li>US Air Force: Kessel Run (2017), Platform One (December 2019); Lauren Knausenberger (2021).</li>
+      <li>Bob Bemer (1968); System Development Corporation Software Factory (1975); Greenfield and Short, <em>Software Factories</em> (2004).</li>
+      <li>MozeBaltyk, InfraFactory; bonometti718, C.I. Factory; AWS Control Tower Account Factory and AFT; Azure subscription vending; Google Cloud Foundation Fabric project factory; Cellenza on landing-zone factories.</li>
+      <li>NIST, Special Publication 800-145, "The NIST Definition of Cloud Computing", September 2011.</li>
+      <li>Virtified, VMware customer research, April 2026 (48% plan to reduce their footprint by 2028); CloudBolt, VMware migration survey, February 2026 (86% reducing, 4% fully migrated).</li>
+      <li>Gartner, forecast of European sovereign cloud infrastructure spending, February 2026, as reported by The Register and Data Center Dynamics.</li>
+      <li>CNCF, "Metal3.io becomes a CNCF incubating project", 27 August 2025; CNCF blog on Metal3 at KubeCon Europe, 23 March 2026.</li>
+      <li>SiliconANGLE, "Kubernetes virtualization approaches CNCF graduation", 30 March 2026; InfoQ on KubeVirt 1.8 and its hypervisor abstraction layer, March 2026.</li>
+      <li>TrendForce, extended component lead times and server growth, April 2026, as reported by Evertiq and TelecomTV; HGX B200 lead times as quoted by hardware resellers in 2026.</li>
+      <li>Enterprise Strategy Group, brief on on-premises hyperscaler-style infrastructure, August 2025, 380 North American organizations.</li>
+      <li>IDC white paper on self-service private cloud, 2026, sponsored by VMware (provisioning from three to four days to about thirty minutes).</li>
+      <li>European Union: NIS2 Directive, applicable from 18 October 2024; Digital Operational Resilience Act, applicable from 17 January 2025; Data Act, applicable from 12 September 2025.</li>
+      <li>Adam Wiggins, "The Twelve-Factor App", 2011.</li>
+    </ol>
+    <div class="cav">
+      <h3>Caveats</h3>
+      <ul>
+        <li>Most software-factory statistics are self-reported by vendors or executives, and definitions shift. Google's figure changed definition several times. BCG's 3 to 5x and StackGen's 75% are practitioner and vendor claims, not independent benchmarks.</li>
+        <li>The Faros AI, CircleCI, Uber and GKE figures come from each organization's own publication. Faros covers only its own customers. Factory.ai's dashboard numbers circulate only through a secondary source and are left off this page.</li>
+        <li>The Gartner content came through a vendor summary. Confirm the "Agent Experience" name and its rating in the report itself before repeating them.</li>
+        <li>The VMware figures come from vendor surveys (Virtified, CloudBolt), the provisioning-time example from an IDC white paper sponsored by VMware, and the GPU lead times from reseller quotes. The TrendForce, Gartner and Enterprise Strategy Group figures were read through press coverage, not the original reports.</li>
+        <li>The prior-art check covers web-indexed content. Talks at internal or regional events may use "infrastructure factory" without being indexed.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="frame">
+    <span>Infrastructure Factory · a working concept · October 2026 · Max Körbächer</span>
+    <span><a href="https://github.com/mkorbi/infrastructure-factory">Source and discussion on GitHub</a></span>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+<script src="assets/site.js"></script>
+</body>
+</html>
