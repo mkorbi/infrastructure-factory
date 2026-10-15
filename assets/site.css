@@ -672,3 +672,9 @@ figure.fig.dg-fig .diagram-wrap { margin: 0; }
 .logo-stage { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; display: grid; place-items: center; }
 .logo-large { width: 160px; height: 160px; display: block; }
 figure.logo-fig figcaption .png + .png { margin-left: 0.4rem; }
+
+/* ---------- the mark beside the title ---------- */
+.hero .title-row { display: flex; align-items: center; gap: clamp(0.9rem, 2.4vw, 1.6rem); }
+.hero .title-row .hero-mark { width: clamp(64px, 9vw, 112px); height: auto; flex: none; display: block; }
+.hero .title-row h1 { max-width: 20ch; }
+@media (max-width: 640px) { .hero .title-row { flex-direction: column; align-items: flex-start; gap: 0.9rem; } .hero .title-row .hero-mark { width: 64px; } }
