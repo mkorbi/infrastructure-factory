@@ -165,6 +165,40 @@
   </div>
 </section>
 
+<section class="section" id="loop">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The loop</p>
+      <h2>Station eight closes the line into a loop</h2>
+      <p>The line ends at hand-over only on a diagram. In a factory, the environment keeps reporting, and what it reports becomes the next intent.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>Observe and reclaim</h3>
+        <p>Five signals leave a running environment and re-enter the line as intents. Drift: the environment no longer matches its contract, so the factory reconciles it or raises a change. Expiry: the lifetime ends, so the factory reclaims, or the owner renews through a request like any other. Cost anomalies: spend leaves the budget ceiling, so the factory throttles, notifies the owner, or both. Incidents: an alert names the environment, so a remediation agent raises the fix as a pull request. Policy changes: a rule changes, so every environment it touches is re-evaluated and the gaps become work.</p>
+      </div>
+      <div>
+        <h3>Why it matters</h3>
+        <p>Without station eight the factory produces environments and forgets them. Orphans accumulate, cost drifts, and the audit is assembled by hand. With it, the factory's output is also its input, which is what makes the metrics on the <a href="/metrics/">metrics page</a> measurable at all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="workers">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The workers</p>
+      <h2>Who does what</h2>
+    </div>
+    <div class="adds">
+      <div><h3>Agents</h3><p>Raise and execute Terraform pull requests, remediations and CVE fixes, within the contract and under a scoped identity.</p></div>
+      <div><h3>Humans</h3><p>Sign ownership once, through contracts and defaults, and approve at the few defined checkpoints: a renewal above a threshold, a classification the contract does not cover.</p></div>
+      <div><h3>Platform engineers</h3><p>Build the factory: the contracts, the policies, the vending lines and the inventory. They do not fulfil requests. <a href="/three-factories/#glue">How platform engineering holds the three factories together.</a></p></div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="factors">
   <div class="frame">
     <div class="section-head">
@@ -230,6 +264,21 @@
       <li><span class="stage">2</span><div><h4>Self-service portal</h4><p>Humans fill forms. Decisions are still made per request, behind the form, and the form itself is unreadable to an agent.</p><p class="fail">Fails the test: the agent cannot fill the form, and the form cannot sign the owner.</p></div></li>
       <li><span class="stage">3</span><div><h4>Contracted API</h4><p>Machine-readable contracts, a policy pre-check with readable denials, defaults for ownership. Agents can ask. Evidence, lifetime and capacity are still somebody else's problem.</p><p class="fail">Fails the test at volume: orphans accumulate and the audit is compiled by hand.</p></div></li>
       <li class="pass"><span class="stage">4</span><div><h4>Infrastructure Factory</h4><p>Ownership by default, identity for every requester, a lifetime on everything, evidence shipped with the product, capacity held as inventory, and the factory publishing its own metrics.</p><p class="fail pass">Passes the test, at production volume, on every terrain.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="start">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Where to start</p>
+      <h2>Three vending lines, in order</h2>
+      <p>Start narrow, where demand is highest and the blast radius is smallest. The software factory sources give the same advice for their own lines: Factory suggests incident triage first, and Lloyd lets triage send easy, unambiguous issues straight to implementation.<a class="cite" href="/sources/#s41"><sup>41</sup></a><a class="cite" href="/sources/#s36"><sup>36</sup></a></p>
+    </div>
+    <ol class="start-steps">
+      <li><span class="num">1</span><div><h3>Ephemeral sandboxes for coding agents</h3><p>The first line. Demand is already there: sandboxes on GKE grew 16x in under five months after the Agent Sandbox preview.<a class="cite" href="/sources/#s9"><sup>9</sup></a> A sandbox needs an identity, a lifetime and a policy, and nothing a human has to sign. It is the smallest complete environment.</p></div></li>
+      <li><span class="num">2</span><div><h3>Preview environments per pull request</h3><p>The second line. Every change gets an environment with the service, its data and its endpoint, owned by the change's owner, reclaimed at merge. This is where ownership defaults and cost attribution get exercised at volume.</p></div></li>
+      <li><span class="num">3</span><div><h3>Production vending</h3><p>The third line. Accounts, projects, clusters and namespaces with the full evidence bundle. By now the contracts, policies and inventory exist, and production is one more terrain for them.</p></div></li>
     </ol>
   </div>
 </section>

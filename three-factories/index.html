@@ -48,10 +48,124 @@
 </header>
 <main id="main">
 <header class="page-head frame">
-  <p class="eyebrow">Infrastructure Factory</p>
+  <p class="eyebrow">Three factories</p>
   <h1>Software, AI and infrastructure factories</h1>
-  <p class="lede">This page is being built.</p>
+  <p class="lede">One platform, three specialised lines. From outside it is one front door. Inside it is three factories, because product, cadence and skills differ.</p>
 </header>
+
+<section class="section" id="products">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Three products</p>
+      <h2>Three factories, three products</h2>
+      <p>Each factory is defined by what it ships, how it knows the product is good, how often it runs, and who runs it.</p>
+    </div>
+    <div class="table-wrap stack products">
+      <table>
+        <thead><tr><th scope="col">Factory</th><th scope="col">Product</th><th scope="col">Quality signal</th><th scope="col">Cadence</th><th scope="col">Primary skills</th></tr></thead>
+        <tbody>
+          <tr><td>Software factory</td><td data-label="Product">Working software.</td><td data-label="Quality signal">Cycle time and defect rate.</td><td data-label="Cadence">Continuous.</td><td data-label="Primary skills">Software and AI engineering.</td></tr>
+          <tr><td>AI factory, in the model sense</td><td data-label="Product">Models fit for purpose: sourced, adapted, evaluated, registered, served.</td><td data-label="Quality signal">Evaluation scores, drift, cost per token.</td><td data-label="Cadence">Experiment and retraining cycles.</td><td data-label="Primary skills">ML and AI engineering.</td></tr>
+          <tr><td class="inf-name">Infrastructure factory</td><td data-label="Product" class="inf">Compliant, owned, observable, cost-attributed environments.</td><td data-label="Quality signal" class="inf">Lead time to a compliant environment.</td><td data-label="Cadence" class="inf">Request-driven, plus platform releases.</td><td data-label="Primary skills" class="inf">Platform engineering.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nvidia">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Two meanings</p>
+      <h2>NVIDIA's AI factory and the model factory are different things</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <p>NVIDIA describes an AI factory as computing infrastructure built to manufacture intelligence at scale, with output measured in token throughput and economics measured in tokens per watt and cost per token.<a class="cite" href="/sources/#s48"><sup>48</sup></a> That is accelerated-compute infrastructure: power in, tokens out. Under that reading it is a specialised infrastructure factory, and the overlap with this site's concept is near total. Its product is still a place to run things; the place happens to be full of GPUs.</p>
+      </div>
+      <div>
+        <p>The AI factory in the model sense is a different production system. Its product is a model fit for purpose, its loop is sourcing, adaptation, evaluation, registration and serving, and its quality signal is an evaluation score rather than a lead time. It overlaps with the infrastructure factory only at the seams listed below. Keeping the two meanings apart is what makes the seams visible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="floor">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The shared floor</p>
+      <h2>They share a floor, not a product</h2>
+      <p>Seven seams where the infrastructure factory and the model factory depend on the same thing.</p>
+    </div>
+    <!-- D3 -->
+    <ul class="seams">
+      <li><span class="name">GPU capacity and quotas</span><span class="detail">Accelerated compute, held as inventory, metered per tenant.</span></li>
+      <li><span class="name">Inference endpoints and the model gateway</span><span class="detail">One front door for every model call, with routing, rate limits and audit.</span></li>
+      <li><span class="name">Artifact and model registries</span><span class="detail">Where images, packages, weights and evaluation results live, with provenance.</span></li>
+      <li><span class="name">Identity, policy and cost</span><span class="detail">Who may call what, under which policy, charged to which cost center.</span></li>
+      <li><span class="name">Observability and provenance</span><span class="detail">Traces, evaluations and decision records, kept where both factories can read them.</span></li>
+      <li><span class="name">Agent runtime and sandboxes</span><span class="detail">Isolated execution for code and tools that agents produce.</span></li>
+      <li><span class="name">Data residency</span><span class="detail">Where data and weights may live, encoded as a contract field, enforced as policy.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="seams">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Seams and owners</p>
+      <h2>Every seam has exactly one owner</h2>
+    </div>
+    <div class="table-wrap stack seams-table">
+      <table>
+        <thead><tr><th scope="col">Seam</th><th scope="col">Owner</th><th scope="col">What the other factory does there</th></tr></thead>
+        <tbody>
+          <tr><td>GPU capacity, tenancy, identity</td><td data-label="Owner" class="inf">Infrastructure factory</td><td data-label="What the other factory does there">The AI factory requests capacity through the contract, like any other customer.</td></tr>
+          <tr><td>Model catalog, evaluations, routing policy</td><td data-label="Owner">AI factory</td><td data-label="What the other factory does there">The infrastructure factory stores and serves them but does not decide what is fit for purpose.</td></tr>
+          <tr><td>Inference serving</td><td data-label="Owner" class="inf">Infrastructure factory runs the serving platform</td><td data-label="What the other factory does there">The AI factory owns what is deployed on it.</td></tr>
+          <tr><td>Model gateway</td><td data-label="Owner" class="inf">Infrastructure factory operates it</td><td data-label="What the other factory does there">The AI factory decides where requests go.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="spine">
+      <p>Overlap in the floor is a feature. Overlap in the product is a smell. Every seam has exactly one owner.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="consume">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Dependencies</p>
+      <h2>They consume each other</h2>
+    </div>
+    <div class="adds">
+      <div><h3>The software factory consumes environments</h3><p>Every unit of work carries a target environment, and the infrastructure factory produces it.</p></div>
+      <div><h3>The infrastructure factory's agents run on models</h3><p>The agents that raise Terraform pull requests and run remediations call models the AI factory produced, through the gateway.</p></div>
+      <div><h3>The software factory builds the code of both</h3><p>Contracts, policies, vending lines and evaluation harnesses are code, and code comes out of the software factory.</p></div>
+    </div>
+    <p class="measure" style="margin-top:2rem">The dependency is circular. That is the argument for one platform with three lines rather than three platforms: three platforms would each have to rebuild the floor the others already run on.</p>
+  </div>
+</section>
+
+<section class="section" id="glue">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The glue</p>
+      <h2>Two disciplines hold the three together</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <h3>Platform engineering builds the shared floor</h3>
+        <p>Platform engineering 2.0 is the discipline that builds and runs the floor: the contracts, policies, identity, cost and observability that all three lines stand on. It was never about building a portal. It is about letting factories run.</p>
+      </div>
+      <div>
+        <h3>AI engineering builds the agents</h3>
+        <p>AI engineering builds the agents that run all three factories: the coding agents of the software line, the evaluation and adaptation agents of the model line, and the provisioning and remediation agents of the infrastructure line.</p>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 <nav class="prevnext" aria-label="Previous and next page">
   <div class="frame">

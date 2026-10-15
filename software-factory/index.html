@@ -52,6 +52,140 @@
   <h1>What a software factory is, and why it needs an infrastructure factory</h1>
   <p class="lede">Everyone describes the software factory as a loop that runs the whole lifecycle. Almost nobody describes the floor it stands on. This page defines the factory from its own sources, then shows where the floor is missing.</p>
 </header>
+
+<section class="section" id="definition">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Definition</p>
+      <h2>A definition thirteen sources agree on</h2>
+      <p>Thirteen talks, articles and walkthroughs published between January 2024 and October 2026 describe the software factory. Their common ground is one sentence.</p>
+    </div>
+    <blockquote class="definition" id="sf-definition" data-cite="Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/software-factory/">
+      <p>A software factory is a codified, largely automated production system that carries work through the entire software lifecycle: from incoming signals (requests, bugs, alerts) through planning, implementation, verification and release to monitoring. Agents do most of the execution inside standardized workflows and quality gates, humans set intent and approve at defined checkpoints, and the system measures its own runs and feeds what it learns back into itself. Engineers build and tune the factory; the factory builds the product.</p>
+      <footer><a class="permalink" href="#sf-definition" aria-label="Permalink to the software factory definition">#sf-definition</a><button type="button" class="copy-cite">Copy citation</button></footer>
+    </blockquote>
+    <h3>Shared by N of 13 sources</h3>
+    <div class="table-wrap stack consensus">
+      <table>
+        <thead><tr><th scope="col">Element of the definition</th><th scope="col">Sources</th><th scope="col">Who leaves it out</th></tr></thead>
+        <tbody>
+          <tr><td>The factory runs the whole lifecycle, from incoming signal to monitoring</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
+          <tr><td>Work moves through a codified, standardized workflow</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
+          <tr><td>Verification gates go beyond compilation: tests, evaluations, review</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
+          <tr><td>Agents do most of the execution</td><td data-label="Sources">12 of 13</td><td data-label="Who leaves it out">Jama's 2024 article predates coding agents.<a class="cite" href="/sources/#s46"><sup>46</sup></a></td></tr>
+          <tr><td>Humans set intent and approve at defined checkpoints</td><td data-label="Sources">12 of 13</td><td data-label="Who leaves it out">One source runs its loop without a checkpoint.</td></tr>
+          <tr><td>A feedback and self-improvement loop</td><td data-label="Sources">10 of 13</td><td data-label="Who leaves it out">Pocock and Ras Mic cover build to merge only; Jama stops at release.<a class="cite" href="/sources/#s39"><sup>39</sup></a><a class="cite" href="/sources/#s42"><sup>42</sup></a><a class="cite" href="/sources/#s46"><sup>46</sup></a></td></tr>
+          <tr><td>The factory measures its own runs</td><td data-label="Sources">10 of 13</td><td data-label="Who leaves it out">The same three stop before monitoring.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note measure">The thirteen are numbered 35 to 47 on the <a href="/sources/#s35">sources page</a> and listed at the end of this page. The term is contested enough that WorkOS gave a conference talk titled "No, That's Not a Software Factory".<a class="cite" href="/sources/#s43"><sup>43</sup></a> A definition has to be earned from the sources, not asserted.</p>
+  </div>
+</section>
+
+<section class="section" id="loop">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The loop</p>
+      <h2>Monitoring feeds the next signals</h2>
+      <p>A factory is a loop, not a pipeline. Two properties separate it from a team that ships code with agents.</p>
+    </div>
+    <!-- D2 -->
+    <div class="two-col">
+      <div>
+        <p>Warp's architecture article names the two properties.<a class="cite" href="/sources/#s47"><sup>47</sup></a> Standardized inputs: every unit of work carries scope, acceptance criteria, an owner and a target environment before an agent touches it. Standardized tooling: agent and human changes pass one gateway, one set of evaluations and one release control. Everything else in the loop follows from those two.</p>
+      </div>
+      <div>
+        <p>Warp's own numbers show where the loop waits. Kickoff to pull request takes about 35 minutes. Pull request to first human review takes about 3.5 hours, at more than 2,000 pull requests a month.<a class="cite" href="/sources/#s36"><sup>36</sup></a> The human checkpoint, not the agent, sets the cycle time. The figures are self-reported; read them as direction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="who">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Who builds it</p>
+      <h2>Engineers become factory engineers</h2>
+      <p>The job moves from writing the product to building and tuning the system that writes it.</p>
+    </div>
+    <div class="two-col">
+      <div>
+        <p>Zach Lloyd's talk at the AI Engineer World's Fair carries the shift in its title: software engineering is becoming factory engineering.<a class="cite" href="/sources/#s38"><sup>38</sup></a> The factory itself is code and markdown: repositories, MCP servers, configuration and agent definitions, versioned like any other code.<a class="cite" href="/sources/#s38"><sup>38</sup></a> For a solo builder it is five or six markdown files.<a class="cite" href="/sources/#s42"><sup>42</sup></a> Matt Pocock open-sourced his own "AFK software factory", a build-to-merge loop that runs while he is away from the keyboard.<a class="cite" href="/sources/#s39"><sup>39</sup></a></p>
+      </div>
+      <div>
+        <p>Lloyd's prediction is that every project of size will run a factory the way every project now runs continuous integration.<a class="cite" href="/sources/#s38"><sup>38</sup></a> If that holds, the question stops being whether a team has a factory and becomes what the factory runs on. That is the subject of the rest of this page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="floor">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Where it runs</p>
+      <h2>The floor</h2>
+      <p>Every source assumes a layer of infrastructure under the loop. Assembled across the thirteen, mostly from Warp's architecture article and Factory's agent-readiness pillars, it has five layers and a cross-cutting set.<a class="cite" href="/sources/#s47"><sup>47</sup></a><a class="cite" href="/sources/#s41"><sup>41</sup></a></p>
+    </div>
+    <!-- D1 -->
+    <ol class="layers">
+      <li><span class="name">Control plane</span><span class="detail">Dispatch, scheduling, budgets, audit trail.</span></li>
+      <li><span class="name">Context and data plane</span><span class="detail">MCP gateway, context lake, memory, session data.</span></li>
+      <li><span class="name">Dev environments and infrastructure as code</span><span class="detail">Reproducible, previewable, agent-ready.</span></li>
+      <li><span class="name">Compute and sandboxes</span><span class="detail">Isolated execution, virtual machines for computer use.</span></li>
+      <li><span class="name">Models and inference</span><span class="detail">Routing, providers, self-hosted open models.</span></li>
+      <li><span class="name">Cross-cutting</span><span class="detail">Identity and access, policy and audit, observability and replay, security and supply chain.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="gap">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The gap</p>
+      <h2>The floor is a prerequisite in every source, and a factory in none</h2>
+      <p>Several sources call the floor the hardest part. None gives it a product, a loop or metrics of its own.</p>
+    </div>
+    <ul class="quotes">
+      <li>Dru Knox of Tessl: the agent-ready stack is always more work than teams expect.<a class="cite" href="/sources/#s40"><sup>40</sup></a></li>
+      <li>Dex Horthy and Vaibhav Gupta: the development environment is the most underrated layer, and you should own it.<a class="cite" href="/sources/#s45"><sup>45</sup></a></li>
+      <li>theSeniorDev's step-by-step walkthrough: most of the real work is making environments reproducible. Its own factory runs 10 to 20 pull requests per developer per day, with a full end-to-end suite at about $1.50 per run, self-reported.<a class="cite" href="/sources/#s37"><sup>37</sup></a></li>
+      <li>Davis Palmie of Factory: reproducible development environments are one of eight agent-readiness pillars.<a class="cite" href="/sources/#s41"><sup>41</sup></a></li>
+      <li>Tereza Tížková of Factory: validation took about 40% of a 16-hour customer mission, and validation needs somewhere to run.<a class="cite" href="/sources/#s35"><sup>35</sup></a></li>
+      <li>Warp's architecture article lists centrally managed development environments as one of three foundations.<a class="cite" href="/sources/#s47"><sup>47</sup></a></li>
+      <li>Port runs Terraform pull requests, incident remediation and CVE fixes as factory lines, and reports that its context layer cut agent cost by up to 80% in its own research, a vendor claim.<a class="cite" href="/sources/#s44"><sup>44</sup></a></li>
+    </ul>
+    <div class="spine">
+      <p>None of the thirteen treats infrastructure as a factory with its own product, loop and metrics. That is the gap this site fills.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Why</p>
+      <h2>Why a software factory needs an infrastructure factory</h2>
+      <p>Three dependencies, a throughput argument and an ownership argument.</p>
+    </div>
+    <div class="adds">
+      <div><h3>It consumes environments</h3><p>Every unit of work carries a target environment. The software factory does not make environments. It consumes them from the infrastructure factory.</p></div>
+      <div><h3>Its agents run on models</h3><p>The coding agents that do the execution run on models served by the AI factory, through a gateway the infrastructure factory operates.</p></div>
+      <div><h3>It builds the code of both</h3><p>The contracts, policies and vending lines of the infrastructure factory are code. So are the evaluation harnesses of the AI factory. The software factory builds them.</p></div>
+    </div>
+    <div class="two-col" style="margin-top:2.5rem">
+      <div>
+        <h3>The throughput argument</h3>
+        <p>At agent throughput, a human-gated environment line is the queue. Both lanes receive the same work at the same rate; the software lane ships in minutes, and the environment lane stops at a gate a person opens a few times a day. Work in progress equals arrival rate times lead time, so the queue grows until the gate is removed. <a href="/evidence/#model">The live model shows it</a>, and <a href="/metrics/">the metrics page does the arithmetic</a>.</p>
+      </div>
+      <div>
+        <h3>The ownership argument</h3>
+        <p>An environment request carries fields no agent can sign: cost center, compliance owner, data classification, on-call owner, network zone and lifetime. Each is a human decision, made per request, usually in a ticket. The infrastructure factory resolves them once, by contract: defaults inherited from the catalog, delegation rules, policies evaluated before provisioning. <a href="/evidence/#why-now">The ownership table on the evidence page</a> shows the same request resolved both ways.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="symmetry">
   <div class="frame">
     <div class="section-head">
@@ -142,6 +276,31 @@
       <p>Some definitions say yes. Encore's AI software factory "provisions and deploys to the team's own cloud account" and pays off "once standing up infrastructure for each experiment is the thing slowing the agents down"<a class="cite" href="/sources/#s14"><sup>14</sup></a>. Port writes that platform engineering moved "from building a portal to building the software factory", and that the portal work "is largely finished"<a class="cite" href="/sources/#s13"><sup>13</sup></a>. (voice from the off: I don't agree on how Port defines platform engineering, that was never about building a portal)</p>
       <p>Those definitions treat infrastructure as one step inside one code pipeline. The Infrastructure Factory is a separate production system with its own inputs (intents, policies, budgets, owners), its own throughput and its own failure modes. It serves workloads that no single software factory owns: the data platform, the shared cluster fleet, the compliance boundary, and the sandbox an agent asks for at 3am on behalf of nobody's pipeline.</p>
     </div>
+  </div>
+</section>
+
+<section class="section" id="page-sources">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Sources for this page</p>
+      <h2>The thirteen</h2>
+      <p>Numbered as on the <a href="/sources/">sources page</a>. Talks are from the AI Engineer World's Fair unless noted.</p>
+    </div>
+    <ol class="page-source-list" start="35">
+      <li><a href="/sources/#s35">Tereza Tížková (Factory), "What It Actually Takes to Build a Software Factory", 27 September 2026.</a></li>
+      <li><a href="/sources/#s36">Zach Lloyd (Warp), "The AI factory playbook for engineering teams", How I AI podcast, 21 September 2026.</a></li>
+      <li><a href="/sources/#s37">theSeniorDev with Bogdan, "software factory explained by a Senior Engineer (step by step)", 12 October 2026.</a></li>
+      <li><a href="/sources/#s38">Zach Lloyd (Warp), "Software Engineering Is Becoming Factory Engineering", 27 September 2026.</a></li>
+      <li><a href="/sources/#s39">Matt Pocock, "I Open-Sourced My Own AFK Software Factory", 30 April 2026.</a></li>
+      <li><a href="/sources/#s40">Dru Knox (Tessl), "Harness Engineering: How to Build a Software Factory", 6 October 2026.</a></li>
+      <li><a href="/sources/#s41">Davis Palmie (Factory), "The Software Factory: From Bug Report to Production Code", 7 October 2026.</a></li>
+      <li><a href="/sources/#s42">Ras Mic with Greg Isenberg, "Building a Software Factory that actually works (Full Course)", 14 September 2026.</a></li>
+      <li><a href="/sources/#s43">Ryan Cooke (WorkOS), "No, That's Not a Software Factory", 27 September 2026.</a></li>
+      <li><a href="/sources/#s44">Matar Peles (Port), "How to build an enterprise-grade AI software factory", Platform Engineering community webinar, 13 October 2026.</a></li>
+      <li><a href="/sources/#s45">Dex Horthy and Vaibhav Gupta, "How to Build a Software Factory for AI Coding Agents", AI That Works, 28 August 2026.</a></li>
+      <li><a href="/sources/#s46">Jama Software, "The Software Factory: A Modern Approach to Software Development", 16 January 2024.</a></li>
+      <li><a href="/sources/#s47">Warp, "Defining the Modern Software Factory Architecture", 27 August 2026.</a></li>
+    </ol>
   </div>
 </section>
 </main>
