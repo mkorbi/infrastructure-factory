@@ -48,10 +48,46 @@
 </header>
 <main id="main">
 <header class="page-head frame">
-  <p class="eyebrow">Infrastructure Factory</p>
+  <p class="eyebrow">Metrics</p>
   <h1>Measuring an infrastructure factory</h1>
-  <p class="lede">This page is being built.</p>
+  <p class="lede">A factory that cannot state its own lead time is a ticket desk with better tooling. Six metrics, each with a counterpart on the software side, and the arithmetic that shows why lead time is the one that matters.</p>
 </header>
+<section class="section" id="metrics">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Metrics</p>
+      <h2>Measure it like a factory</h2>
+      <p>The software-factory crowd brings numbers: pull requests per week, tokens per engineer, 3 to 5x<a class="cite" href="/sources/#s2"><sup>2</sup></a>. An Infrastructure Factory needs its own set, the equivalent of DORA for environments. Six are enough to start, and each has a counterpart on the software side.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><span class="mpair">Counterpart: lead time for changes</span><span class="mname">Lead time to a compliant environment</span><span class="mdef">From intent submitted to environment handed over, with its evidence attached.</span><span class="mwhy"><b>Factory target:</b> hours, measured per contract. Days means a ticket is still in the path.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: deployment frequency</span><span class="mname">Environments per day per platform engineer</span><span class="mdef">Delivered environments, normalized by the people who run the factory.</span><span class="mwhy"><b>Why it matters:</b> it is the number that justifies platform investment as agent demand scales.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: PRs merged with no human review</span><span class="mname">Zero-touch rate</span><span class="mdef">Share of requests fulfilled with no human action anywhere in the path.</span><span class="mwhy"><b>Why it matters:</b> its inverse is the ticket count. An agent at 3am only ever gets the zero-touch share.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: change failure rate</span><span class="mname">Policy-violation rate on agent requests</span><span class="mdef">Share of agent-originated requests the pre-check refuses, broken down by reason.</span><span class="mwhy"><b>Read it carefully:</b> a rising rate usually means the contract is unclear to the agent, and rarely that the agent is reckless.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: review pickup time</span><span class="mname">Time to owner</span><span class="mdef">Time until a cost center and a compliance owner are attached to the environment.</span><span class="mwhy"><b>Factory target:</b> zero. Ownership is a default of the golden path, never a step after it.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: age of unmerged work</span><span class="mname">Orphan rate</span><span class="mdef">Resources alive past their TTL with no reachable owner.</span><span class="mwhy"><b>Why it matters:</b> it is the day-2 health of the factory, and the first number finance will ask for.</span></div>
+    </div>
+
+    <div class="calc">
+      <div class="calc-in">
+        <p class="eyebrow" style="margin:0">Little's law for environment requests</p>
+        <label for="in-rate"><span class="lv"><span>Environment requests per day</span><output id="out-rate" for="in-rate">40</output></span><input type="range" id="in-rate" min="5" max="400" step="5" value="40"></label>
+        <label for="in-lead"><span class="lv"><span>Lead time with a ticket in the path</span><output id="out-lead" for="in-lead">3 days</output></span><input type="range" id="in-lead" min="2" max="240" step="1" value="72"></label>
+        <label for="in-fast"><span class="lv"><span>Lead time through the factory</span><output id="out-fast" for="in-fast">20 min</output></span><input type="range" id="in-fast" min="1" max="480" step="1" value="20"></label>
+      </div>
+      <div class="calc-out">
+        <div class="big"><span id="out-wip">120</span><small>requests open at any moment with a ticket in the path</small></div>
+        <div class="cmp">
+          <div><span class="n" id="out-wip-ticket">120</span><span class="l">In flight · ticket</span></div>
+          <div class="inf"><span class="n" id="out-wip-factory">0.6</span><span class="l">In flight · factory</span></div>
+        </div>
+        <p id="out-text">At 40 requests a day and a lead time of 3 days, 120 environment requests are open at any moment. Through a factory with a lead time of 20 min, fewer than one is.</p>
+        <p class="law">Work in progress = arrival rate × lead time. Little's law holds for any stable queue, whatever is in it. The inputs are yours; the arithmetic is the only claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
 </main>
 <nav class="prevnext" aria-label="Previous and next page">
   <div class="frame">

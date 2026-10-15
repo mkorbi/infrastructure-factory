@@ -173,7 +173,7 @@
 
   function layout() {
     if (headless) {
-      geo.W = 1000; geo.H = 250;
+      geo.W = 600; geo.H = 250;   // a shorter lane: the counters on the home page move within seconds
     } else {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       geo.W = canvas.clientWidth || 600;
@@ -339,7 +339,7 @@
   if (reduceMotion.matches) {
     staticFrame();
   } else {
-    simulateOffline(12);
+    simulateOffline(headless ? 60 : 12);
     draw();
     if ("IntersectionObserver" in window && watchEl) {
       new IntersectionObserver(function (entries) {

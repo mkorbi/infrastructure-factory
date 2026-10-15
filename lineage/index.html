@@ -48,10 +48,69 @@
 </header>
 <main id="main">
 <header class="page-head frame">
-  <p class="eyebrow">Infrastructure Factory</p>
+  <p class="eyebrow">Lineage</p>
   <h1>Lineage and prior art</h1>
-  <p class="lede">This page is being built.</p>
+  <p class="lede">The software factory is a fifty-year-old idea, and the last chapter before the agents arrived already contained the lesson: software factories only scaled on top of a shared infrastructure platform. This page tells that story and lists who already uses the words.</p>
 </header>
+<section class="section" id="lineage">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Lineage</p>
+      <h2>The Department of Defense learned this before the agents arrived</h2>
+      <p>The software factory is a fifty-year-old idea. Its most instructive chapter is the last one before the agents: the US Air Force built software factories, then discovered that they only scaled on top of a shared infrastructure platform.</p>
+    </div>
+
+    <ol class="timeline">
+      <li><span class="year">1968</span><div class="ev"><h3>The term is coined</h3><p>Bob Bemer proposes the "software factory".<a class="cite" href="/sources/#s23"><sup>23</sup></a></p></div></li>
+      <li><span class="year">1975</span><div class="ev"><h3>The first one runs</h3><p>System Development Corporation operates its Software Factory.<a class="cite" href="/sources/#s23"><sup>23</sup></a></p></div></li>
+      <li><span class="year">2004</span><div class="ev"><h3>The book</h3><p>Jack Greenfield and Keith Short publish <em>Software Factories</em> with Wiley and Microsoft.<a class="cite" href="/sources/#s23"><sup>23</sup></a></p></div></li>
+      <li class="key2"><span class="year">2017</span><div class="ev"><h3>Kessel Run</h3><p>The US Air Force launches "DOD's first software factory".<a class="cite" href="/sources/#s22"><sup>22</sup></a></p></div></li>
+      <li class="key"><span class="year">Dec 2019</span><div class="ev"><h3>Platform One</h3><p>Established to "assist software factories by helping them focus on building mission applications": DevSecOps as a service, Kubernetes, Iron Bank hardened images and the Big Bang tooling.<a class="cite" href="/sources/#s22"><sup>22</sup></a></p><p>It was called a software factory. It was an infrastructure platform.</p></div></li>
+      <li><span class="year">2021</span><div class="ev"><h3>The lesson, stated</h3><p>Air Force CIO Lauren Knausenberger: "starting with Kessel Run smuggling DevSecOps into the DOD, and continuing with Platform One leading the way to Kubernetes, a common repo, and a desire to bring the entire community together and leverage common enterprise services."<a class="cite" href="/sources/#s22"><sup>22</sup></a></p></div></li>
+      <li class="key2"><span class="year">2025 to 2026</span><div class="ev"><h3>The agentic software factory</h3><p>Factory.ai's "Factory 2.0" (June 2026)<a class="cite" href="/sources/#s1"><sup>1</sup></a>, BCG Platinion's "Agentic Software Factory" (March 2026)<a class="cite" href="/sources/#s2"><sup>2</sup></a>, StrongDM's no-human rules (February 2026)<a class="cite" href="/sources/#s3"><sup>3</sup></a> and Uber's "Running a Software Factory Efficiently at Uber Scale" (August 2026)<a class="cite" href="/sources/#s6"><sup>6</sup></a>. In Factory.ai's words, "the incremental units of this system are AI agents."</p></div></li>
+      <li class="key"><span class="year">2026 →</span><div class="ev"><h3>The Infrastructure Factory</h3><p>The platform the agentic software factory runs on, named as a production system of its own, with its own line and its own metrics.</p></div></li>
+    </ol>
+
+    <div class="spine">
+      <p>Platform engineering was never about Kubernetes. It was about letting factories run.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section prior" id="prior-art">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Prior art</p>
+      <h2>What already exists, and what this is not</h2>
+      <p>The term is open. Many have said since mid-2025 that the bottleneck moved from code to infrastructure delivery, and a few projects already use the words. The cloud providers say it from their side too: at re:Invent 2025, AWS and Cisco were "not looking for platform teams that are just vending out Kubernetes clusters".<a class="cite" href="/sources/#s19"><sup>19</sup></a></p>
+    </div>
+
+    <h3>Who uses the words</h3>
+    <div class="table-wrap stack">
+      <table>
+        <thead><tr><th scope="col">Usage</th><th scope="col">Who</th><th scope="col">What it means</th><th scope="col">Relation</th></tr></thead>
+        <tbody>
+          <tr><td>InfraFactory<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">MozeBaltyk, open source on GitHub</td><td data-label="What it means">"A factory for building cloud infrastructure, provider-agnostic and modular": OpenTofu, cloud-init, K3s or RKE2 and Flux to stamp out VMs and clusters.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>C.I. Factory, Capability Infrastructure Factory<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">bonometti718, open source on GitHub</td><td data-label="What it means">"Machine-native infrastructure for autonomous AI agents": small verifiable capabilities such as an "Agent Economic Action Gate".</td><td data-label="Relation"><span class="rel diff">Adjacent, tiny</span></td></tr>
+          <tr><td>AI Factory</td><td data-label="Who">NVIDIA, Presidio and others</td><td data-label="What it means">Physical accelerated datacenters that "convert energy into tokens".</td><td data-label="Relation"><span class="rel diff">Different thing</span></td></tr>
+          <tr><td>Account Factory, Account Factory for Terraform<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">AWS Control Tower, with HashiCorp</td><td data-label="What it means">A Terraform pipeline that vends and customizes governed AWS accounts inside a landing zone.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>Subscription vending<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">Microsoft Azure Architecture Center</td><td data-label="What it means">Bicep and Terraform modules that create workload landing zones at scale.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>Project factory<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">Google Cloud Foundation Fabric</td><td data-label="What it means">A Terraform module that vends GCP projects from YAML.</td><td data-label="Relation"><span class="rel build">A vending line</span></td></tr>
+          <tr><td>"A factory with multiple production lines"<a class="cite" href="/sources/#s24"><sup>24</sup></a></td><td data-label="Who">Cellenza, Azure consultancy</td><td data-label="What it means">Industrialized landing-zone delivery.</td><td data-label="Relation"><span class="rel lineage">Closest precedent</span></td></tr>
+          <tr><td>Platform One<a class="cite" href="/sources/#s22"><sup>22</sup></a></td><td data-label="Who">US Air Force</td><td data-label="What it means">A "software factory" that in practice provides DevSecOps as a service, Kubernetes, hardened images and tooling to other software factories.</td><td data-label="Relation"><span class="rel lineage">Lineage</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+
+    <div class="adds">
+      <div><h3>The symmetry is explicit</h3><p>Both factories have inputs, production lines, quality gates and a throughput number. Nobody has drawn the second line next to the first.</p></div>
+      <div><h3>The queue is non-technical</h3><p>Cost center, compliance owner, data classification, on-call owner. Agents cannot sign them, so the factory encodes them as defaults, delegations and policies.</p></div>
+      <div><h3>Platform engineering was never about Kubernetes</h3><p>It was about letting factories run. Platform One proved it before the agents arrived.</p></div>
+    </div>
+  </div>
+</section>
 </main>
 <nav class="prevnext" aria-label="Previous and next page">
   <div class="frame">
