@@ -58,8 +58,8 @@ The site is static: nine pages, one stylesheet, one script. Together they cover:
 | `/evidence/` | The full live model, the figures and charts, the four pressures, the terrain analysis |
 | `/metrics/` | Six metrics with their software-side counterparts, Little's law, outcomes not tokens |
 | `/lineage/` | The timeline from 1968 to Platform One, and who already uses the words |
-| `/sources/` | Every figure, numbered; caveats; how to cite |
-| `/about/` | Author, status and changelog, published in, follow, contribute, cite, diagrams |
+| `/sources/` | Every figure, numbered; caveats |
+| `/about/` | Status and changelog, contribute, cite, diagrams |
 
 Old single-page anchors such as `/#factors` redirect to the new pages.
 
@@ -72,6 +72,7 @@ Old single-page anchors such as `/#factors` redirect to the new pages.
 | `assets/site.js` | Old-anchor redirects, theme switch, menu, citation copy, tooltips, the calculator and the queue model |
 | `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |
 | `assets/img/og/*.png` | 1200x630 title cards used as `og:image` |
+| `assets/img/logo.svg`, `assets/img/logo-mono.svg`, `assets/img/logo.png` | The mark: a loop standing on a floor. Used in the header, the favicon and the title cards |
 | `sitemap.xml`, `robots.txt`, `CNAME`, `.nojekyll` | Deployment files for GitHub Pages at infrastructure-factory.com |
 | `scripts/check-nav.sh` | Dev-only: fails if the header block differs between pages |
 | `scripts/check-site.mjs` | Dev-only: the acceptance checks (headings, links, sources, figures, dashes, overflow, redirects, theme, no-JS) |

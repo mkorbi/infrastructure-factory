@@ -45,31 +45,6 @@
     a.addEventListener("click", function () { navToggle.checked = false; });
   });
 
-  /* ---------- copy citation ---------- */
-  Array.prototype.forEach.call(document.querySelectorAll(".copy-cite"), function (btn) {
-    btn.addEventListener("click", function () {
-      var bq = btn.closest("blockquote.definition");
-      var text = (bq && bq.getAttribute("data-cite")) || "";
-      if (!text) return;
-      function done(ok) {
-        btn.setAttribute("data-done", ok ? "true" : "false");
-        btn.textContent = ok ? "Copied" : "Copy failed";
-        setTimeout(function () { btn.textContent = "Copy citation"; btn.removeAttribute("data-done"); }, 2000);
-      }
-      function fallback() {
-        var ta = document.createElement("textarea");
-        ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.left = "-999px";
-        document.body.appendChild(ta); ta.select();
-        var ok = false;
-        try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
-        document.body.removeChild(ta);
-        done(ok);
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
-      else fallback();
-    });
-  });
-
   /* ---------- tooltips ---------- */
   var tip = document.getElementById("tip");
   function placeTip(x, y) {

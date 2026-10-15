@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/infrastructure-factory.png">
 <meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%23e8541e%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%2064%2064'%20xmlns='http://www.w3.org/2000/svg'%20%3E%3Crect%20x='14'%20y='44'%20width='36'%20height='6'%20rx='1.5'%20fill='%23e8541e'%20fill-opacity='1.0'/%3E%3Crect%20x='10'%20y='52'%20width='44'%20height='5'%20rx='1.5'%20fill='%23e8541e'%20fill-opacity='0.7'/%3E%3Crect%20x='6'%20y='59'%20width='52'%20height='4'%20rx='1.5'%20fill='%23e8541e'%20fill-opacity='0.45'/%3E%3Cpath%20d='M42.4,33.4%20A14,14%200%201%201%2042.4,14.6'%20fill='none'%20stroke='%23121b25'%20stroke-width='5.5'%20stroke-linecap='round'/%3E%3Cpolygon%20points='38.2,16.5%2044.7,10.6%2046.6,19.2'%20fill='%23121b25'/%3E%3Crect%20x='16.7'%20y='27.8'%20width='6.4'%20height='6.4'%20rx='1'%20transform='rotate(240%2019.9%2031)'%20fill='%232a78d6'/%3E%3Crect%20x='16.1'%20y='14.9'%20width='6.4'%20height='6.4'%20rx='1'%20transform='rotate(295%2019.3%2018.1)'%20fill='%232a78d6'/%3E%3C/svg%3E">
 <script>(function(){try{var t=localStorage.getItem("infra-factory-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-nav">
   <div class="frame">
-    <a class="wordmark" href="/"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <a class="wordmark" href="/"><svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="14" y="44" width="36" height="6" rx="1.5" fill="var(--accent)" fill-opacity="1.0"/><rect x="10" y="52" width="44" height="5" rx="1.5" fill="var(--accent)" fill-opacity="0.7"/><rect x="6" y="59" width="52" height="4" rx="1.5" fill="var(--accent)" fill-opacity="0.45"/><path d="M42.4,33.4 A14,14 0 1 1 42.4,14.6" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/><polygon points="38.2,16.5 44.7,10.6 46.6,19.2" fill="currentColor"/><rect x="16.7" y="27.8" width="6.4" height="6.4" rx="1" transform="rotate(240 19.9 31)" fill="var(--blue)"/><rect x="16.1" y="14.9" width="6.4" height="6.4" rx="1" transform="rotate(295 19.3 18.1)" fill="var(--blue)"/></svg>Infrastructure Factory</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open the menu">
     <label for="nav-toggle" class="menu-btn" aria-hidden="true">Menu</label>
     <nav class="nav-links" aria-label="Site">
@@ -60,8 +60,7 @@
   <div class="frame">
     <div class="section-head">
       <p class="eyebrow">Definition</p>
-      <h2>The definition, taken apart</h2>
-      <p>Six load-bearing phrases, numbered in the sentence and explained below it.</p>
+      <h2>The definition</h2>
     </div>
     <blockquote class="definition" id="definition" data-cite="Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/">
       <p class="defn-big">An Infrastructure Factory is a <mark>platform<sup>1</sup></mark> that turns <mark>intents<sup>2</sup></mark>, from <mark>humans or agents<sup>3</sup></mark>, into <mark>compliant, owned, observable, cost-attributed<sup>4</sup></mark> <mark>environments<sup>5</sup></mark>, with <mark>no ticket in the path<sup>6</sup></mark>.</p>
@@ -69,7 +68,7 @@
       <li>Not an AI factory in NVIDIA's sense. No racks of GPUs turning energy into tokens.</li>
       <li>Not only an account vending machine. It contains vending lines such as AWS Account Factory and Azure subscription vending, and everything around them that a human still adds by hand.</li>
     </ul>
-      <footer><a class="permalink" href="#definition" aria-label="#definition, permalink">#definition</a><button type="button" class="copy-cite">Copy citation</button></footer>
+      <footer><a class="permalink" href="#definition" aria-label="#definition, permalink">#definition</a></footer>
     </blockquote>
     <ol class="annos">
       <li><span class="n">1</span><div><h4>Platform</h4><p>A production system that a team runs as a product, with customers, a backlog and a service level. Not a project, not a folder of modules, not a committee of approvers. Its operators build the line.</p></div></li>
@@ -88,7 +87,7 @@
       <p class="eyebrow">Components</p>
       <h2>What it is made of</h2>
     </div>
-    <p class="measure">Each of the parts exists as open source or as a cloud primitive today. The factory is the arrangement, not any one of them.</p>
+    <p class="measure">Each of the parts exists as open source or as a cloud primitive today. The factory is the arrangement of those.</p>
     <div class="parts">
       <article class="part"><h4>The front door</h4><p>One API, exposed to agents as a tool surface over MCP. Portals and command lines are views on it, never separate paths with their own rules.</p><p class="ex">MCP tool server · Backstage · a CLI</p></article>
       <article class="part"><h4>The contract registry</h4><p>Versioned, machine-readable contracts that state what the requester may choose and what the platform decides. The requester reads the contract before asking, so the first request is fulfillable.</p><p class="ex">Kratix Promises · Crossplane Compositions · Backstage templates</p></article>
@@ -312,7 +311,7 @@
   <div class="frame">
     <div class="section-head">
       <p class="eyebrow">Where to start</p>
-      <h2>Three vending lines, in order</h2>
+      <h2>Vending lines as foundation</h2>
       <p>Start narrow, where demand is highest and the blast radius is smallest. The software factory sources give the same advice for their own lines: Factory suggests incident triage first, and Lloyd lets triage send easy, unambiguous issues straight to implementation.<a class="cite" href="/sources/#s41"><sup>41</sup></a><a class="cite" href="/sources/#s36"><sup>36</sup></a></p>
     </div>
     <ol class="start-steps">
