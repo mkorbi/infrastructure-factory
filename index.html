@@ -61,6 +61,22 @@
   </div>
 </header>
 
+<section class="section" id="shift">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The shift, in three numbers</p>
+      <h2>Code got cheap. The environments it needs still move through tickets.</h2>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="side">Code supply</span><span class="value">75%</span><span class="label">of new code at Google is AI-generated and approved by engineers.</span><span class="src">Sundar Pichai, Google Cloud Next, April 2026<a class="cite" href="/sources/#s4"><sup>4</sup></a></span></div>
+      <div class="stat infra"><span class="side">Delivery side</span><span class="value">+441%</span><span class="label">median time a change spends in review, while throughput per developer rose 33.7%.</span><span class="src">Faros AI, April 2026<a class="cite" href="/sources/#s7"><sup>7</sup></a></span></div>
+      <div class="stat infra"><span class="side">Delivery side</span><span class="value">−7%</span><span class="label">main-branch throughput for the median team, while daily pipeline runs rose 59%.</span><span class="src">CircleCI, February 2026<a class="cite" href="/sources/#s8"><sup>8</sup></a></span></div>
+    </div>
+    <p class="measure" style="margin-top:1.5rem">Agents now write most new code at Google, Uber and Anthropic, and the pull requests arrive in minutes.<a class="cite" href="/sources/#s4"><sup>4</sup></a><a class="cite" href="/sources/#s6"><sup>6</sup></a><a class="cite" href="/sources/#s5"><sup>5</sup></a> What each one needs next, an environment with an owner, a network position and a budget, still moves through a ticket that a person opens a few times a day. Review time quadrupled and main-branch throughput fell. The gap between code supply and delivery capacity is where the queue forms.</p>
+    <p class="note">All three figures are reported by the organization that benefits from them. <a href="/sources/#caveats">Read them as direction, not precision.</a></p>
+  </div>
+</section>
+
 <section class="section" id="model">
   <div class="frame">
     <div class="section-head">
@@ -74,6 +90,92 @@
       <div><span class="k">Environments delivered</span><span class="v"><i class="orange"></i><span id="c-env">0</span></span></div>
     </div>
     <p class="note"><a href="/evidence/#model">See the full model and the evidence</a></p>
+  </div>
+</section>
+
+<section class="section" id="roles">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Three roles</p>
+      <h2>Infrastructure plays three roles in a software factory</h2>
+      <p>It is under the loop, inside the loop, and the source of the next signal.</p>
+    </div>
+    <!-- D1 -->
+    <p class="measure">The software factory sources agree on the first role and take the other two for granted. The floor is the infrastructure the loop runs on. The line is the infrastructure work the loop carries, which Port already runs as factory lines.<a class="cite" href="/sources/#s44"><sup>44</sup></a> The signal source is production itself: a factory that cannot see its environments cannot start the next loop. One platform supplies all three, and that platform is the infrastructure factory.</p>
+    <div class="adds">
+      <div><h3>The floor it runs on</h3><p>Control plane, context plane, environments, sandboxes, models and inference, with identity, policy, observability and supply chain across all of them.</p></div>
+      <div><h3>A line it runs</h3><p>Terraform pull requests, incident remediation and CVE fixes move through the same gateway, evaluations and release control as product code.</p></div>
+      <div><h3>The signal source</h3><p>Alerts, incidents and logs from production start the next loop. A factory without the floor has nothing to monitor.</p></div>
+    </div>
+    <p class="note"><a href="/software-factory/">What a software factory is, from its own sources</a></p>
+  </div>
+</section>
+
+<section class="section" id="overlap">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Not NVIDIA's AI factory</p>
+      <h2>Not NVIDIA's AI factory, but it overlaps</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <p>NVIDIA's AI factory turns power into tokens.<a class="cite" href="/sources/#s48"><sup>48</sup></a> That is infrastructure specialised for accelerated compute, and under that reading it is an infrastructure factory with an unusual product mix.</p>
+        <p>The infrastructure factory produces environments: places to run things that arrive owned, compliant, observable and attributed to a cost center.</p>
+      </div>
+      <div>
+        <p>An AI factory in the model sense produces models fit for purpose: sourced, adapted, evaluated, registered and served.</p>
+        <p>The two share a floor and nothing else: GPU quotas, inference endpoints, registries, identity, policy, cost, observability and sandboxes. Every shared seam has exactly one owner.</p>
+      </div>
+    </div>
+    <!-- D3 -->
+    <p class="note"><a href="/three-factories/">How the three factories fit together</a></p>
+  </div>
+</section>
+
+<section class="section" id="test">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">What it takes</p>
+      <h2>What it takes to be one</h2>
+      <p>Five lines, derived from the twelve factors. A platform either passes all five or has a ticket in the path somewhere.</p>
+    </div>
+    <ol class="test5">
+      <li>Intent in, environment out. <span class="why">The request names purpose, owner, data and lifetime. The product is a place to run things, not a list of resources.</span></li>
+      <li>No ticket in the path. <span class="why">Humans decide once, at the contract. Nobody decides per request.</span></li>
+      <li>Policy before provisioning. <span class="why">Allow or deny, with a reason the requester can act on, before anything is built.</span></li>
+      <li>Ownership and expiry by default. <span class="why">Cost center, compliance owner and on-call are inherited. Everything has a lifetime.</span></li>
+      <li>The factory measures itself. <span class="why">Lead time, zero-touch rate, time to owner and orphan rate, published to its customers.</span></li>
+    </ol>
+    <p class="measure" style="margin-top:2rem">Most teams are somewhere on this ladder. Find your stage, then read what the next one removes from the path.</p>
+    <ol class="ladder-strip">
+      <li><span class="n">0</span>Ticket desk</li>
+      <li><span class="n">1</span>Automated fulfilment</li>
+      <li><span class="n">2</span>Self-service portal</li>
+      <li><span class="n">3</span>Contracted API</li>
+      <li class="pass"><span class="n">4</span>Infrastructure factory</li>
+    </ol>
+    <p class="note"><a href="/infrastructure-factory/#factors">The twelve factors</a> · <a href="/infrastructure-factory/#ladder">The full ladder</a></p>
+  </div>
+</section>
+
+<section class="section" id="start">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Where to start</p>
+      <h2>Start with the sandboxes</h2>
+    </div>
+    <p class="measure">The first vending line is ephemeral sandboxes for coding agents. The demand exists already: sandboxes on Google Kubernetes Engine grew 16x in under five months after the Agent Sandbox preview.<a class="cite" href="/sources/#s9"><sup>9</sup></a> A sandbox needs an identity, a lifetime and a policy, and nothing a human has to sign. The second line is preview environments per pull request, where ownership defaults and cost attribution get exercised at volume. The third is production vending, by which time the contracts, policies and inventory already exist.</p>
+    <p class="note"><a href="/infrastructure-factory/#start">The three lines, in order</a></p>
+  </div>
+</section>
+
+<section class="section" id="next">
+  <div class="frame">
+    <div class="closing-row">
+      <a href="/infrastructure-factory/#definition"><span class="k">Read</span><span class="t">The definition, taken apart</span></a>
+      <a href="/about/#follow"><span class="k">Follow</span><span class="t">The newsletter and the changelog</span></a>
+      <a href="https://github.com/mkorbi/infrastructure-factory/discussions"><span class="k">Discuss</span><span class="t">Argue with it on GitHub</span></a>
+    </div>
   </div>
 </section>
 </main>
