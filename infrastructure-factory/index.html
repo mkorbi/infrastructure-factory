@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What an infrastructure factory is</title>
+<meta name="description" content="The definition taken apart, what the factory is made of, what it is not, the seven-station line, the loop, the twelve factors, a checklist and where to start.">
+<link rel="canonical" href="https://infrastructure-factory.com/infrastructure-factory/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Infrastructure Factory">
+<meta property="og:title" content="What an infrastructure factory is">
+<meta property="og:description" content="The definition taken apart, what the factory is made of, what it is not, the seven-station line, the loop, the twelve factors, a checklist and where to start.">
+<meta property="og:url" content="https://infrastructure-factory.com/infrastructure-factory/">
+<meta property="og:image" content="https://infrastructure-factory.com/assets/img/og/infrastructure-factory.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What an infrastructure factory is">
+<meta name="twitter:description" content="The definition taken apart, what the factory is made of, what it is not, the seven-station line, the loop, the twelve factors, a checklist and where to start.">
+<meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/infrastructure-factory.png">
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%23e8541e%27/%3E%3C/svg%3E">
+<script>(function(){try{var t=localStorage.getItem("infra-factory-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap"></noscript>
+</head>
+<body data-page="infrastructure-factory">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <div class="frame">
+    <a class="wordmark" href="/"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open the menu">
+    <label for="nav-toggle" class="menu-btn" aria-hidden="true">Menu</label>
+    <nav class="nav-links" aria-label="Site">
+      <ul>
+          <li><a href="/software-factory/">Software factory</a></li>
+          <li><a href="/infrastructure-factory/" aria-current="page">Infrastructure factory</a></li>
+          <li><a href="/three-factories/">Three factories</a></li>
+          <li><a href="/evidence/">Evidence</a></li>
+          <li><a href="/metrics/">Metrics</a></li>
+          <li><a href="/lineage/">Lineage</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/about/">About</a></li>
+      </ul>
+    </nav>
+    <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+  </div>
+</header>
+<main id="main">
+<header class="page-head frame">
+  <p class="eyebrow">Infrastructure factory</p>
+  <h1>What an infrastructure factory is</h1>
+  <p class="lede">An infrastructure factory is a platform that turns intents from humans or agents into compliant, owned, observable, cost-attributed environments, with no ticket in the path. This page takes that sentence apart, lists the parts, draws the line, states the twelve factors, and ends with a test and a place to start.</p>
+</header>
+<section class="section subs" id="definition-section">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Definition</p>
+      <h2>The definition, taken apart</h2>
+      <p>Six load-bearing phrases, numbered in the sentence and explained below it.</p>
+    </div>
+    <blockquote class="definition" id="definition" data-cite="Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/">
+      <p class="defn-big">An Infrastructure Factory is a <mark>platform<sup>1</sup></mark> that turns <mark>intents<sup>2</sup></mark>, from <mark>humans or agents<sup>3</sup></mark>, into <mark>compliant, owned, observable, cost-attributed<sup>4</sup></mark> <mark>environments<sup>5</sup></mark>, with <mark>no ticket in the path<sup>6</sup></mark>.</p>
+      <ul>
+      <li>Not an AI factory in NVIDIA's sense. No racks of GPUs turning energy into tokens.</li>
+      <li>Not only an account vending machine. It contains vending lines such as AWS Account Factory and Azure subscription vending, and everything around them that a human still adds by hand.</li>
+    </ul>
+      <footer><a class="permalink" href="#definition" aria-label="#definition, permalink">#definition</a><button type="button" class="copy-cite">Copy citation</button></footer>
+    </blockquote>
+    <ol class="annos">
+      <li><span class="n">1</span><div><h4>Platform</h4><p>A production system that a team runs as a product, with customers, a backlog and a service level. Not a project, not a folder of modules, not a committee of approvers. Its operators build the line.</p></div></li>
+      <li><span class="n">2</span><div><h4>Intents</h4><p>A request that says what the environment is for, who owns it, what data it touches and how long it lives. The factory translates the intent into resources. The requester never has to.</p></div></li>
+      <li><span class="n">3</span><div><h4>Humans or agents</h4><p>The same contract serves a developer in a portal, a delivery pipeline, an operations agent remediating an incident, and a coding agent validating a change in the middle of the night. If an agent cannot use it unaided, it is a portal, not a factory.</p></div></li>
+      <li><span class="n">4</span><div><h4>Compliant, owned, observable, cost-attributed</h4><p>Four properties present on arrival, never added later. Compliant: every policy evaluated, every decision recorded. Owned: a cost center, a compliance owner and an on-call owner that resolve to real people. Observable: telemetry flowing before the first request arrives. Cost-attributed: every euro lands on the owner's line.</p></div></li>
+      <li><span class="n">5</span><div><h4>Environments</h4><p>The factory's unit of product: a bounded set of resources with a name, an owner, a lifetime, a data classification, a network position, an identity, telemetry and a cost line. An account, a namespace, a cluster, a sandbox or a set of managed services can each be an environment. A virtual machine is a part.</p></div></li>
+      <li><span class="n">6</span><div><h4>No ticket in the path</h4><p>No human action between the intent and the environment. Humans decide at the contract, once, and the decisions live on as defaults, delegations and policies. A human may be notified, asked to approve a renewal above a threshold, or paged when a policy fails. A human is never a station.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="components">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Components</p>
+      <h2>What it is made of</h2>
+    </div>
+    <p class="measure">Each of the parts exists as open source or as a cloud primitive today. The factory is the arrangement, not any one of them.</p>
+    <div class="parts">
+      <article class="part"><h4>The front door</h4><p>One API, exposed to agents as a tool surface over MCP. Portals and command lines are views on it, never separate paths with their own rules.</p><p class="ex">MCP tool server · Backstage · a CLI</p></article>
+      <article class="part"><h4>The contract registry</h4><p>Versioned, machine-readable contracts that state what the requester may choose and what the platform decides. The requester reads the contract before asking, so the first request is fulfillable.</p><p class="ex">Kratix Promises · Crossplane Compositions · Backstage templates</p></article>
+      <article class="part"><h4>The catalog</h4><p>The source of truth for ownership: teams, cost centers, compliance contacts, on-call rotations, data classifications, and for physical estates the assets themselves.</p><p class="ex">Backstage catalog · NetBox · the HR and finance systems behind them</p></article>
+      <article class="part"><h4>The policy engine and the defaults</h4><p>The pre-check that answers allow or deny with a reason, and the delegation rules that fill the fields no agent can sign.</p><p class="ex">Open Policy Agent · Kyverno · Gatekeeper</p></article>
+      <article class="part"><h4>The vending lines</h4><p>One per terrain: cloud accounts and projects, virtual machines, clusters, namespaces, sandboxes, bare metal. The contract hides which line runs.</p><p class="ex">Account Factory for Terraform · Cluster API · KubeVirt · Metal3 · Agent Sandbox</p></article>
+      <article class="part"><h4>The inventory</h4><p>Capacity held as stock: warm pools, quotas, reservations and, off the cloud, procurement forecasts with a published fill rate.</p><p class="ex">SandboxWarmPool · node pools · hardware pools</p></article>
+      <article class="part"><h4>The identity system</h4><p>Short-lived, scoped identities for every requester and every workload, agents included. Credentials move through it and nowhere else.</p><p class="ex">SPIFFE/SPIRE · Keycloak · cloud IAM</p></article>
+      <article class="part"><h4>The meter and the evidence store</h4><p>Telemetry, cost attribution and the decision record for every environment, kept as the factory's output rather than compiled for an audit afterwards.</p><p class="ex">OpenTelemetry · OpenCost · Prometheus · policy audit logs</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="not">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Boundaries</p>
+      <h2>What it is not</h2>
+    </div>
+    <p class="measure">The table reads left to right as a history: most organizations have built the first three and call the result a platform.</p>
+    <div class="table-wrap stack notwhat">
+      <table>
+        <thead><tr><th scope="col">Dimension</th><th scope="col">Ticket desk with scripts</th><th scope="col">Developer portal</th><th scope="col">Platform orchestrator</th><th scope="col">Infrastructure Factory</th></tr></thead>
+        <tbody>
+          <tr><td>Who can ask</td><td data-label="Ticket desk with scripts">Humans, in a queue.</td><td data-label="Developer portal">Humans, through a form.</td><td data-label="Platform orchestrator">Humans and pipelines, through an API.</td><td data-label="Infrastructure Factory" class="inf">Humans and agents, through a contract the agent can read.</td></tr>
+          <tr><td>What they send</td><td data-label="Ticket desk with scripts">Free text.</td><td data-label="Developer portal">Form fields.</td><td data-label="Platform orchestrator">A specification or a claim.</td><td data-label="Infrastructure Factory" class="inf">An intent, with purpose, owner, data and lifetime.</td></tr>
+          <tr><td>Who decides</td><td data-label="Ticket desk with scripts">A person, per request.</td><td data-label="Developer portal">A person, per request, behind the form.</td><td data-label="Platform orchestrator">Partly encoded; the rest escalates.</td><td data-label="Infrastructure Factory" class="inf">Encoded once: policy, defaults, delegations. Nobody per request.</td></tr>
+          <tr><td>What comes back</td><td data-label="Ticket desk with scripts">Resources.</td><td data-label="Developer portal">Resources and a catalog entry.</td><td data-label="Platform orchestrator">An environment.</td><td data-label="Infrastructure Factory" class="inf">An environment with owner, evidence and cost attached.</td></tr>
+          <tr><td>How long it lives</td><td data-label="Ticket desk with scripts">Forever.</td><td data-label="Developer portal">Forever.</td><td data-label="Platform orchestrator">Sometimes until deleted.</td><td data-label="Infrastructure Factory" class="inf">Until its lifetime ends, then it is reclaimed.</td></tr>
+          <tr><td>Whose problem is capacity</td><td data-label="Ticket desk with scripts">Procurement's.</td><td data-label="Developer portal">Procurement's.</td><td data-label="Platform orchestrator">The cloud's.</td><td data-label="Infrastructure Factory" class="inf">The factory's, held as inventory with a fill rate.</td></tr>
+          <tr><td>How it is measured</td><td data-label="Ticket desk with scripts">Ticket SLA.</td><td data-label="Developer portal">Adoption.</td><td data-label="Platform orchestrator">Deployments.</td><td data-label="Infrastructure Factory" class="inf">Lead time, zero-touch rate, time to owner, orphan rate.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note measure">It is also not an AI factory in NVIDIA's sense, not an IaC generator, and not a product from any one vendor. A portal is its front door. An orchestrator is one of its stations. An IaC generator is a faster way to write the input the factory exists to make unnecessary.</p>
+  </div>
+</section>
+
+<section class="section" id="the-line">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Production line</p>
+      <h2>An end to end line</h2>
+      <p>An agent working a backlog at night needs an environment to validate a change against a real database and a public endpoint. Nobody is awake to open a ticket. This is the line that serves it, built from open source building blocks that exist today. Each station names the projects that implement it.</p>
+    </div>
+
+    <ol class="line">
+      <li class="station">
+        <div class="what"><h3>Intent arrives</h3><p>The agent calls a tool exposed over MCP or a plain API: an environment for the service <code>orders-api</code>, with Postgres, a public endpoint, classification derived from its data sources, for 48 hours. A human in a portal sends the same request through a form. Nobody writes Terraform here.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A structured intent, as YAML or JSON, validated against a published schema.</p><span class="k">Building blocks</span><ul class="chips"><li>MCP tool server</li><li class="cncf">Backstage</li><li>Portal or CLI</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Golden-path contract</h3><p>The intent resolves to a published abstraction: a Kratix Promise or a Crossplane Composition. The contract is versioned and machine-readable. It lists what the requester may choose and what the platform decides, which is exactly the information an agent needs to ask for something fulfillable the first time. One Kratix customer put it plainly: "instead of letting AI freestyle infrastructure code, you give it structured abstractions to work with."<a class="cite" href="/sources/#s15"><sup>15</sup></a></p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A claim against a named contract version.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Crossplane</li><li>Kratix</li><li class="cncf">Backstage software templates</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>A policy pre-check the agent can read</h3><p>OPA or Kyverno evaluates the claim before anything is created and returns allow or deny with a reason the agent can act on. Defaults fill the fields the agent cannot sign: the cost center from the owning team's catalog record, the compliance owner by delegation, the classification from the declared data. A denial is a usable answer, and never a ticket.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>An admitted claim with ownership, classification and budget attached, plus the policy decision kept as evidence.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Open Policy Agent</li><li class="cncf">Kyverno</li><li class="cncf">Gatekeeper</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Vend</h3><p>The vending lines that already exist do their work: an account or project from AWS Account Factory for Terraform, Azure subscription vending or Google's project factory; a cluster or namespace from Cluster API or a virtual cluster; the Postgres and the endpoint from OpenTofu modules. GitOps reconciles the result and keeps reconciling it.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A reconciled environment, with endpoints and a record of what was created.</p><span class="k">Building blocks</span><ul class="chips"><li>OpenTofu</li><li class="cncf">Argo CD</li><li class="cncf">Flux</li><li>Cluster API (Kubernetes SIG)</li><li>Account Factory for Terraform</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Execution sandbox for untrusted code</h3><p>When the environment exists to run code an LLM wrote, a Kubernetes Agent Sandbox supplies the isolated runtime from a warm pool, claimed in seconds. The sandbox is one station and never the whole factory. Stations three, six and seven are what the CNCF means by "sandboxing your agent is not enough"<a class="cite" href="/sources/#s10"><sup>10</sup></a>.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>A SandboxClaim bound to a running, isolated workload.</p><span class="k">Building blocks</span><ul class="chips"><li>Agent Sandbox (SIG Apps)</li><li>gVisor or Kata Containers</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Attach what humans used to add by hand</h3><p>Workload identity for the environment, and a scoped, least-privilege identity for the agent that asked for it. Telemetry wired to the platform's collectors. Cost attribution tags that match the cost center from station three. The ownership record registered in the catalog. None of this needs a person, and all of it used to wait for one.</p></div>
+        <div class="moves"><span class="k">What moves to the next station</span><p>An environment that is observable, attributable, and reachable only by the identities the policy allowed.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">SPIFFE / SPIRE</li><li class="cncf">OpenTelemetry</li><li class="cncf">OpenCost</li><li class="cncf">Backstage catalog</li></ul></div>
+      </li>
+      <li class="station">
+        <div class="what"><h3>Hand over, then reclaim</h3><p>The requester receives endpoints, credentials through the identity system, and the evidence bundle: policy decisions, owner, classification, budget. The TTL and the owner record make reclamation automatic. The factory emits its own metrics at this station: lead time, zero-touch, time to owner.</p></div>
+        <div class="moves"><span class="k">What leaves the line</span><p>An environment in use, a metrics record, and a scheduled reclaim.</p><span class="k">Building blocks</span><ul class="chips"><li class="cncf">Prometheus</li><li class="cncf">Kyverno cleanup policies</li><li class="cncf">Argo CD or Flux</li></ul></div>
+      </li>
+    </ol>
+    <p class="chip-legend"><i></i>CNCF project &nbsp;&nbsp; <i class="other"></i>Other open source, Kubernetes SIG or cloud-provider building block</p>
+  </div>
+</section>
+
+<section class="section" id="loop">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The loop</p>
+      <h2>Station eight closes the line into a loop</h2>
+      <p>The line ends at hand-over only on a diagram. In a factory, the environment keeps reporting, and what it reports becomes the next intent.</p>
+    </div>
+    <!-- LOOP -->
+    <figure class="fig dg-fig" data-png="station-loop">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 130" role="img" aria-label="Diagram: eight stations in a row, intent, contract, pre-check, vend, sandbox, attach, hand over and observe, with an arrow from station eight back to station one carrying drift, expiry, cost anomalies, incidents and policy changes as new intents.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs>
+  <text x="16" y="22" class="t13">Station eight turns the line into a loop</text>
+  <rect x="26" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="65" y="61" class="t11 tb" text-anchor="middle">1 Intent</text>
+  <line x1="104" y1="57" x2="116" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="116" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="155" y="61" class="t11 tb" text-anchor="middle">2 Contract</text>
+  <line x1="194" y1="57" x2="206" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="206" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="245" y="61" class="t11 tb" text-anchor="middle">3 Pre-check</text>
+  <line x1="284" y1="57" x2="296" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="296" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="335" y="61" class="t11 tb" text-anchor="middle">4 Vend</text>
+  <line x1="374" y1="57" x2="386" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="386" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="425" y="61" class="t11 tb" text-anchor="middle">5 Sandbox</text>
+  <line x1="464" y1="57" x2="476" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="476" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="515" y="61" class="t11 tb" text-anchor="middle">6 Attach</text>
+  <line x1="554" y1="57" x2="566" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="566" y="40" width="78" height="34" rx="8" class="box"></rect>
+  <text x="605" y="61" class="t11 tb" text-anchor="middle">7 Hand over</text>
+  <line x1="644" y1="57" x2="656" y2="57" class="ln" marker-end="url(#ah)"></line>
+  <rect x="656" y="40" width="78" height="34" rx="8" class="hi"></rect>
+  <text x="695" y="61" class="t11 tb" text-anchor="middle">8 Observe</text>
+  <polyline points="695,74 695,112 65,112 65,74" class="ln hi" marker-end="url(#ah-hi)"></polyline>
+  <text x="380" y="104" class="t11" text-anchor="middle">drift · expiry · cost anomalies · incidents · policy changes become new intents</text>
+</svg></div>
+      <figcaption>Station eight. What a running environment reports becomes the next intent, which is what makes the factory a loop. <a class="png" href="/assets/img/station-loop.png" download>Download PNG</a></figcaption>
+    </figure>
+    <div class="two-col">
+      <div>
+        <h3>Observe and reclaim</h3>
+        <p>Five signals leave a running environment and re-enter the line as intents. Drift: the environment no longer matches its contract, so the factory reconciles it or raises a change. Expiry: the lifetime ends, so the factory reclaims, or the owner renews through a request like any other. Cost anomalies: spend leaves the budget ceiling, so the factory throttles, notifies the owner, or both. Incidents: an alert names the environment, so a remediation agent raises the fix as a pull request. Policy changes: a rule changes, so every environment it touches is re-evaluated and the gaps become work.</p>
+      </div>
+      <div>
+        <h3>Why it matters</h3>
+        <p>Without station eight the factory produces environments and forgets them. Orphans accumulate, cost drifts, and the audit is assembled by hand. With it, the factory's output is also its input, which is what makes the metrics on the <a href="/metrics/">metrics page</a> measurable at all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="workers">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The workers</p>
+      <h2>Who does what</h2>
+    </div>
+    <div class="adds">
+      <div><h3>Agents</h3><p>Raise and execute Terraform pull requests, remediations and CVE fixes, within the contract and under a scoped identity.</p></div>
+      <div><h3>Humans</h3><p>Sign ownership once, through contracts and defaults, and approve at the few defined checkpoints: a renewal above a threshold, a classification the contract does not cover.</p></div>
+      <div><h3>Platform engineers</h3><p>Build the factory: the contracts, the policies, the vending lines and the inventory. They do not fulfil requests. <a href="/three-factories/#glue">How platform engineering holds the three factories together.</a></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="factors">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Factors</p>
+      <h2>Twelve factors of an Infrastructure Factory</h2>
+      <p>The Twelve-Factor App of 2011<a class="cite" href="/sources/#s34"><sup>34</sup></a> told a generation how to write software that a platform could run. These twelve say how to build the platform that agents can run on. Each one is written as a test. A factory either passes it, or there is a ticket in the path somewhere.</p>
+    </div>
+
+    <div class="manifesto">
+      <p>Intents over resource lists.</p>
+      <p>Defaults over approvals.</p>
+      <p>Contracts over tickets.</p>
+      <p>Evidence over reports.</p>
+      <p class="note">There is value on the right of every line. The factory encodes it once, so that nobody has to supply it per request.</p>
+    </div>
+
+    <ol class="factors">
+      <li><span class="num">I</span><div><h3>Intent in</h3><p>The input is an intent: what the environment is for, who owns it, what data it touches, how long it lives. Never a resource list. A resource list is the factory's output, translated back into its inputs by a human.</p></div></li>
+      <li><span class="num">II</span><div><h3>Environment out</h3><p>The output is an environment that is owned, compliant, observable and cost-attributed on arrival. Anything less is a resource, and resources are what the ticket queue used to deliver.</p></div></li>
+      <li><span class="num">III</span><div><h3>Machine-readable contracts</h3><p>What the requester may choose and what the platform decides is a versioned schema. The API is the interface; portals and CLIs are views on it. Agents are first-class customers, and a contract an agent cannot read is a contract a human will be asked to interpret.</p></div></li>
+      <li><span class="num">IV</span><div><h3>No ticket in the path</h3><p>Humans decide once, at the contract, or encode the decision as a default, a delegation or a policy. A human may be notified. A human is never a blocking station. Platform engineers build the line; they do not fulfil requests.</p></div></li>
+      <li><span class="num">V</span><div><h3>Policy before provisioning</h3><p>The pre-check returns allow or deny, with a reason the requester can act on, before anything is created. Nothing is built to be torn down by a reviewer later, and a denial is an answer rather than an escalation.</p></div></li>
+      <li><span class="num">VI</span><div><h3>Ownership by default</h3><p>Cost center, compliance owner, on-call owner and data classification are inherited from the catalog, never typed into a form. No reachable owner, no environment.</p></div></li>
+      <li><span class="num">VII</span><div><h3>Scoped identity for every requester</h3><p>Every request runs under a short-lived, least-privilege identity, agents included. Credentials move through the identity system and never through a prompt, a ticket or a chat message.</p></div></li>
+      <li><span class="num">VIII</span><div><h3>Everything expires</h3><p>A lifetime is part of every intent. Renewal is a request like any other and carries the same owner. Reclaim is automatic, and an orphan is a defect of the factory, not of the requester.</p></div></li>
+      <li><span class="num">IX</span><div><h3>Evidence ships with the product</h3><p>The decision record travels with the environment: policies evaluated, owner, classification, budget, jurisdiction. An audit reads the factory's output, not a spreadsheet assembled afterwards.</p></div></li>
+      <li><span class="num">X</span><div><h3>Capacity is inventory</h3><p>Warm pools, quotas and buffer stock absorb bursts. Where elasticity is missing, the factory keeps stock and publishes its fill rate instead of pretending that lead time is zero.</p></div></li>
+      <li><span class="num">XI</span><div><h3>The factory measures itself</h3><p>Lead time to a compliant environment, environments per platform engineer, zero-touch rate, policy-violation rate, time to owner, orphan rate. Published to the factory's customers the way an SLO is, and argued about the same way.</p></div></li>
+      <li><span class="num">XII</span><div><h3>Built from replaceable parts</h3><p>Contracts outlive tools. Every station is a building block that can be swapped, Crossplane for Kratix, Kyverno for OPA, a hyperscaler for a rack, without changing what the requester asks for or what the requester gets back.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="checklist">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Checklist</p>
+      <h2>You have an infrastructure factory when</h2>
+    </div>
+    <ul class="checks">
+      <li>An agent with a scoped identity can obtain an owned, compliant environment with nobody awake.</li>
+      <li>Every environment has a reachable owner, a cost center and a classification before it exists.</li>
+      <li>Every denial carries a reason the requester can act on without opening a ticket.</li>
+      <li>Every environment has a lifetime, and reclaim runs without a human.</li>
+      <li>Every environment ships with its decision record.</li>
+      <li>The factory publishes its own lead time, zero-touch rate, time to owner and orphan rate.</li>
+      <li>A contract can move to another terrain without changing what the requester asks for.</li>
+      <li>Platform engineers spend their time on contracts, policies and lines, and none of it fulfilling requests.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="ladder">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Maturity</p>
+      <h2>From ticket desk to factory</h2>
+    </div>
+    <p class="measure">Most organizations are somewhere on this ladder. Each stage keeps everything the previous one built and removes one kind of human from the path. The test at every stage is the same: can an agent with a scoped identity obtain an owned, compliant environment at any time?</p>
+    <ol class="ladder">
+      <li><span class="stage">0</span><div><h4>Ticket desk</h4><p>Requests arrive as text. People build what they understand. Lead time is days to weeks, and the organization measures the queue.</p><p class="fail">Fails the test: nobody is awake.</p></div></li>
+      <li><span class="stage">1</span><div><h4>Automated fulfilment</h4><p>Scripts and modules do the building, but a person still approves, classifies and assigns cost. Lead time drops; the queue stays.</p><p class="fail">Fails the test: the approval is a person.</p></div></li>
+      <li><span class="stage">2</span><div><h4>Self-service portal</h4><p>Humans fill forms. Decisions are still made per request, behind the form, and the form itself is unreadable to an agent.</p><p class="fail">Fails the test: the agent cannot fill the form, and the form cannot sign the owner.</p></div></li>
+      <li><span class="stage">3</span><div><h4>Contracted API</h4><p>Machine-readable contracts, a policy pre-check with readable denials, defaults for ownership. Agents can ask. Evidence, lifetime and capacity are still somebody else's problem.</p><p class="fail">Fails the test at volume: orphans accumulate and the audit is compiled by hand.</p></div></li>
+      <li class="pass"><span class="stage">4</span><div><h4>Infrastructure Factory</h4><p>Ownership by default, identity for every requester, a lifetime on everything, evidence shipped with the product, capacity held as inventory, and the factory publishing its own metrics.</p><p class="fail pass">Passes the test, at production volume, on every terrain.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="start">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Where to start</p>
+      <h2>Three vending lines, in order</h2>
+      <p>Start narrow, where demand is highest and the blast radius is smallest. The software factory sources give the same advice for their own lines: Factory suggests incident triage first, and Lloyd lets triage send easy, unambiguous issues straight to implementation.<a class="cite" href="/sources/#s41"><sup>41</sup></a><a class="cite" href="/sources/#s36"><sup>36</sup></a></p>
+    </div>
+    <ol class="start-steps">
+      <li><span class="num">1</span><div><h3>Ephemeral sandboxes for coding agents</h3><p>The first line. Demand is already there: sandboxes on GKE grew 16x in under five months after the Agent Sandbox preview.<a class="cite" href="/sources/#s9"><sup>9</sup></a> A sandbox needs an identity, a lifetime and a policy, and nothing a human has to sign. It is the smallest complete environment.</p></div></li>
+      <li><span class="num">2</span><div><h3>Preview environments per pull request</h3><p>The second line. Every change gets an environment with the service, its data and its endpoint, owned by the change's owner, reclaimed at merge. This is where ownership defaults and cost attribution get exercised at volume.</p></div></li>
+      <li><span class="num">3</span><div><h3>Production vending</h3><p>The third line. Accounts, projects, clusters and namespaces with the full evidence bundle. By now the contracts, policies and inventory exist, and production is one more terrain for them.</p></div></li>
+    </ol>
+  </div>
+</section>
+</main>
+<nav class="prevnext" aria-label="Previous and next page">
+  <div class="frame">
+    <a class="prev" href="/software-factory/"><span class="k">Previous</span><span class="t">Software factory</span></a>
+    <a class="next" href="/three-factories/"><span class="k">Next</span><span class="t">Three factories</span></a>
+  </div>
+</nav>
+<footer class="site-footer">
+  <div class="frame">
+    <span>Working concept, revised October 2026</span>
+    <span><a href="https://github.com/mkorbi/infrastructure-factory">GitHub</a><span class="sep">·</span><a href="https://github.com/mkorbi/infrastructure-factory/blob/main/LICENSE">Apache-2.0</a><span class="sep">·</span><a href="/about/#diagrams">Diagrams</a></span>
+  </div>
+</footer>
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

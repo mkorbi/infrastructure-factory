@@ -38,9 +38,10 @@ Pull requests are welcome for anything concrete:
 For a larger change, such as a new section, a new factor, or a different metric set, open a
 discussion first so the idea can be shaped before the writing is done.
 
-### How to work on the page
+### How to work on the pages
 
-The site is static: `index.html`, `assets/site.css` and `assets/site.js`, no build step.
+The site is static: nine pages (`index.html` and `<slug>/index.html`), one stylesheet and one
+script, no build step. Links are root-relative, so serve the repository root.
 
 ```sh
 git clone https://github.com/mkorbi/infrastructure-factory.git
@@ -51,6 +52,24 @@ python3 -m http.server 8000
 Open <http://localhost:8000>. Before you push, check the page at about 400px width and in
 both themes; the theme switch is in the top right. Colors and fonts are tokens on `:root`
 at the top of the stylesheet, so a visual change usually touches one line.
+
+The header block is duplicated on every page and must stay identical; `sh scripts/check-nav.sh`
+checks it. `node scripts/check-site.mjs` runs the rest of the acceptance checks (one heading per
+page, links and anchors, every source cited, figures with captions and PNGs, no overflow, old
+anchors redirecting, theme persistence, pages working without JavaScript). Both need Node and
+Playwright with Chromium.
+
+### Sources and citations
+
+Every figure and quote carries a numbered citation linking to `/sources/#sN`. New sources are
+appended to the end of the list on `/sources/`; existing entries are never renumbered. Mark
+vendor-reported and self-reported figures as such where they appear.
+
+### Writing style
+
+Plain, direct, specific. No em dashes or en dashes used as dashes; use commas, colons,
+parentheses or a new sentence. No marketing adjectives. Sentences under 25 words where
+possible. The first sentence of every page and section states its point.
 
 ## Ground rules
 

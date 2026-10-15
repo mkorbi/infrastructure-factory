@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Measuring an infrastructure factory</title>
+<meta name="description" content="Six metrics with their software-side counterparts, Little's law for environment requests, and why to measure outcomes rather than tokens.">
+<link rel="canonical" href="https://infrastructure-factory.com/metrics/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Infrastructure Factory">
+<meta property="og:title" content="Measuring an infrastructure factory">
+<meta property="og:description" content="Six metrics with their software-side counterparts, Little's law for environment requests, and why to measure outcomes rather than tokens.">
+<meta property="og:url" content="https://infrastructure-factory.com/metrics/">
+<meta property="og:image" content="https://infrastructure-factory.com/assets/img/og/metrics.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Measuring an infrastructure factory">
+<meta name="twitter:description" content="Six metrics with their software-side counterparts, Little's law for environment requests, and why to measure outcomes rather than tokens.">
+<meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/metrics.png">
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%23e8541e%27/%3E%3C/svg%3E">
+<script>(function(){try{var t=localStorage.getItem("infra-factory-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap"></noscript>
+</head>
+<body data-page="metrics">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-nav">
+  <div class="frame">
+    <a class="wordmark" href="/"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open the menu">
+    <label for="nav-toggle" class="menu-btn" aria-hidden="true">Menu</label>
+    <nav class="nav-links" aria-label="Site">
+      <ul>
+          <li><a href="/software-factory/">Software factory</a></li>
+          <li><a href="/infrastructure-factory/">Infrastructure factory</a></li>
+          <li><a href="/three-factories/">Three factories</a></li>
+          <li><a href="/evidence/">Evidence</a></li>
+          <li><a href="/metrics/" aria-current="page">Metrics</a></li>
+          <li><a href="/lineage/">Lineage</a></li>
+          <li><a href="/sources/">Sources</a></li>
+          <li><a href="/about/">About</a></li>
+      </ul>
+    </nav>
+    <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+  </div>
+</header>
+<main id="main">
+<header class="page-head frame">
+  <p class="eyebrow">Metrics</p>
+  <h1>Measuring an infrastructure factory</h1>
+  <p class="lede">A factory that cannot state its own lead time is a ticket desk with better tooling. Six metrics, each with a counterpart on the software side, and the arithmetic that shows why lead time is the one that matters.</p>
+</header>
+<section class="section" id="metrics">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Metrics</p>
+      <h2>Measure it like a factory</h2>
+      <p>The software-factory crowd brings numbers: pull requests per week, tokens per engineer, 3 to 5x<a class="cite" href="/sources/#s2"><sup>2</sup></a>. An Infrastructure Factory needs its own set, the equivalent of DORA for environments. Six are enough to start, and each has a counterpart on the software side.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><span class="mpair">Counterpart: lead time for changes</span><span class="mname">Lead time to a compliant environment</span><span class="mdef">From intent submitted to environment handed over, with its evidence attached.</span><span class="mwhy"><b>Factory target:</b> hours, measured per contract. Days means a ticket is still in the path.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: deployment frequency</span><span class="mname">Environments per day per platform engineer</span><span class="mdef">Delivered environments, normalized by the people who run the factory.</span><span class="mwhy"><b>Why it matters:</b> it is the number that justifies platform investment as agent demand scales.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: PRs merged with no human review</span><span class="mname">Zero-touch rate</span><span class="mdef">Share of requests fulfilled with no human action anywhere in the path.</span><span class="mwhy"><b>Why it matters:</b> its inverse is the ticket count. An agent at 3am only ever gets the zero-touch share.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: change failure rate</span><span class="mname">Policy-violation rate on agent requests</span><span class="mdef">Share of agent-originated requests the pre-check refuses, broken down by reason.</span><span class="mwhy"><b>Read it carefully:</b> a rising rate usually means the contract is unclear to the agent, and rarely that the agent is reckless.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: review pickup time</span><span class="mname">Time to owner</span><span class="mdef">Time until a cost center and a compliance owner are attached to the environment.</span><span class="mwhy"><b>Factory target:</b> zero. Ownership is a default of the golden path, never a step after it.</span></div>
+      <div class="metric"><span class="mpair">Counterpart: age of unmerged work</span><span class="mname">Orphan rate</span><span class="mdef">Resources alive past their TTL with no reachable owner.</span><span class="mwhy"><b>Why it matters:</b> it is the day-2 health of the factory, and the first number finance will ask for.</span></div>
+    </div>
+
+    <div class="calc">
+      <div class="calc-in">
+        <p class="eyebrow" style="margin:0">Little's law for environment requests</p>
+        <label for="in-rate"><span class="lv"><span>Environment requests per day</span><output id="out-rate" for="in-rate">40</output></span><input type="range" id="in-rate" min="5" max="400" step="5" value="40"></label>
+        <label for="in-lead"><span class="lv"><span>Lead time with a ticket in the path</span><output id="out-lead" for="in-lead">3 days</output></span><input type="range" id="in-lead" min="2" max="240" step="1" value="72"></label>
+        <label for="in-fast"><span class="lv"><span>Lead time through the factory</span><output id="out-fast" for="in-fast">20 min</output></span><input type="range" id="in-fast" min="1" max="480" step="1" value="20"></label>
+      </div>
+      <div class="calc-out">
+        <div class="big"><span id="out-wip">120</span><small>requests open at any moment with a ticket in the path</small></div>
+        <div class="cmp">
+          <div><span class="n" id="out-wip-ticket">120</span><span class="l">In flight · ticket</span></div>
+          <div class="inf"><span class="n" id="out-wip-factory">0.6</span><span class="l">In flight · factory</span></div>
+        </div>
+        <p id="out-text">At 40 requests a day and a lead time of 3 days, 120 environment requests are open at any moment. Through a factory with a lead time of 20 min, fewer than one is.</p>
+        <p class="law">Work in progress = arrival rate × lead time. Little's law holds for any stable queue, whatever is in it. The inputs are yours; the arithmetic is the only claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="outcomes">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">What to measure</p>
+      <h2>Measure outcomes, not tokens</h2>
+      <p>Counts that are easy to collect are easy to game. Three measures survive that test.</p>
+    </div>
+    <div class="adds">
+      <div><h3>Human interventions per environment</h3><p>How many times a person had to act between intent and hand-over. The counterpart of Lloyd's human interactions per pull request in the software factory.<a class="cite" href="/sources/#s36"><sup>36</sup></a> Zero is the target; the trend is the metric.</p></div>
+      <div><h3>Lead time</h3><p>From intent to a compliant environment, measured per contract. It is the one number that tells a software factory whether the floor keeps up.</p></div>
+      <div><h3>Zero-touch rate</h3><p>The share of requests fulfilled with no human in the path. An agent at 3am only ever gets this share.</p></div>
+    </div>
+    <p class="measure" style="margin-top:2rem">Environments created, tokens spent and pull requests raised are activity, not outcomes. Palmie makes the Goodhart point for the software factory: once a count becomes the target, the factory optimises the count.<a class="cite" href="/sources/#s41"><sup>41</sup></a> Count environments and you get environments. Measure lead time and interventions, and you get a factory.</p>
+  </div>
+</section>
+</main>
+<nav class="prevnext" aria-label="Previous and next page">
+  <div class="frame">
+    <a class="prev" href="/evidence/"><span class="k">Previous</span><span class="t">Evidence</span></a>
+    <a class="next" href="/lineage/"><span class="k">Next</span><span class="t">Lineage</span></a>
+  </div>
+</nav>
+<footer class="site-footer">
+  <div class="frame">
+    <span>Working concept, revised October 2026</span>
+    <span><a href="https://github.com/mkorbi/infrastructure-factory">GitHub</a><span class="sep">·</span><a href="https://github.com/mkorbi/infrastructure-factory/blob/main/LICENSE">Apache-2.0</a><span class="sep">·</span><a href="/about/#diagrams">Diagrams</a></span>
+  </div>
+</footer>
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

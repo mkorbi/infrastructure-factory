@@ -29,10 +29,12 @@ the symmetry with the software factory, why the hard part is ownership rather th
 lineage from Kessel Run to Platform One, one production line built from open source building blocks,
 why a cloud factory is the easy case, six metrics, and twelve factors.
 
-The site is a single static page. It covers:
+The site is static: nine pages, one stylesheet, one script. Together they cover:
 
 - the working definition and what the term does not mean
-- a detailed section on what an Infrastructure Factory is: the definition taken apart, the eight parts it is made of, what it is not, a ladder from ticket desk to factory, and a test for whether you have one
+- what a software factory is, from thirteen of its own sources, and why it needs an infrastructure factory
+- what an infrastructure factory is: the definition taken apart, the parts it is made of, what it is not, the line and its loop, a ladder from ticket desk to factory, and a test for whether you have one
+- how the software, AI and infrastructure factories share a floor without sharing a product
 - a live two-lane queue model of the thesis
 - the evidence that the bottleneck moved from code to delivery (Google, Uber, Faros AI, CircleCI, GKE)
 - the symmetry between the software factory and the infrastructure factory
@@ -42,15 +44,41 @@ The site is a single static page. It covers:
 - why a cloud Infrastructure Factory is the easy case: NIST's five cloud characteristics as the yardstick, what changes on the line off the cloud, and four terrains (hyperscaler, virtualization estates, bare metal and edge, sovereign and regulated)
 - six metrics, the DORA equivalents for environments, with a Little's law calculator
 - a short manifesto and the twelve factors of an Infrastructure Factory
-- prior art and the caveats on every figure
+- prior art, the lineage, and the caveats on every figure
+- three diagrams, with PNG exports for slides and articles
+
+## Pages
+
+| Route | Job |
+|---|---|
+| `/` | The pitch: definition, the shift in three numbers, the live-model teaser, the three roles of infrastructure, the overlap with NVIDIA's AI factory, the five-line test, where to start |
+| `/software-factory/` | What a software factory is (a consensus definition from thirteen sources), its loop, the floor it runs on, the gap, and why it needs an infrastructure factory |
+| `/infrastructure-factory/` | The definition taken apart, components, what it is not, the seven-station line, the loop, the workers, the twelve factors, the checklist, the maturity ladder, where to start |
+| `/three-factories/` | Software, AI and infrastructure factories: three products, the shared floor, seams and owners, the glue |
+| `/evidence/` | The full live model, the figures and charts, the four pressures, the terrain analysis |
+| `/metrics/` | Six metrics with their software-side counterparts, Little's law, outcomes not tokens |
+| `/lineage/` | The timeline from 1968 to Platform One, and who already uses the words |
+| `/sources/` | Every figure, numbered; caveats; how to cite |
+| `/about/` | Author, status and changelog, published in, follow, contribute, cite, diagrams |
+
+Old single-page anchors such as `/#factors` redirect to the new pages.
 
 ## Files
 
 | Path | Purpose |
 |---|---|
-| `index.html` | The page |
+| `index.html`, `<slug>/index.html` | The nine pages. The header, footer and head block are duplicated on every page and must stay identical |
 | `assets/site.css` | Styles, light and dark, driven by design tokens on `:root` |
-| `assets/site.js` | Theme switch, section nav, tooltips, the calculator and the queue model |
+| `assets/site.js` | Old-anchor redirects, theme switch, menu, citation copy, tooltips, the calculator and the queue model |
+| `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |
+| `assets/img/og/*.png` | 1200x630 title cards used as `og:image` |
+| `sitemap.xml`, `robots.txt`, `CNAME`, `.nojekyll` | Deployment files for GitHub Pages at infrastructure-factory.com |
+| `scripts/check-nav.sh` | Dev-only: fails if the header block differs between pages |
+| `scripts/check-site.mjs` | Dev-only: the acceptance checks (headings, links, sources, figures, dashes, overflow, redirects, theme, no-JS) |
+| `scripts/export-png.mjs`, `scripts/og-template.html` | Dev-only: renders the diagram PNGs and the title cards |
+| `docs/screenshots/` | Screenshots used in pull requests |
+
+The scripts need Node and Playwright with Chromium (`npm i -D playwright && npx playwright install chromium`). The deploy does not depend on them; their output is committed.
 
 ## Run it locally
 
@@ -58,12 +86,21 @@ The site is a single static page. It covers:
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000>. There is no build step and no dependency besides Google Fonts.
+Then open <http://localhost:8000>. Links are root-relative, so serve the repository root, not a subfolder. There is no build step and no dependency besides Google Fonts.
+
+Before opening a pull request, run the checks:
+
+```sh
+sh scripts/check-nav.sh
+node scripts/check-site.mjs
+```
+
+If you changed a diagram, regenerate the PNGs with `node scripts/export-png.mjs` and commit them.
 
 ## Deploy
 
 GitHub Pages serves it as is: Settings, Pages, deploy from a branch, pick `main` and the root folder.
-The `.nojekyll` file keeps Pages from running Jekyll over the assets.
+`CNAME` points the site at infrastructure-factory.com, and `.nojekyll` keeps Pages from running Jekyll over the assets.
 
 ## Content
 
