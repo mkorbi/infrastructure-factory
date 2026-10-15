@@ -101,6 +101,73 @@
       <p>It is under the loop, inside the loop, and the source of the next signal.</p>
     </div>
     <!-- D1 -->
+    <figure class="fig dg-fig" data-png="d1-three-roles">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 496" role="img" aria-label="Diagram: a software factory loop of Signals, Plan, Build, Verify, Release and Monitor with a product line and an infrastructure line, deploying into production whose alerts, incidents and logs become new signals; the loop runs on a factory floor of control plane, context and data plane, dev environments and IaC, compute and sandboxes, models and inference, with cross-cutting identity, policy, observability and supply chain.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs>
+  <text x="16" y="22" class="t13">Infrastructure sits under the factory, flows through it, and feeds it</text>
+  <polyline points="666,94 666,46 71,46 71,60" class="ln" marker-end="url(#ah)"></polyline>
+  <text x="366" y="41" class="t11" text-anchor="middle">alerts, incidents and logs become new signals</text>
+  <rect x="16" y="60" width="520" height="150" rx="8" class="frame-box"></rect>
+  <text x="28" y="80" class="t12">Software factory loop</text>
+  <rect x="36" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="71" y="113" class="t11 tb" text-anchor="middle">Signals</text>
+  <line x1="106" y1="109" x2="118" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="118" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="153" y="113" class="t11 tb" text-anchor="middle">Plan</text>
+  <line x1="188" y1="109" x2="200" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="200" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="235" y="113" class="t11 tb" text-anchor="middle">Build</text>
+  <line x1="270" y1="109" x2="282" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="282" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="317" y="113" class="t11 tb" text-anchor="middle">Verify</text>
+  <line x1="352" y1="109" x2="364" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="364" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="399" y="113" class="t11 tb" text-anchor="middle">Release</text>
+  <line x1="434" y1="109" x2="446" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="446" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="481" y="113" class="t11 tb" text-anchor="middle">Monitor</text>
+  <rect x="36" y="138" width="480" height="24" rx="8" class="plain"></rect>
+  <text x="46" y="154" class="t11">Product line: features and bug fixes</text>
+  <rect x="36" y="170" width="480" height="24" rx="8" class="hi"></rect>
+  <text x="46" y="186" class="t11 tb">Infrastructure line: Terraform PRs, incident remediation, CVE fixes</text>
+  <rect x="588" y="94" width="156" height="70" rx="8" class="hi"></rect>
+  <text x="602" y="116" class="t13">Production</text>
+  <text x="602" y="134" class="t11">runtime, clusters,</text>
+  <text x="602" y="150" class="t11">cloud resources</text>
+  <line x1="536" y1="129" x2="588" y2="129" class="ln" marker-end="url(#ah)"></line>
+  <text x="562" y="121" class="t11" text-anchor="middle">deploys</text>
+  <line x1="276" y1="210" x2="276" y2="240" class="ln" marker-end="url(#ah)"></line>
+  <text x="286" y="230" class="t11">runs on</text>
+  <text x="16" y="256" class="t13">Factory floor: infrastructure the factory runs on</text>
+  <rect x="16" y="268" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="287" class="t12">Control plane</text>
+  <text x="200" y="287" class="t11">dispatch, scheduling, budgets, audit trail</text>
+  <rect x="16" y="306" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="325" class="t12">Context and data plane</text>
+  <text x="200" y="325" class="t11">MCP gateway, context lake, memory, session data</text>
+  <rect x="16" y="344" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="363" class="t12">Dev environments, IaC</text>
+  <text x="200" y="363" class="t11">reproducible, previewable, agent-ready</text>
+  <rect x="16" y="382" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="401" class="t12">Compute and sandboxes</text>
+  <text x="200" y="401" class="t11">isolated execution, VMs for computer use</text>
+  <rect x="16" y="420" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="439" class="t12">Models and inference</text>
+  <text x="200" y="439" class="t11">routing, providers, self-hosted open models</text>
+  <rect x="552" y="268" width="192" height="182" rx="8" class="hi"></rect>
+  <text x="566" y="290" class="t12">Cross-cutting</text>
+  <text x="566" y="312" class="t11">identity, access</text>
+  <text x="566" y="330" class="t11">policy, RBAC, audit</text>
+  <text x="566" y="348" class="t11">observability and replay</text>
+  <text x="566" y="366" class="t11">security and supply chain</text>
+  <rect x="16" y="470" width="14" height="14" rx="3" class="hi"></rect>
+  <text x="38" y="481" class="t11 muted">Highlighted: infrastructure in its three roles, the floor, a factory line, and production as the signal source.</text>
+</svg></div>
+      <figcaption>D1. Three roles of infrastructure in a software factory: the floor it runs on, a line it runs, and production as the source of the next signal. <a class="png" href="/assets/img/d1-three-roles.png" download>Download PNG</a></figcaption>
+    </figure>
     <p class="measure">The software factory sources agree on the first role and take the other two for granted. The floor is the infrastructure the loop runs on. The line is the infrastructure work the loop carries, which Port already runs as factory lines.<a class="cite" href="/sources/#s44"><sup>44</sup></a> The signal source is production itself: a factory that cannot see its environments cannot start the next loop. One platform supplies all three, and that platform is the infrastructure factory.</p>
     <div class="adds">
       <div><h3>The floor it runs on</h3><p>Control plane, context plane, environments, sandboxes, models and inference, with identity, policy, observability and supply chain across all of them.</p></div>
@@ -128,6 +195,47 @@
       </div>
     </div>
     <!-- D3 -->
+    <figure class="fig dg-fig" data-png="d3-shared-floor">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 400" role="img" aria-label="Diagram: three overlapping panels. The infrastructure factory produces compliant places to run things, measured by lead time to a compliant environment. The AI factory in the model sense produces models fit for purpose, measured by eval scores, drift and cost per token. The shared floor between them holds GPU capacity and quotas, inference endpoints and the gateway, artifact and model registries, identity, policy and cost, observability and provenance, and agent runtime and sandboxes. Platform engineering builds the shared floor; AI engineering builds the agents.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs><defs><linearGradient id="floor-grad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--accent-soft)"></stop><stop offset="1" stop-color="var(--accent2-soft)"></stop></linearGradient></defs>
+  <text x="16" y="22" class="t13">The infrastructure and AI factories share a floor, not a product</text>
+  <rect x="16" y="44" width="280" height="300" rx="8" class="hi"></rect>
+  <text x="32" y="70" class="t13">Infrastructure factory</text>
+  <text x="32" y="88" class="t11 muted">compliant places to run things</text>
+  <text x="32" y="114" class="t11">· tenancy, regions, network zones</text>
+  <text x="32" y="132" class="t11">· clusters, namespaces, environments</text>
+  <text x="32" y="150" class="t11">· approval chains, cost centers</text>
+  <text x="32" y="168" class="t11">· on-prem, sovereign, hyperscaler</text>
+  <text x="32" y="310" class="t11 tb muted">Quality signal</text>
+  <text x="32" y="326" class="t11">lead time to a compliant environment</text>
+  <rect x="464" y="44" width="280" height="300" rx="8" class="hi2"></rect>
+  <text x="520" y="70" class="t13">AI factory, model factory</text>
+  <text x="520" y="88" class="t11 muted">models fit for purpose</text>
+  <text x="520" y="114" class="t11">· sourcing and selection</text>
+  <text x="520" y="132" class="t11">· fine-tuning and adaptation</text>
+  <text x="520" y="150" class="t11">· evaluation and safety</text>
+  <text x="520" y="168" class="t11">· lifecycle, drift, retirement</text>
+  <text x="520" y="310" class="t11 tb muted">Quality signal</text>
+  <text x="520" y="326" class="t11">eval scores, drift, cost per token</text>
+  <rect x="256" y="64" width="248" height="260" rx="8" fill="url(#floor-grad)" stroke="var(--line-strong)" stroke-width="1"></rect>
+  <text x="272" y="90" class="t13">Shared floor</text>
+  <text x="272" y="108" class="t11 muted">seams both depend on</text>
+  <text x="272" y="134" class="t11">· GPU capacity and quotas</text>
+  <text x="272" y="152" class="t11">· inference endpoints, gateway</text>
+  <text x="272" y="170" class="t11">· artifact and model registries</text>
+  <text x="272" y="188" class="t11">· identity, policy, cost</text>
+  <text x="272" y="206" class="t11">· observability, provenance</text>
+  <text x="272" y="224" class="t11">· agent runtime, sandboxes</text>
+  <text x="272" y="290" class="t11 tb muted">Quality signal</text>
+  <text x="272" y="306" class="t11">utilization, cost per tenant</text>
+  <rect x="16" y="356" width="728" height="32" rx="8" class="band"></rect>
+  <text x="380" y="377" class="t11 tb" text-anchor="middle">Platform engineering builds the shared floor. AI engineering builds the agents that run the factories.</text>
+</svg></div>
+      <figcaption>D3. The infrastructure factory and the AI factory share a floor, not a product. Every seam in the middle has exactly one owner. <a class="png" href="/assets/img/d3-shared-floor.png" download>Download PNG</a></figcaption>
+    </figure>
     <p class="note"><a href="/three-factories/">How the three factories fit together</a></p>
   </div>
 </section>

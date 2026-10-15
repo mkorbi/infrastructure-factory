@@ -91,6 +91,56 @@
       <p>A factory is a loop, not a pipeline. Two properties separate it from a team that ships code with agents.</p>
     </div>
     <!-- D2 -->
+    <figure class="fig dg-fig" data-png="d2-software-factory-loop">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 330" role="img" aria-label="Diagram: a loop of Signals, Scoped work, Plan, Execute, Review, Deliver and Monitor, where Monitor feeds the next signals; Scoped work, Review and Deliver are highlighted as human touchpoints; a band under the loop names the shared foundation: orchestration, managed environments and IaC, security and supply chain, observability and replay.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs>
+  <text x="16" y="22" class="t13">Monitoring feeds the next signals: the factory is a loop, not a pipeline</text>
+  <rect x="16" y="44" width="160" height="70" rx="8" class="box"></rect>
+  <text x="30" y="66" class="t13">Signals</text>
+  <text x="30" y="84" class="t11">bug reports, requirements,</text>
+  <text x="30" y="100" class="t11">customer feedback</text>
+  <rect x="208" y="44" width="160" height="70" rx="8" class="hi"></rect>
+  <text x="222" y="66" class="t13">Scoped work</text>
+  <text x="222" y="84" class="t11">scope, acceptance criteria,</text>
+  <text x="222" y="100" class="t11">owner, target environment</text>
+  <rect x="400" y="44" width="160" height="70" rx="8" class="box"></rect>
+  <text x="414" y="66" class="t13">Plan</text>
+  <text x="414" y="84" class="t11">agent-driven, interactive</text>
+  <rect x="592" y="44" width="160" height="70" rx="8" class="box"></rect>
+  <text x="606" y="66" class="t13">Execute</text>
+  <text x="606" y="84" class="t11">coding agents run</text>
+  <text x="606" y="100" class="t11">multi-step tasks</text>
+  <line x1="176" y1="79" x2="208" y2="79" class="ln" marker-end="url(#ah)"></line>
+  <line x1="368" y1="79" x2="400" y2="79" class="ln" marker-end="url(#ah)"></line>
+  <line x1="560" y1="79" x2="592" y2="79" class="ln" marker-end="url(#ah)"></line>
+  <rect x="208" y="150" width="160" height="70" rx="8" class="box"></rect>
+  <text x="222" y="172" class="t13">Monitor</text>
+  <text x="222" y="190" class="t11">DORA metrics, cycle time,</text>
+  <text x="222" y="206" class="t11">cost per change</text>
+  <rect x="400" y="150" width="160" height="70" rx="8" class="hi"></rect>
+  <text x="414" y="172" class="t13">Deliver</text>
+  <text x="414" y="190" class="t11">humans approve</text>
+  <text x="414" y="206" class="t11">the release</text>
+  <rect x="592" y="150" width="160" height="70" rx="8" class="hi"></rect>
+  <text x="606" y="172" class="t13">Review</text>
+  <text x="606" y="190" class="t11">one gateway for agent</text>
+  <text x="606" y="206" class="t11">and human changes</text>
+  <line x1="672" y1="114" x2="672" y2="150" class="ln" marker-end="url(#ah)"></line>
+  <line x1="592" y1="185" x2="560" y2="185" class="ln" marker-end="url(#ah)"></line>
+  <line x1="400" y1="185" x2="368" y2="185" class="ln" marker-end="url(#ah)"></line>
+  <polyline points="208,185 96,185 96,114" class="ln" marker-end="url(#ah)"></polyline>
+  <text x="90" y="156" class="t11" text-anchor="end">next signals</text>
+  <rect x="16" y="240" width="14" height="14" rx="3" class="hi"></rect>
+  <text x="38" y="251" class="t11 muted">Highlighted: human touchpoints. Everything else runs without a person in the path.</text>
+  <rect x="16" y="266" width="736" height="52" rx="8" class="band"></rect>
+  <text x="28" y="287" class="t12">Shared foundation, one observability and policy plane</text>
+  <text x="28" y="306" class="t11">orchestration · managed environments and IaC · security and supply chain · observability and replay</text>
+</svg></div>
+      <figcaption>D2. The software factory loop. Monitoring feeds the next signals; Scoped work, Review and Deliver are where humans touch the work. <a class="png" href="/assets/img/d2-software-factory-loop.png" download>Download PNG</a></figcaption>
+    </figure>
     <div class="two-col">
       <div>
         <p>Warp's architecture article names the two properties.<a class="cite" href="/sources/#s47"><sup>47</sup></a> Standardized inputs: every unit of work carries scope, acceptance criteria, an owner and a target environment before an agent touches it. Standardized tooling: agent and human changes pass one gateway, one set of evaluations and one release control. Everything else in the loop follows from those two.</p>
@@ -128,6 +178,73 @@
       <p>Every source assumes a layer of infrastructure under the loop. Assembled across the thirteen, mostly from Warp's architecture article and Factory's agent-readiness pillars, it has five layers and a cross-cutting set.<a class="cite" href="/sources/#s47"><sup>47</sup></a><a class="cite" href="/sources/#s41"><sup>41</sup></a></p>
     </div>
     <!-- D1 -->
+    <figure class="fig dg-fig" data-png="d1-three-roles">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 496" role="img" aria-label="Diagram: a software factory loop of Signals, Plan, Build, Verify, Release and Monitor with a product line and an infrastructure line, deploying into production whose alerts, incidents and logs become new signals; the loop runs on a factory floor of control plane, context and data plane, dev environments and IaC, compute and sandboxes, models and inference, with cross-cutting identity, policy, observability and supply chain.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs>
+  <text x="16" y="22" class="t13">Infrastructure sits under the factory, flows through it, and feeds it</text>
+  <polyline points="666,94 666,46 71,46 71,60" class="ln" marker-end="url(#ah)"></polyline>
+  <text x="366" y="41" class="t11" text-anchor="middle">alerts, incidents and logs become new signals</text>
+  <rect x="16" y="60" width="520" height="150" rx="8" class="frame-box"></rect>
+  <text x="28" y="80" class="t12">Software factory loop</text>
+  <rect x="36" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="71" y="113" class="t11 tb" text-anchor="middle">Signals</text>
+  <line x1="106" y1="109" x2="118" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="118" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="153" y="113" class="t11 tb" text-anchor="middle">Plan</text>
+  <line x1="188" y1="109" x2="200" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="200" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="235" y="113" class="t11 tb" text-anchor="middle">Build</text>
+  <line x1="270" y1="109" x2="282" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="282" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="317" y="113" class="t11 tb" text-anchor="middle">Verify</text>
+  <line x1="352" y1="109" x2="364" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="364" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="399" y="113" class="t11 tb" text-anchor="middle">Release</text>
+  <line x1="434" y1="109" x2="446" y2="109" class="ln" marker-end="url(#ah)"></line>
+  <rect x="446" y="94" width="70" height="30" rx="8" class="box"></rect>
+  <text x="481" y="113" class="t11 tb" text-anchor="middle">Monitor</text>
+  <rect x="36" y="138" width="480" height="24" rx="8" class="plain"></rect>
+  <text x="46" y="154" class="t11">Product line: features and bug fixes</text>
+  <rect x="36" y="170" width="480" height="24" rx="8" class="hi"></rect>
+  <text x="46" y="186" class="t11 tb">Infrastructure line: Terraform PRs, incident remediation, CVE fixes</text>
+  <rect x="588" y="94" width="156" height="70" rx="8" class="hi"></rect>
+  <text x="602" y="116" class="t13">Production</text>
+  <text x="602" y="134" class="t11">runtime, clusters,</text>
+  <text x="602" y="150" class="t11">cloud resources</text>
+  <line x1="536" y1="129" x2="588" y2="129" class="ln" marker-end="url(#ah)"></line>
+  <text x="562" y="121" class="t11" text-anchor="middle">deploys</text>
+  <line x1="276" y1="210" x2="276" y2="240" class="ln" marker-end="url(#ah)"></line>
+  <text x="286" y="230" class="t11">runs on</text>
+  <text x="16" y="256" class="t13">Factory floor: infrastructure the factory runs on</text>
+  <rect x="16" y="268" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="287" class="t12">Control plane</text>
+  <text x="200" y="287" class="t11">dispatch, scheduling, budgets, audit trail</text>
+  <rect x="16" y="306" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="325" class="t12">Context and data plane</text>
+  <text x="200" y="325" class="t11">MCP gateway, context lake, memory, session data</text>
+  <rect x="16" y="344" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="363" class="t12">Dev environments, IaC</text>
+  <text x="200" y="363" class="t11">reproducible, previewable, agent-ready</text>
+  <rect x="16" y="382" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="401" class="t12">Compute and sandboxes</text>
+  <text x="200" y="401" class="t11">isolated execution, VMs for computer use</text>
+  <rect x="16" y="420" width="520" height="30" rx="8" class="hi"></rect>
+  <text x="28" y="439" class="t12">Models and inference</text>
+  <text x="200" y="439" class="t11">routing, providers, self-hosted open models</text>
+  <rect x="552" y="268" width="192" height="182" rx="8" class="hi"></rect>
+  <text x="566" y="290" class="t12">Cross-cutting</text>
+  <text x="566" y="312" class="t11">identity, access</text>
+  <text x="566" y="330" class="t11">policy, RBAC, audit</text>
+  <text x="566" y="348" class="t11">observability and replay</text>
+  <text x="566" y="366" class="t11">security and supply chain</text>
+  <rect x="16" y="470" width="14" height="14" rx="3" class="hi"></rect>
+  <text x="38" y="481" class="t11 muted">Highlighted: infrastructure in its three roles, the floor, a factory line, and production as the signal source.</text>
+</svg></div>
+      <figcaption>D1. Three roles of infrastructure in a software factory: the floor it runs on, a line it runs, and production as the source of the next signal. <a class="png" href="/assets/img/d1-three-roles.png" download>Download PNG</a></figcaption>
+    </figure>
     <ol class="layers">
       <li><span class="name">Control plane</span><span class="detail">Dispatch, scheduling, budgets, audit trail.</span></li>
       <li><span class="name">Context and data plane</span><span class="detail">MCP gateway, context lake, memory, session data.</span></li>
@@ -194,7 +311,7 @@
       <p>Factory.ai, BCG Platinion, StrongDM and Uber describe the software factory in the same terms: a production system with inputs, agent workers, quality gates and a throughput number. The Infrastructure Factory has the same shape. Its product is an environment instead of a pull request, and the software factory is one of its customers.</p>
     </div>
 
-    <figure class="fig">
+    <figure class="fig" data-png="symmetry-two-conveyors">
       <div class="diagram-wrap">
         <svg class="diagram" viewBox="0 0 1000 330" role="img" aria-label="Diagram of two parallel production lines. The software factory turns intent, issues and signals into pull requests and releases through plan, write, test, review, merge and deploy. The infrastructure factory turns intents, policies, budgets and owners into environments through request, pre-check, vend, attach, hand over and reclaim. The deploy station of the software factory, together with other consumers, sends environment requests to the infrastructure factory, which returns an environment with an owner and evidence.">
           <defs>
@@ -251,7 +368,7 @@
           <text class="t-small" x="20" y="322">Dashed lines are requests and deliveries between the two factories. Solid lines are each factory's own conveyor.</text>
         </svg>
       </div>
-      <figcaption>The software factory's deploy station is a customer of the infrastructure factory, and so are consumers that belong to no code pipeline. That is why the second line is a peer, and why its product needs an owner and evidence attached before it is handed back.</figcaption>
+      <figcaption>The software factory's deploy station is a customer of the infrastructure factory, and so are consumers that belong to no code pipeline. That is why the second line is a peer, and why its product needs an owner and evidence attached before it is handed back. <a class="png" href="/assets/img/symmetry-two-conveyors.png" download>Download PNG</a></figcaption>
     </figure>
 
     <div class="stack compare-wrap">

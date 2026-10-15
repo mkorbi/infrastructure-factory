@@ -19,6 +19,8 @@
   --accent: #e8541e;      /* infrastructure factory mark */
   --accent-ink: #b23c0e;  /* accent as text */
   --accent-soft: rgba(232, 84, 30, 0.12);
+  --accent2: #4a3aa7;     /* model factory mark, shared-floor diagram only */
+  --accent2-soft: rgba(74, 58, 167, 0.12);
   --shadow: 0 1px 0 rgba(18, 27, 37, 0.04), 0 12px 32px -20px rgba(18, 27, 37, 0.35);
   --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
@@ -45,6 +47,8 @@
     --accent: #ea6024;
     --accent-ink: #ff9361;
     --accent-soft: rgba(234, 96, 36, 0.18);
+    --accent2: #9085e9;
+    --accent2-soft: rgba(144, 133, 233, 0.18);
     --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 32px -20px rgba(0, 0, 0, 0.8);
     color-scheme: dark;
   }
@@ -64,6 +68,8 @@
   --accent: #ea6024;
   --accent-ink: #ff9361;
   --accent-soft: rgba(234, 96, 36, 0.18);
+  --accent2: #9085e9;
+  --accent2-soft: rgba(144, 133, 233, 0.18);
   --shadow: 0 1px 0 rgba(0, 0, 0, 0.3), 0 12px 32px -20px rgba(0, 0, 0, 0.8);
   color-scheme: dark;
 }
@@ -636,3 +642,25 @@ blockquote.definition.cite-box p.mono { font-family: var(--font-mono); font-weig
 .closing-row a:hover .t { color: var(--accent-ink); }
 #shift .stats { margin-top: 0; }
 .test5 li .why { display: block; grid-column: 2; font-family: var(--font-body); font-weight: 400; font-size: 0.95rem; color: var(--muted); margin-top: 0.1rem; }
+
+/* ---------- diagrams D1 to D3 and the loop ---------- */
+.dg { min-width: 720px; width: 100%; height: auto; font-family: var(--font-display); display: block; }
+.dg text { fill: var(--fg); }
+.dg .t13 { font-size: 13px; font-weight: 600; }
+.dg .t12 { font-size: 12px; font-weight: 600; }
+.dg .t11 { font-size: 11.5px; font-weight: 400; }
+.dg .tb { font-weight: 600; }
+.dg .muted { fill: var(--muted); }
+.dg .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1; }
+.dg .hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+.dg .hi2 { fill: var(--accent2-soft); stroke: var(--accent2); stroke-width: 1.5; }
+.dg .plain { fill: var(--surface-2); stroke: none; }
+.dg .band { fill: var(--surface-2); stroke: none; }
+.dg .frame-box { fill: none; stroke: var(--line-strong); stroke-width: 1; }
+.dg .ln { stroke: var(--fg); stroke-width: 1.2; fill: none; }
+.dg .ln.hi { stroke: var(--accent); stroke-width: 1.5; }
+.dg .arrow { fill: var(--fg); }
+.dg .arrow.hi { fill: var(--accent); }
+.dg .sw-hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+figure.fig.dg-fig { margin: 2rem 0 0; }
+figure.fig.dg-fig .diagram-wrap { margin: 0; }

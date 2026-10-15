@@ -98,6 +98,47 @@
       <p>Seven seams where the infrastructure factory and the model factory depend on the same thing.</p>
     </div>
     <!-- D3 -->
+    <figure class="fig dg-fig" data-png="d3-shared-floor">
+      <div class="diagram-wrap"><svg class="dg" viewBox="0 0 760 400" role="img" aria-label="Diagram: three overlapping panels. The infrastructure factory produces compliant places to run things, measured by lead time to a compliant environment. The AI factory in the model sense produces models fit for purpose, measured by eval scores, drift and cost per token. The shared floor between them holds GPU capacity and quotas, inference endpoints and the gateway, artifact and model registries, identity, policy and cost, observability and provenance, and agent runtime and sandboxes. Platform engineering builds the shared floor; AI engineering builds the agents.">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow" d="M0,0 L10,5 L0,10 Z"></path></marker>
+    <marker id="ah-hi" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrow hi" d="M0,0 L10,5 L0,10 Z"></path></marker>
+  </defs><defs><linearGradient id="floor-grad" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="var(--accent-soft)"></stop><stop offset="1" stop-color="var(--accent2-soft)"></stop></linearGradient></defs>
+  <text x="16" y="22" class="t13">The infrastructure and AI factories share a floor, not a product</text>
+  <rect x="16" y="44" width="280" height="300" rx="8" class="hi"></rect>
+  <text x="32" y="70" class="t13">Infrastructure factory</text>
+  <text x="32" y="88" class="t11 muted">compliant places to run things</text>
+  <text x="32" y="114" class="t11">· tenancy, regions, network zones</text>
+  <text x="32" y="132" class="t11">· clusters, namespaces, environments</text>
+  <text x="32" y="150" class="t11">· approval chains, cost centers</text>
+  <text x="32" y="168" class="t11">· on-prem, sovereign, hyperscaler</text>
+  <text x="32" y="310" class="t11 tb muted">Quality signal</text>
+  <text x="32" y="326" class="t11">lead time to a compliant environment</text>
+  <rect x="464" y="44" width="280" height="300" rx="8" class="hi2"></rect>
+  <text x="520" y="70" class="t13">AI factory, model factory</text>
+  <text x="520" y="88" class="t11 muted">models fit for purpose</text>
+  <text x="520" y="114" class="t11">· sourcing and selection</text>
+  <text x="520" y="132" class="t11">· fine-tuning and adaptation</text>
+  <text x="520" y="150" class="t11">· evaluation and safety</text>
+  <text x="520" y="168" class="t11">· lifecycle, drift, retirement</text>
+  <text x="520" y="310" class="t11 tb muted">Quality signal</text>
+  <text x="520" y="326" class="t11">eval scores, drift, cost per token</text>
+  <rect x="256" y="64" width="248" height="260" rx="8" fill="url(#floor-grad)" stroke="var(--line-strong)" stroke-width="1"></rect>
+  <text x="272" y="90" class="t13">Shared floor</text>
+  <text x="272" y="108" class="t11 muted">seams both depend on</text>
+  <text x="272" y="134" class="t11">· GPU capacity and quotas</text>
+  <text x="272" y="152" class="t11">· inference endpoints, gateway</text>
+  <text x="272" y="170" class="t11">· artifact and model registries</text>
+  <text x="272" y="188" class="t11">· identity, policy, cost</text>
+  <text x="272" y="206" class="t11">· observability, provenance</text>
+  <text x="272" y="224" class="t11">· agent runtime, sandboxes</text>
+  <text x="272" y="290" class="t11 tb muted">Quality signal</text>
+  <text x="272" y="306" class="t11">utilization, cost per tenant</text>
+  <rect x="16" y="356" width="728" height="32" rx="8" class="band"></rect>
+  <text x="380" y="377" class="t11 tb" text-anchor="middle">Platform engineering builds the shared floor. AI engineering builds the agents that run the factories.</text>
+</svg></div>
+      <figcaption>D3. The infrastructure factory and the AI factory share a floor, not a product. Every seam in the middle has exactly one owner. <a class="png" href="/assets/img/d3-shared-floor.png" download>Download PNG</a></figcaption>
+    </figure>
     <ul class="seams">
       <li><span class="name">GPU capacity and quotas</span><span class="detail">Accelerated compute, held as inventory, metered per tenant.</span></li>
       <li><span class="name">Inference endpoints and the model gateway</span><span class="detail">One front door for every model call, with routing, rate limits and audit.</span></li>
