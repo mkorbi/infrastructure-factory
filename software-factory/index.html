@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/software-factory.png">
 <meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%23e8541e%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%2064%2064'%20xmlns='http://www.w3.org/2000/svg'%20%3E%3Crect%20x='6'%20y='48'%20width='52'%20height='10'%20rx='2'%20fill='%23e8541e'/%3E%3Cpath%20d='M43.1,38%20A15,15%200%201%201%2043.1,18'%20fill='none'%20stroke='%23121b25'%20stroke-width='6'%20stroke-linecap='round'/%3E%3Cpolygon%20points='38.7,19.9%2045.6,13.8%2047.5,22.8'%20fill='%23121b25'/%3E%3C/svg%3E">
 <script>(function(){try{var t=localStorage.getItem("infra-factory-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-nav">
   <div class="frame">
-    <a class="wordmark" href="/"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <a class="wordmark" href="/"><svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="6" y="48" width="52" height="10" rx="2" fill="var(--accent)"/><path d="M43.1,38 A15,15 0 1 1 43.1,18" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><polygon points="38.7,19.9 45.6,13.8 47.5,22.8" fill="currentColor"/></svg>Infrastructure Factory</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open the menu">
     <label for="nav-toggle" class="menu-btn" aria-hidden="true">Menu</label>
     <nav class="nav-links" aria-label="Site">
@@ -66,24 +66,9 @@
     </div>
     <blockquote class="definition" id="sf-definition" data-cite="Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/software-factory/">
       <p>A software factory is a codified, largely automated production system that carries work through the entire software lifecycle: from incoming signals (requests, bugs, alerts) through planning, implementation, verification and release to monitoring. Agents do most of the execution inside standardized workflows and quality gates, humans set intent and approve at defined checkpoints, and the system measures its own runs and feeds what it learns back into itself. Engineers build and tune the factory; the factory builds the product.</p>
-      <footer><a class="permalink" href="#sf-definition" aria-label="#sf-definition, permalink">#sf-definition</a><button type="button" class="copy-cite">Copy citation</button></footer>
+      <footer><a class="permalink" href="#sf-definition" aria-label="#sf-definition, permalink">#sf-definition</a></footer>
     </blockquote>
-    <h3>Shared by N of 13 sources</h3>
-    <div class="table-wrap stack consensus">
-      <table>
-        <thead><tr><th scope="col">Element of the definition</th><th scope="col">Sources</th><th scope="col">Who leaves it out</th></tr></thead>
-        <tbody>
-          <tr><td>The factory runs the whole lifecycle, from incoming signal to monitoring</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
-          <tr><td>Work moves through a codified, standardized workflow</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
-          <tr><td>Verification gates go beyond compilation: tests, evaluations, review</td><td data-label="Sources">13 of 13</td><td data-label="Who leaves it out">Nobody.</td></tr>
-          <tr><td>Agents do most of the execution</td><td data-label="Sources">12 of 13</td><td data-label="Who leaves it out">Jama's 2024 article predates coding agents.<a class="cite" href="/sources/#s46"><sup>46</sup></a></td></tr>
-          <tr><td>Humans set intent and approve at defined checkpoints</td><td data-label="Sources">12 of 13</td><td data-label="Who leaves it out">One source runs its loop without a checkpoint.</td></tr>
-          <tr><td>A feedback and self-improvement loop</td><td data-label="Sources">10 of 13</td><td data-label="Who leaves it out">Pocock and Ras Mic cover build to merge only; Jama stops at release.<a class="cite" href="/sources/#s39"><sup>39</sup></a><a class="cite" href="/sources/#s42"><sup>42</sup></a><a class="cite" href="/sources/#s46"><sup>46</sup></a></td></tr>
-          <tr><td>The factory measures its own runs</td><td data-label="Sources">10 of 13</td><td data-label="Who leaves it out">The same three stop before monitoring.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note measure">The thirteen are numbered 35 to 47 on the <a href="/sources/#s35">sources page</a> and listed at the end of this page. The term is contested enough that WorkOS gave a conference talk titled "No, That's Not a Software Factory".<a class="cite" href="/sources/#s43"><sup>43</sup></a> A definition has to be earned from the sources, not asserted.</p>
+    <p class="note measure">The definition is drawn from thirteen sources published between January 2024, when Jama described a software factory before coding agents existed,<a class="cite" href="/sources/#s46"><sup>46</sup></a> and October 2026. They are numbered 35 to 47 on the <a href="/sources/#s35">sources page</a>. The term is contested enough that WorkOS gave a conference talk titled "No, That's Not a Software Factory".<a class="cite" href="/sources/#s43"><sup>43</sup></a> A definition has to be earned from the sources, not asserted.</p>
   </div>
 </section>
 
@@ -287,7 +272,6 @@
     <div class="section-head">
       <p class="eyebrow">Why</p>
       <h2>Why a software factory needs an infrastructure factory</h2>
-      <p>Three dependencies, a throughput argument and an ownership argument.</p>
     </div>
     <div class="adds">
       <div><h3>It consumes environments</h3><p>Every unit of work carries a target environment. The software factory does not make environments. It consumes them from the infrastructure factory.</p></div>
@@ -397,31 +381,6 @@
       <p>Some definitions say yes. Encore's AI software factory "provisions and deploys to the team's own cloud account" and pays off "once standing up infrastructure for each experiment is the thing slowing the agents down"<a class="cite" href="/sources/#s14"><sup>14</sup></a>. Port writes that platform engineering moved "from building a portal to building the software factory", and that the portal work "is largely finished"<a class="cite" href="/sources/#s13"><sup>13</sup></a>. (voice from the off: I don't agree on how Port defines platform engineering, that was never about building a portal)</p>
       <p>Those definitions treat infrastructure as one step inside one code pipeline. The Infrastructure Factory is a separate production system with its own inputs (intents, policies, budgets, owners), its own throughput and its own failure modes. It serves workloads that no single software factory owns: the data platform, the shared cluster fleet, the compliance boundary, and the sandbox an agent asks for at 3am on behalf of nobody's pipeline.</p>
     </div>
-  </div>
-</section>
-
-<section class="section" id="page-sources">
-  <div class="frame">
-    <div class="section-head">
-      <p class="eyebrow">Sources for this page</p>
-      <h2>The thirteen</h2>
-      <p>Numbered as on the <a href="/sources/">sources page</a>. Talks are from the AI Engineer World's Fair unless noted.</p>
-    </div>
-    <ol class="page-source-list" start="35">
-      <li><a href="/sources/#s35">Tereza Tížková (Factory), "What It Actually Takes to Build a Software Factory", 27 September 2026.</a></li>
-      <li><a href="/sources/#s36">Zach Lloyd (Warp), "The AI factory playbook for engineering teams", How I AI podcast, 21 September 2026.</a></li>
-      <li><a href="/sources/#s37">theSeniorDev with Bogdan, "software factory explained by a Senior Engineer (step by step)", 12 October 2026.</a></li>
-      <li><a href="/sources/#s38">Zach Lloyd (Warp), "Software Engineering Is Becoming Factory Engineering", 27 September 2026.</a></li>
-      <li><a href="/sources/#s39">Matt Pocock, "I Open-Sourced My Own AFK Software Factory", 30 April 2026.</a></li>
-      <li><a href="/sources/#s40">Dru Knox (Tessl), "Harness Engineering: How to Build a Software Factory", 6 October 2026.</a></li>
-      <li><a href="/sources/#s41">Davis Palmie (Factory), "The Software Factory: From Bug Report to Production Code", 7 October 2026.</a></li>
-      <li><a href="/sources/#s42">Ras Mic with Greg Isenberg, "Building a Software Factory that actually works (Full Course)", 14 September 2026.</a></li>
-      <li><a href="/sources/#s43">Ryan Cooke (WorkOS), "No, That's Not a Software Factory", 27 September 2026.</a></li>
-      <li><a href="/sources/#s44">Matar Peles (Port), "How to build an enterprise-grade AI software factory", Platform Engineering community webinar, 13 October 2026.</a></li>
-      <li><a href="/sources/#s45">Dex Horthy and Vaibhav Gupta, "How to Build a Software Factory for AI Coding Agents", AI That Works, 28 August 2026.</a></li>
-      <li><a href="/sources/#s46">Jama Software, "The Software Factory: A Modern Approach to Software Development", 16 January 2024.</a></li>
-      <li><a href="/sources/#s47">Warp, "Defining the Modern Software Factory Architecture", 27 August 2026.</a></li>
-    </ol>
   </div>
 </section>
 </main>

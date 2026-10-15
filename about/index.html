@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/about.png">
 <meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%23e8541e%27/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox='0%200%2064%2064'%20xmlns='http://www.w3.org/2000/svg'%20%3E%3Crect%20x='6'%20y='48'%20width='52'%20height='10'%20rx='2'%20fill='%23e8541e'/%3E%3Cpath%20d='M43.1,38%20A15,15%200%201%201%2043.1,18'%20fill='none'%20stroke='%23121b25'%20stroke-width='6'%20stroke-linecap='round'/%3E%3Cpolygon%20points='38.7,19.9%2045.6,13.8%2047.5,22.8'%20fill='%23121b25'/%3E%3C/svg%3E">
 <script>(function(){try{var t=localStorage.getItem("infra-factory-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-nav">
   <div class="frame">
-    <a class="wordmark" href="/"><span class="mark" aria-hidden="true"></span>Infrastructure Factory</a>
+    <a class="wordmark" href="/"><svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="6" y="48" width="52" height="10" rx="2" fill="var(--accent)"/><path d="M43.1,38 A15,15 0 1 1 43.1,18" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><polygon points="38.7,19.9 45.6,13.8 47.5,22.8" fill="currentColor"/></svg>Infrastructure Factory</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Open the menu">
     <label for="nav-toggle" class="menu-btn" aria-hidden="true">Menu</label>
     <nav class="nav-links" aria-label="Site">
@@ -54,18 +54,9 @@
 <header class="page-head frame">
   <p class="eyebrow">About</p>
   <h1>About</h1>
-  <p class="lede">The Infrastructure Factory is a working concept by Max Körbächer. This page says who wrote it, what state it is in, where it has been published, and how to follow, contribute and cite it.</p>
+  <p class="lede">The Infrastructure Factory is a working concept. This page records its status and changes, and says how to contribute and how to cite it.</p>
 </header>
 
-<section class="section" id="author">
-  <div class="frame">
-    <div class="section-head">
-      <p class="eyebrow">Author</p>
-      <h2>Max Körbächer</h2>
-    </div>
-    <p class="measure">Max Körbächer serves on the CNCF Governing Board and the Linux Foundation Europe Advisory Board, co-authored "Platform Engineering for Architects", and is Managing Director at Liquid Reply. The views on this site are the author's own.</p>
-  </div>
-</section>
 
 <section class="section" id="status">
   <div class="frame">
@@ -81,35 +72,7 @@
   </div>
 </section>
 
-<section class="section" id="published">
-  <div class="frame">
-    <div class="section-head">
-      <p class="eyebrow">Published in</p>
-      <h2>Where the concept has appeared</h2>
-      <p>Entries marked TODO are placeholders for the author to fill in before they ship.</p>
-    </div>
-    <ul class="pub-list">
-      <li><span class="todo">TODO</span> AAIF blog: title, date and link.</li>
-      <li><span class="todo">TODO</span> CNCF blog: title, date and link.</li>
-      <li><span class="todo">TODO</span> The New Stack: title, date and link.</li>
-      <li><span class="todo">TODO</span> Zeitgeist of Bytes newsletter: issue, date and link.</li>
-      <li><span class="todo">TODO</span> Talks: event, date and recording.</li>
-    </ul>
-  </div>
-</section>
 
-<section class="section" id="follow">
-  <div class="frame">
-    <div class="section-head">
-      <p class="eyebrow">Follow</p>
-      <h2>Follow the work</h2>
-    </div>
-    <ul class="pub-list">
-      <li><span class="todo">TODO</span> Newsletter: Zeitgeist of Bytes on Substack. URL to be supplied by the author.</li>
-      <li><span class="todo">TODO</span> LinkedIn: profile URL to be supplied by the author.</li>
-    </ul>
-  </div>
-</section>
 
 <section class="section" id="contribute">
   <div class="frame">
@@ -129,8 +92,23 @@
     </div>
     <blockquote class="definition cite-box" id="citation" data-cite="Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/">
       <p class="mono">Körbächer, M. (2026). The Infrastructure Factory. https://infrastructure-factory.com/</p>
-      <footer><a class="permalink" href="#citation" aria-label="#citation, permalink">#citation</a><button type="button" class="copy-cite">Copy citation</button></footer>
+      <footer><a class="permalink" href="#citation" aria-label="#citation, permalink">#citation</a></footer>
     </blockquote>
+  </div>
+</section>
+
+<section class="section" id="mark">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">The mark</p>
+      <h2>A loop, standing on a floor</h2>
+      <p>The mark draws the thesis. The ring is the software factory loop that everyone draws. The bar is the floor it runs on, the part nobody had built. It reads at favicon size, works in one colour, and follows the theme.</p>
+    </div>
+    <figure class="fig dg-fig logo-fig" data-png="logo">
+      <div class="logo-stage"><svg class="logo-large" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Infrastructure Factory mark: a loop standing on a floor"><rect x="6" y="48" width="52" height="10" rx="2" fill="var(--accent)"/><path d="M43.1,38 A15,15 0 1 1 43.1,18" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><polygon points="38.7,19.9 45.6,13.8 47.5,22.8" fill="currentColor"/></svg></div>
+      <figcaption>The Infrastructure Factory mark. <a class="png" href="/assets/img/logo.svg" download>SVG</a> <a class="png" href="/assets/img/logo-mono.svg" download>Single-colour SVG</a> <a class="png" href="/assets/img/logo.png" download>Download PNG</a></figcaption>
+    </figure>
+    <p class="note measure">Use it next to the name, as a favicon, or alone where the name is already on the page. Keep the ring and the bar in the proportions of the file; do not add text inside it.</p>
   </div>
 </section>
 

@@ -136,7 +136,7 @@ for (const w of [360, 400, 760, 1100, 1280]) {
   const early = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
   ok('theme choice persists across pages before first paint', early === 'dark', String(early));
   // counters tick on home, model runs on evidence
-  await page.goto(ORIGIN + '/'); await page.evaluate(() => document.getElementById('c-prs').scrollIntoView()); await page.waitForTimeout(1200);
+  await page.goto(ORIGIN + '/'); await page.evaluate(() => document.getElementById('model').scrollIntoView()); await page.waitForTimeout(1200);
   const c1 = await page.evaluate(() => +document.getElementById('c-prs').textContent); await page.waitForTimeout(1500);
   const c2 = await page.evaluate(() => +document.getElementById('c-prs').textContent);
   ok('home counters are live', c2 > c1, `${c1} -> ${c2}`);

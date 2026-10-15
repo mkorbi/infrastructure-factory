@@ -142,7 +142,7 @@ tbody tr:hover { background: var(--surface-2); }
   text-transform: uppercase; font-size: 0.76rem; text-decoration: none; white-space: nowrap;
   display: inline-flex; align-items: center; gap: 0.55rem;
 }
-.wordmark .mark { width: 14px; height: 14px; background: var(--accent); border-radius: 2px; flex: none; }
+.wordmark .mark { width: 20px; height: 20px; flex: none; display: block; }
 .nav-toggle { position: absolute; width: 1px; height: 1px; margin: -1px; opacity: 0; overflow: hidden; }
 .menu-btn { display: none; }
 .nav-links { margin-left: auto; min-width: 0; }
@@ -569,9 +569,6 @@ blockquote.definition p { margin: 0; font-family: var(--font-display); font-weig
 blockquote.definition footer { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 0.9rem; margin-top: 0.9rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 blockquote.definition .permalink { text-decoration: none; color: var(--muted); font-weight: 600; }
 blockquote.definition .permalink:hover { color: var(--accent-ink); }
-.copy-cite { border: 1px solid var(--line-strong); background: transparent; color: var(--muted); font: inherit; letter-spacing: inherit; text-transform: inherit; padding: 0.3rem 0.55rem; border-radius: 3px; cursor: pointer; }
-.copy-cite:hover { color: var(--fg); border-color: var(--accent); }
-.copy-cite[data-done="true"] { color: var(--accent-ink); border-color: var(--accent); }
 a.cite { text-decoration: none; color: var(--accent-ink); font-family: var(--font-mono); font-weight: 600; white-space: nowrap; padding: 0.45em 0.3em; margin: -0.45em -0.3em; }
 a.cite sup { font-size: 0.7em; line-height: 0; vertical-align: super; padding-left: 0.08em; }
 a.cite:hover sup { text-decoration: underline; }
@@ -639,7 +636,7 @@ blockquote.definition.cite-box p.mono { font-family: var(--font-mono); font-weig
 .ladder-strip li .n { display: block; font-family: var(--font-display); font-weight: 800; font-stretch: 112%; font-size: 1.3rem; line-height: 1.1; color: var(--muted); letter-spacing: 0; margin-bottom: 0.2rem; }
 .ladder-strip li.pass { border-top-color: var(--accent); color: var(--fg); }
 .ladder-strip li.pass .n { color: var(--accent-ink); }
-.closing-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+.closing-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
 @media (max-width: 760px) { .closing-row { grid-template-columns: 1fr; } }
 .closing-row a { display: grid; gap: 0.3rem; padding: 1.2rem 1.3rem; border: 1px solid var(--line); background: var(--surface); border-radius: var(--radius); text-decoration: none; box-shadow: var(--shadow); min-width: 0; }
 .closing-row a:hover { border-color: var(--accent); }
@@ -670,3 +667,8 @@ blockquote.definition.cite-box p.mono { font-family: var(--font-mono); font-weig
 .dg .sw-hi { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
 figure.fig.dg-fig { margin: 2rem 0 0; }
 figure.fig.dg-fig .diagram-wrap { margin: 0; }
+
+/* ---------- the mark ---------- */
+.logo-stage { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; display: grid; place-items: center; }
+.logo-large { width: 160px; height: 160px; display: block; }
+figure.logo-fig figcaption .png + .png { margin-left: 0.4rem; }

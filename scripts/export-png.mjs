@@ -56,6 +56,7 @@ for (const p of PAGES) {
     if (await svg.count() === 0) { console.log('skip (no svg):', name); continue; }
     await fig.scrollIntoViewIfNeeded();
     await page.evaluate(n => {
+      const nav = document.querySelector('.site-nav'); if (nav) nav.style.visibility = 'hidden';
       const f = document.querySelector(`figure[data-png="${n}"]`);
       const s = f.querySelector('svg');
       const wrap = s.parentElement;

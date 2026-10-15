@@ -8,7 +8,7 @@
   html, body { margin: 0; width: 1200px; height: 630px; background: #eef1f4; color: #121b25; font-family: "Archivo", "Helvetica Neue", Arial, sans-serif; }
   .card { box-sizing: border-box; width: 1200px; height: 630px; padding: 64px 72px; display: flex; flex-direction: column; justify-content: space-between; border-left: 22px solid #e8541e; }
   .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: #4b5661; display: flex; align-items: center; gap: 14px; }
-  .eyebrow i { width: 20px; height: 20px; background: #e8541e; border-radius: 3px; display: inline-block; }
+  .eyebrow svg { width: 26px; height: 26px; display: inline-block; }
   h1 { font-size: 68px; font-weight: 800; font-stretch: 112%; line-height: 1.04; letter-spacing: -0.015em; margin: 0; max-width: 1000px; text-wrap: balance; }
   p { font-family: "Source Serif 4", Georgia, serif; font-size: 26px; line-height: 1.4; margin: 20px 0 0; max-width: 980px; color: #121b25; }
   .url { font-family: "IBM Plex Mono", monospace; font-size: 22px; color: #4b5661; }
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="card">
-  <div class="eyebrow"><i></i>Infrastructure Factory</div>
+  <div class="eyebrow"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="6" y="48" width="52" height="10" rx="2" fill="#e8541e"/><path d="M43.1,38 A15,15 0 1 1 43.1,18" fill="none" stroke="#121b25" stroke-width="6" stroke-linecap="round"/><polygon points="38.7,19.9 45.6,13.8 47.5,22.8" fill="#121b25"/></svg>Infrastructure Factory</div>
   <div><h1>{{TITLE}}</h1><p>{{DESC}}</p></div>
   <div class="url">{{PATH}}</div>
 </div>
