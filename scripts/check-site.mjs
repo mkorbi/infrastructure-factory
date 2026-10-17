@@ -82,6 +82,8 @@ for (const p of PAGES) ok(`theme script precedes stylesheet on ${p}`, html[p].in
 // sitemap and robots
 ok('sitemap lists every page', PAGES.every(p => fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8').includes(`https://infrastructure-factory.com${p}</loc>`)));
 ok('robots.txt present', fs.existsSync(path.join(ROOT, 'robots.txt')));
+ok('llms.txt present and names the site', fs.existsSync(path.join(ROOT, 'llms.txt')) && fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8').startsWith('# Infrastructure Factory'));
+ok('GoatCounter script on every page', PAGES.every(p => html[p].includes('data-goatcounter="https://korbi.goatcounter.com/count"')));
 // og images exist
 ok('og:image files exist', PAGES.every(p => { const m = html[p].match(/og:image" content="https:\/\/infrastructure-factory\.com([^"]+)"/); return m && fs.existsSync(path.join(ROOT, m[1])); }));
 
@@ -91,6 +93,8 @@ const exe = process.env.CHROMIUM_PATH || (fs.existsSync('/opt/pw-browsers/chromi
 const proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
 const browser = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'], proxy: proxy ? { server: proxy } : undefined });
 async function serve(ctx) {
+  // GoatCounter is the one third-party script. Stub it so checks never register as visits and never depend on the network.
+  await ctx.route(/^https?:\/\/(gc\.zgo\.at|[^/]*goatcounter\.com)\//, route => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   await ctx.route(ORIGIN + '/**', route => {
     const u = new URL(route.request().url()); let p = decodeURIComponent(u.pathname); if (p.endsWith('/')) p += 'index.html';
     const f = path.join(ROOT, p);

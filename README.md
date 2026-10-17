@@ -69,11 +69,12 @@ Old single-page anchors such as `/#factors` redirect to the new pages.
 |---|---|
 | `index.html`, `<slug>/index.html` | The nine pages. The header, footer and head block are duplicated on every page and must stay identical |
 | `assets/site.css` | Styles, light and dark, driven by design tokens on `:root` |
-| `assets/site.js` | Old-anchor redirects, theme switch, menu, citation copy, tooltips, the calculator and the queue model |
+| `assets/site.js` | Old-anchor redirects, theme switch, menu, tooltips, the calculator and the queue model |
 | `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |
 | `assets/img/og/*.png` | 1200x630 title cards used as `og:image` |
-| `assets/img/logo.svg`, `assets/img/logo-mono.svg`, `assets/img/logo.png` | The mark: a loop standing on a floor. Used in the header, the favicon and the title cards |
+| `assets/img/logo.svg`, `assets/img/logo-mono.svg`, `assets/img/logo.png` | The mark: a loop carrying two units of work, standing on a three-step floor. Used in the header, the favicon and the title cards |
 | `sitemap.xml`, `robots.txt`, `CNAME`, `.nojekyll` | Deployment files for GitHub Pages at infrastructure-factory.com |
+| `llms.txt` | What the site is about, in plain text for AI agents and crawlers, following the llms.txt convention |
 | `scripts/check-nav.sh` | Dev-only: fails if the header block differs between pages |
 | `scripts/check-site.mjs` | Dev-only: the acceptance checks (headings, links, sources, figures, dashes, overflow, redirects, theme, no-JS) |
 | `scripts/export-png.mjs`, `scripts/og-template.html` | Dev-only: renders the diagram PNGs and the title cards |
@@ -87,7 +88,7 @@ The scripts need Node and Playwright with Chromium (`npm i -D playwright && npx 
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000>. Links are root-relative, so serve the repository root, not a subfolder. There is no build step and no dependency besides Google Fonts.
+Then open <http://localhost:8000>. Links are root-relative, so serve the repository root, not a subfolder. There is no build step. The only third parties are Google Fonts and GoatCounter, which counts page views without cookies and skips localhost, so local runs are not counted.
 
 Before opening a pull request, run the checks:
 
