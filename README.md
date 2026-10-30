@@ -68,7 +68,7 @@ Old single-page anchors such as `/#factors` redirect to the new pages.
 
 | Path | Purpose |
 |---|---|
-| `index.html`, `<slug>/index.html` | The nine pages. The header, footer and head block are duplicated on every page and must stay identical |
+| `index.html`, `<slug>/index.html` | The ten pages. The header (wordmark, Discuss and GitHub buttons, theme switch, and the pages as a floating rail from 1280px or a drop-down below), footer and head block are duplicated on every page and must stay identical |
 | `assets/site.css` | Styles, light and dark, driven by design tokens on `:root` |
 | `assets/site.js` | Old-anchor redirects, theme switch, menu, tooltips, the calculator and the queue model |
 | `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |
@@ -135,7 +135,7 @@ Note:
 Speaker notes, shown in the speaker view.
 ~~~
 
-Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the two decks in the repository use all of them. Site rules apply: every figure names its source, no em dashes.
+Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the deck in the repository uses most of them. Site rules apply: every figure names its source, no em dashes.
 
 Build locally and commit the result:
 

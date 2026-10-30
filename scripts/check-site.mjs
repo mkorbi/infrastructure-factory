@@ -43,10 +43,10 @@ for (const p of PAGES) {
     const [, target, hash] = m; if (!target && !hash) continue;
     const page = target || p;
     if (target && !target.startsWith('/assets/') && !target.startsWith('/scripts/')) {
-      if (!PAGES.includes(page)) { if (!fs.existsSync(path.join(ROOT, target.endsWith('/') ? target + 'index.html' : target))) broken.push(`${p} -> ${target}`); continue; }
+      if (!PAGES.includes(page)) { const f = target.split('?')[0]; if (!fs.existsSync(path.join(ROOT, f.endsWith('/') ? f + 'index.html' : f))) broken.push(`${p} -> ${target}`); continue; }
       if (hash && !ids[page].has(hash.slice(1))) broken.push(`${p} -> ${target}${hash}`);
     } else if (!target && hash && hash !== '#' && !ids[p].has(hash.slice(1))) broken.push(`${p} -> ${hash}`);
-    if (target && target.startsWith('/assets/') && !fs.existsSync(path.join(ROOT, target))) broken.push(`${p} -> ${target} (missing file)`);
+    if (target && target.startsWith('/assets/') && !fs.existsSync(path.join(ROOT, target.split('?')[0]))) broken.push(`${p} -> ${target} (missing file)`);
   }
 }
 ok('internal links and anchors resolve', broken.length === 0, broken.slice(0, 8).join('; '));
