@@ -702,8 +702,9 @@ figure.logo-fig figcaption .png + .png { margin-left: 0.4rem; }
 .deck-desc { margin: 0.2rem 0 0; }
 .deck-by { margin: 0; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
 .deck .btn-row { margin-top: auto; padding-top: 0.6rem; }
-.keys { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.6rem 1.4rem; margin: 0 0 1.5rem; max-width: 72ch; }
-.keys dt { font-family: var(--font-mono); font-size: 0.85rem; padding-top: 0.1rem; color: var(--muted); }
+.keys { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.75rem 1.5rem; align-items: center; margin: 0 0 1.5rem; max-width: 72ch; }
+.keys dt { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
 .keys dd { margin: 0; }
-kbd { display: inline-block; padding: 0.05rem 0.45rem; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; background: var(--surface); font-family: var(--font-mono); font-size: 0.8rem; color: var(--fg); }
-@media (max-width: 520px) { .keys { grid-template-columns: 1fr; gap: 0.2rem 0; } .keys dd { margin-bottom: 0.7rem; } }
+.keys dd kbd { min-width: 1.7rem; padding: 0.1rem 0.4rem; font-size: 0.75rem; vertical-align: 0.1em; }
+kbd { display: inline-flex; align-items: center; justify-content: center; min-width: 2rem; padding: 0.25rem 0.55rem; border: 1px solid var(--fg); border-bottom-width: 2px; border-radius: 5px; background: var(--surface); font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.2; color: var(--fg); }
+@media (max-width: 520px) { .keys { grid-template-columns: 1fr; gap: 0.3rem 0; } .keys dd { margin-bottom: 0.9rem; } }

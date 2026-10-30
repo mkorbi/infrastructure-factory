@@ -135,7 +135,7 @@ Note:
 Speaker notes, shown in the speaker view.
 ~~~
 
-Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the two decks in the repository use all of them. Site rules apply: every figure names its source, no em dashes.
+Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the deck in the repository uses most of them. Site rules apply: every figure names its source, no em dashes.
 
 Build locally and commit the result:
 
