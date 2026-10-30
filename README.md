@@ -68,7 +68,7 @@ Old single-page anchors such as `/#factors` redirect to the new pages.
 
 | Path | Purpose |
 |---|---|
-| `index.html`, `<slug>/index.html` | The nine pages. The header, footer and head block are duplicated on every page and must stay identical |
+| `index.html`, `<slug>/index.html` | The ten pages. The header (wordmark, Discuss and GitHub buttons, theme switch, and the pages as a floating rail from 1280px or a drop-down below), footer and head block are duplicated on every page and must stay identical |
 | `assets/site.css` | Styles, light and dark, driven by design tokens on `:root` |
 | `assets/site.js` | Old-anchor redirects, theme switch, menu, tooltips, the calculator and the queue model |
 | `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |

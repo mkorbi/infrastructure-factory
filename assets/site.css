@@ -27,6 +27,7 @@
   --font-mono: "IBM Plex Mono", "IBM Plex Mono Fallback", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --measure: 66ch;
   --frame: 1120px;
+  --rail-w: 200px;        /* the floating pages rail from 1280px */
   --gutter: clamp(16px, 4vw, 40px);
   --radius: 6px;
 }
@@ -136,7 +137,7 @@ tbody tr:hover { background: var(--surface-2); }
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-.site-nav .frame { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; min-height: 56px; width: min(1320px, 100%); position: relative; }
+.site-nav .frame { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; min-height: 56px; width: min(1320px, 100%); position: relative; }
 .wordmark {
   font-family: var(--font-display); font-weight: 800; font-stretch: 112%; letter-spacing: 0.04em;
   text-transform: uppercase; font-size: 0.76rem; text-decoration: none; white-space: nowrap;
@@ -144,40 +145,51 @@ tbody tr:hover { background: var(--surface-2); }
 }
 .wordmark .mark { width: 20px; height: 20px; flex: none; display: block; }
 .nav-toggle { position: absolute; width: 1px; height: 1px; margin: -1px; opacity: 0; overflow: hidden; }
-.menu-btn { display: none; }
-.nav-links { margin-left: auto; min-width: 0; }
-.nav-links ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.2rem; }
+/* the bar: wordmark left, actions right (Discuss, GitHub, theme), and the Pages button until the rail has room */
+.nav-actions { display: flex; align-items: center; gap: 0.45rem; margin-left: auto; order: 1; }
+.nav-btn, .theme-btn, .menu-btn {
+  flex: none; display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg);
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.2;
+  padding: 0.4rem 0.55rem; border-radius: 3px; text-decoration: none; cursor: pointer;
+}
+.nav-btn svg { width: 14px; height: 14px; display: block; fill: currentColor; }
+.nav-btn:hover, .theme-btn:hover, .menu-btn:hover { border-color: var(--accent); }
+.nav-btn:hover { color: var(--accent-ink); }
+.menu-btn { order: 2; }
+.nav-toggle:focus-visible ~ .menu-btn { outline: 2px solid var(--accent); outline-offset: 3px; }
+.nav-toggle:checked ~ .menu-btn { background: var(--fg); color: var(--bg); }
+/* the pages: a drop-down under the bar, opened by the Pages button, until there is room for the rail */
+.nav-links { display: none; order: 3; flex: 1 1 100%; min-width: 0; margin: 0.2rem 0 0; padding: 0 0 0.4rem; }
+.nav-toggle:checked ~ .nav-links { display: block; }
+.nav-links ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
 .nav-links li a {
-  display: block; padding: 0.45rem 0.45rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em;
-  text-transform: uppercase; text-decoration: none; color: var(--muted); white-space: nowrap; border-radius: 3px;
+  display: block; padding: 0.7rem 0.5rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.05em;
+  text-transform: uppercase; text-decoration: none; color: var(--muted);
 }
-.nav-links li a:hover, .nav-links li a[aria-current="page"] { color: var(--fg); background: var(--surface-2); }
-.theme-btn {
-  flex: none; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg);
-  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase;
-  padding: 0.4rem 0.55rem; border-radius: 3px; cursor: pointer;
-}
-.theme-btn:hover { border-color: var(--accent); }
-@media (max-width: 1100px) {
-  .site-nav .frame { padding-top: 0.55rem; min-height: 0; }
-  .theme-btn { margin-left: auto; }
-  .nav-links { order: 3; flex: 1 1 100%; margin: 0.15rem 0 0; padding-bottom: 0.25rem; }
-  .nav-links ul { flex-wrap: wrap; }
-}
+.nav-links li a:hover, .nav-links li a[aria-current="page"] { color: var(--fg); }
+.nav-links li a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--accent); padding-left: 0.8rem; }
 @media (max-width: 720px) {
-  .site-nav .frame { padding-bottom: 0.55rem; }
+  .site-nav .frame { padding-block: 0.55rem; min-height: 0; gap: 0.5rem 0.6rem; }
   .wordmark { font-size: 0.74rem; }
-  .theme-btn { order: 1; font-size: 0.66rem; padding: 0.35rem 0.5rem; }
-  .menu-btn {
-    display: inline-flex; order: 2; align-items: center; border: 1px solid var(--line-strong); background: var(--surface); color: var(--fg);
-    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.35rem 0.55rem; border-radius: 3px; cursor: pointer;
+  .nav-actions { gap: 0.35rem; }
+  .nav-btn, .theme-btn, .menu-btn { font-size: 0.66rem; padding: 0.35rem 0.5rem; }
+  .nav-btn .label { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .nav-btn { padding: 0.45rem 0.5rem; }
+}
+/* the rail: from 1280px the pages float at the left edge and the content moves over to make room */
+@media (min-width: 1280px) {
+  .site-nav .frame { width: 100%; }
+  .menu-btn { display: none; }
+  .nav-links {
+    display: block; position: fixed; left: var(--gutter); top: calc(81px + env(safe-area-inset-top, 0px)); width: var(--rail-w);
+    max-height: calc(100vh - 105px); overflow: auto; flex: none; margin: 0; padding: 0.4rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow);
   }
-  .nav-toggle:focus-visible ~ .menu-btn { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .nav-toggle:checked ~ .menu-btn { background: var(--fg); color: var(--bg); }
-  .nav-links { display: none; order: 3; flex: 1 1 100%; margin: 0.2rem 0 0; padding: 0; }
-  .nav-toggle:checked ~ .nav-links { display: block; }
-  .nav-links ul { flex-direction: column; gap: 0; }
-  .nav-links li a { padding: 0.7rem 0.4rem; border-top: 1px solid var(--line); font-size: 0.78rem; white-space: normal; }
+  .nav-links ul { gap: 2px; }
+  .nav-links li a { padding: 0.55rem 0.7rem; border-top: 0; border-radius: 4px; font-size: 0.68rem; line-height: 1.35; }
+  .nav-links li a:hover { background: var(--surface-2); }
+  .nav-links li a[aria-current="page"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); padding-left: 0.7rem; }
+  main, .prevnext, .site-footer { padding-left: calc(var(--gutter) + var(--rail-w) + 1.5rem); }
 }
 
 /* ---------- hero ---------- */
