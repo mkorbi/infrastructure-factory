@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Dev-only acceptance checks for the site. Needs Playwright with Chromium (see scripts/export-png.mjs).
 // Run: node scripts/check-site.mjs   (exit code 1 on any failure)
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,7 +9,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'http://infrastructure-factory.local';
-const PAGES = ['/', '/software-factory/', '/infrastructure-factory/', '/three-factories/', '/evidence/', '/metrics/', '/lineage/', '/sources/', '/about/'];
+const PAGES = ['/', '/software-factory/', '/infrastructure-factory/', '/three-factories/', '/evidence/', '/metrics/', '/lineage/', '/sources/', '/presentations/', '/about/'];
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 const results = [];
 const ok = (name, pass, detail) => { results.push({ name, pass, detail }); console.log((pass ? 'PASS ' : 'FAIL ') + name + (detail ? ': ' + detail : '')); };
@@ -42,7 +43,7 @@ for (const p of PAGES) {
     const [, target, hash] = m; if (!target && !hash) continue;
     const page = target || p;
     if (target && !target.startsWith('/assets/') && !target.startsWith('/scripts/')) {
-      if (!PAGES.includes(page)) { broken.push(`${p} -> ${target}`); continue; }
+      if (!PAGES.includes(page)) { if (!fs.existsSync(path.join(ROOT, target.endsWith('/') ? target + 'index.html' : target))) broken.push(`${p} -> ${target}`); continue; }
       if (hash && !ids[page].has(hash.slice(1))) broken.push(`${p} -> ${target}${hash}`);
     } else if (!target && hash && hash !== '#' && !ids[p].has(hash.slice(1))) broken.push(`${p} -> ${hash}`);
     if (target && target.startsWith('/assets/') && !fs.existsSync(path.join(ROOT, target))) broken.push(`${p} -> ${target} (missing file)`);
@@ -82,6 +83,11 @@ for (const p of PAGES) ok(`theme script precedes stylesheet on ${p}`, html[p].in
 // sitemap and robots
 ok('sitemap lists every page', PAGES.every(p => fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8').includes(`https://infrastructure-factory.com${p}</loc>`)));
 ok('robots.txt present', fs.existsSync(path.join(ROOT, 'robots.txt')));
+ok('llms.txt present and names the site', fs.existsSync(path.join(ROOT, 'llms.txt')) && fs.readFileSync(path.join(ROOT, 'llms.txt'), 'utf8').startsWith('# Infrastructure Factory'));
+ok('GoatCounter script on every page', PAGES.every(p => html[p].includes('data-goatcounter="https://korbi.goatcounter.com/count"')));
+// decks: every slides.md validates and the generated deck pages, list, sitemap entries and index are current
+try { execFileSync(process.execPath, [path.join(ROOT, 'scripts', 'build-decks.mjs'), '--check'], { stdio: 'pipe' }); ok('decks built from their sources', true); }
+catch (e) { ok('decks built from their sources', false, String(e.stderr || e.stdout || e.message).trim().split('\n').slice(0, 3).join(' | ')); }
 // og images exist
 ok('og:image files exist', PAGES.every(p => { const m = html[p].match(/og:image" content="https:\/\/infrastructure-factory\.com([^"]+)"/); return m && fs.existsSync(path.join(ROOT, m[1])); }));
 
@@ -91,6 +97,8 @@ const exe = process.env.CHROMIUM_PATH || (fs.existsSync('/opt/pw-browsers/chromi
 const proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
 const browser = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'], proxy: proxy ? { server: proxy } : undefined });
 async function serve(ctx) {
+  // GoatCounter is the one third-party script. Stub it so checks never register as visits and never depend on the network.
+  await ctx.route(/^https?:\/\/(gc\.zgo\.at|[^/]*goatcounter\.com)\//, route => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   await ctx.route(ORIGIN + '/**', route => {
     const u = new URL(route.request().url()); let p = decodeURIComponent(u.pathname); if (p.endsWith('/')) p += 'index.html';
     const f = path.join(ROOT, p);

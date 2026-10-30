@@ -678,3 +678,20 @@ figure.logo-fig figcaption .png + .png { margin-left: 0.4rem; }
 .hero .title-row .hero-mark { width: clamp(64px, 9vw, 112px); height: auto; flex: none; display: block; }
 .hero .title-row h1 { max-width: 20ch; }
 @media (max-width: 640px) { .hero .title-row { flex-direction: column; align-items: flex-start; gap: 0.9rem; } .hero .title-row .hero-mark { width: 64px; } }
+
+/* ---------- presentations: the deck list on /presentations/ and the keys table ---------- */
+.decks { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 1.5rem; }
+.deck { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; padding: 1.4rem 1.5rem 1.5rem; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: var(--radius); box-shadow: var(--shadow); }
+.deck-meta { margin: 0; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.deck h3 { margin: 0; font-family: var(--font-display); font-size: 1.45rem; line-height: 1.15; }
+.deck h3 a { color: inherit; text-decoration: none; }
+.deck h3 a:hover { color: var(--accent-ink); }
+.deck-sub { margin: 0; font-family: var(--font-display); font-size: 1.05rem; line-height: 1.3; color: var(--muted); }
+.deck-desc { margin: 0.2rem 0 0; }
+.deck-by { margin: 0; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.deck .btn-row { margin-top: auto; padding-top: 0.6rem; }
+.keys { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.6rem 1.4rem; margin: 0 0 1.5rem; max-width: 72ch; }
+.keys dt { font-family: var(--font-mono); font-size: 0.85rem; padding-top: 0.1rem; color: var(--muted); }
+.keys dd { margin: 0; }
+kbd { display: inline-block; padding: 0.05rem 0.45rem; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px; background: var(--surface); font-family: var(--font-mono); font-size: 0.8rem; color: var(--fg); }
+@media (max-width: 520px) { .keys { grid-template-columns: 1fr; gap: 0.2rem 0; } .keys dd { margin-bottom: 0.7rem; } }

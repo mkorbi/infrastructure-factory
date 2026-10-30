@@ -59,6 +59,7 @@ The site is static: nine pages, one stylesheet, one script. Together they cover:
 | `/metrics/` | Six metrics with their software-side counterparts, Little's law, outcomes not tokens |
 | `/lineage/` | The timeline from 1968 to Platform One, and who already uses the words |
 | `/sources/` | Every figure, numbered; caveats |
+| `/presentations/` | Talks as reveal.js decks, presentable from the browser with speaker notes and a timer, each also as a PDF; the keys; how to add a deck |
 | `/about/` | Status and changelog, contribute, cite, diagrams |
 
 Old single-page anchors such as `/#factors` redirect to the new pages.
@@ -69,14 +70,20 @@ Old single-page anchors such as `/#factors` redirect to the new pages.
 |---|---|
 | `index.html`, `<slug>/index.html` | The nine pages. The header, footer and head block are duplicated on every page and must stay identical |
 | `assets/site.css` | Styles, light and dark, driven by design tokens on `:root` |
-| `assets/site.js` | Old-anchor redirects, theme switch, menu, citation copy, tooltips, the calculator and the queue model |
+| `assets/site.js` | Old-anchor redirects, theme switch, menu, tooltips, the calculator and the queue model |
 | `assets/img/*.png` | 2x PNG exports of every diagram, linked from each figure and from `/about/#diagrams` |
 | `assets/img/og/*.png` | 1200x630 title cards used as `og:image` |
-| `assets/img/logo.svg`, `assets/img/logo-mono.svg`, `assets/img/logo.png` | The mark: a loop standing on a floor. Used in the header, the favicon and the title cards |
+| `assets/img/logo.svg`, `assets/img/logo-mono.svg`, `assets/img/logo.png` | The mark: a loop carrying two units of work, standing on a three-step floor. Used in the header, the favicon and the title cards |
 | `sitemap.xml`, `robots.txt`, `CNAME`, `.nojekyll` | Deployment files for GitHub Pages at infrastructure-factory.com |
+| `llms.txt` | What the site is about, in plain text for AI agents and crawlers, following the llms.txt convention |
 | `scripts/check-nav.sh` | Dev-only: fails if the header block differs between pages |
 | `scripts/check-site.mjs` | Dev-only: the acceptance checks (headings, links, sources, figures, dashes, overflow, redirects, theme, no-JS) |
 | `scripts/export-png.mjs`, `scripts/og-template.html` | Dev-only: renders the diagram PNGs and the title cards |
+| `presentations/<slug>/slides.md` | A presentation: a front matter block, then Markdown slides. The source of truth for a deck |
+| `presentations/<slug>/index.html`, `presentations/<slug>/<slug>.pdf`, `presentations/index.html`, `presentations/decks.json` | Generated from the slides by `scripts/build-decks.mjs` and committed, so the site still deploys as is |
+| `presentations/theme/infra.css`, `presentations/vendor/reveal.js/` | The deck theme on the site's tokens, and the pinned reveal.js files the decks load (MIT, vendored by `scripts/vendor-reveal.mjs`) |
+| `scripts/build-decks.mjs`, `scripts/deck-template.html` | Builds the deck pages, the list, the sitemap entries and `decks.json`; `--pdf` exports the PDFs, `--check` verifies that everything generated is current |
+| `.github/workflows/presentations.yml` | The pipeline: checks the decks on pull requests, builds and publishes them after a merge to `main` |
 | `docs/screenshots/` | Screenshots used in pull requests |
 
 The scripts need Node and Playwright with Chromium (`npm i -D playwright && npx playwright install chromium`). The deploy does not depend on them; their output is committed.
@@ -87,7 +94,7 @@ The scripts need Node and Playwright with Chromium (`npm i -D playwright && npx 
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000>. Links are root-relative, so serve the repository root, not a subfolder. There is no build step and no dependency besides Google Fonts.
+Then open <http://localhost:8000>. Links are root-relative, so serve the repository root, not a subfolder. The pages have no build step; the presentations are the one generated part, see below. The only third parties are Google Fonts and GoatCounter, which counts page views without cookies and skips localhost, so local runs are not counted.
 
 Before opening a pull request, run the checks:
 
@@ -97,6 +104,50 @@ node scripts/check-site.mjs
 ```
 
 If you changed a diagram, regenerate the PNGs with `node scripts/export-png.mjs` and commit them.
+
+## Presentations
+
+`/presentations/` lists the talks and presents them from the browser with [reveal.js](https://revealjs.com): F for full screen, S for the speaker view with notes and a timer. Each deck is one folder under `presentations/` with a `slides.md`:
+
+~~~md
+---
+title: No ticket in the path
+subtitle: Why software factories need infrastructure factories, in ten minutes
+date: 2026-10-30
+author: Max Körbächer
+duration: 10 min
+description: One sentence for the card on the list and the page description.
+theme: dark
+---
+
+<!-- .slide: class="title" -->
+# First slide
+
+The subtitle line
+
+---
+
+## Second slide
+
+- Markdown, with `--` between vertical slides
+
+Note:
+Speaker notes, shown in the speaker view.
+~~~
+
+Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the two decks in the repository use all of them. Site rules apply: every figure names its source, no em dashes.
+
+Build locally and commit the result:
+
+```sh
+node scripts/build-decks.mjs          # the deck pages, the list, the sitemap entries and decks.json
+node scripts/build-decks.mjs --pdf    # also the PDFs (needs Playwright with Chromium)
+node scripts/build-decks.mjs --check  # exit 1 if anything generated is out of date
+```
+
+The pipeline in `.github/workflows/presentations.yml` runs the check on every pull request that touches a deck and uploads the built decks with their PDFs as an artifact. After a merge to `main` it builds the pages, exports the PDFs with Chromium and commits the result back to `main`, which GitHub Pages deploys as usual. The workflow asks for write access to the repository contents; if `main` is protected, allow the push from GitHub Actions or run the build locally and commit it yourself.
+
+The reveal.js files under `presentations/vendor/` are pinned to one version; `node scripts/vendor-reveal.mjs` refreshes them after the version in that script changes.
 
 ## Deploy
 

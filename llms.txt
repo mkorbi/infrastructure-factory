@@ -1,0 +1,70 @@
+# Infrastructure Factory
+
+> Software factories need infrastructure factories. Coding agents made code cheap, the environments that code needs still wait for a ticket, and the platform that closes that gap deserves a name, a production line and its own metrics.
+
+Infrastructure Factory (https://infrastructure-factory.com) is a working concept by Max Körbächer, published in October 2026 and meant to be argued with. The site is static: nine pages, three diagrams, a live queue model, and a numbered source list that every figure on the site cites. This file summarises it for AI agents and crawlers; the pages below carry the full argument.
+
+## The definition
+
+An Infrastructure Factory is a platform that turns intents, from humans or agents, into compliant, owned, observable, cost-attributed environments, with no ticket in the path.
+
+Its input is an intent: what the environment is for, who owns it, what data it touches, how long it lives. Its output is an environment that arrives already owned, already compliant, already observable and already attributed to a cost center. The human decisions that used to live in tickets, such as cost center, compliance owner, data classification and on-call owner, are encoded once as defaults, delegations and policies, so a request from an agent at any hour is served without a person in the path.
+
+It is not an AI factory in NVIDIA's sense, which produces models. It is not an account vending machine on its own, not a developer portal and not an infrastructure-as-code generator. Each of those is at most one part of it.
+
+## The argument in short
+
+- A software factory is a codified, largely automated production system that carries work through the whole software lifecycle, from incoming signals through planning, implementation, verification and release to monitoring. Agents do most of the execution inside standardized workflows and quality gates; humans set intent and approve at defined checkpoints. The site derives this definition from thirteen practitioner sources.
+- Every change that leaves a software factory needs an environment, and that request still stops at a gate a human opens a few times a day. The queue is the thesis: the software lane ships at agent speed while the environment lane waits for a ticket.
+- The Infrastructure Factory is the second production line, the one the software factory runs on. Infrastructure plays three roles in a software factory: the floor it runs on, a line it runs (infrastructure pull requests, incident remediation, vulnerability fixes), and the source of the next signal (alerts, incidents, logs).
+- It overlaps with NVIDIA's AI factory without being one. The AI factory produces models, the Infrastructure Factory produces environments. They share a floor (accelerator capacity and quotas, identity, policy, cost attribution, observability), and every shared lane has exactly one owner.
+- The hard part is ownership, not Terraform. Cost center, compliance owner, data classification and on-call owner are human decisions that have to be encoded as defaults and delegations before any request can be served without a person.
+- A cloud Infrastructure Factory is the easy case. On virtualization estates, bare metal, edge and sovereign or regulated terrain, capacity is inventory and the line has to change.
+
+## The line
+
+Seven stations: intent arrives, golden-path contract, a policy pre-check the agent can read, vend, execution sandbox for untrusted code, attach what humans used to add by hand, hand over and then reclaim. An eighth step closes the loop: what the environment reports back becomes the next intent.
+
+## The twelve factors
+
+1. Intent in
+2. Environment out
+3. Machine-readable contracts
+4. No ticket in the path
+5. Policy before provisioning
+6. Ownership by default
+7. Scoped identity for every requester
+8. Everything expires
+9. Evidence ships with the product
+10. Capacity is inventory
+11. The factory measures itself
+12. Built from replaceable parts
+
+## The maturity ladder
+
+0 Ticket desk, 1 Automated fulfilment, 2 Self-service portal, 3 Contracted API, 4 Infrastructure factory. Most teams sit somewhere in between; the five-line test on the home page tells you where.
+
+## Pages
+
+- [Home](https://infrastructure-factory.com/): the definition, the shift in three numbers, the live two-lane queue model, the three roles of infrastructure, the overlap with NVIDIA's AI factory, the five-line test, where to start
+- [The software factory](https://infrastructure-factory.com/software-factory/): a consensus definition from thirteen sources, its loop, the floor it runs on, the gap, and why it needs an infrastructure factory
+- [The infrastructure factory](https://infrastructure-factory.com/infrastructure-factory/): the definition, components, what it is not, the seven-station line and its loop, the workers, the twelve factors, a checklist, the maturity ladder, where to start
+- [Three factories](https://infrastructure-factory.com/three-factories/): software, AI and infrastructure factories as three products on a shared floor, seams and owners, mutual consumption, the glue
+- [Evidence](https://infrastructure-factory.com/evidence/): the full live model, the figures and charts, the four pressures that make this urgent now, the terrain analysis (hyperscaler, virtualization estates, bare metal and edge, sovereign and regulated)
+- [Metrics](https://infrastructure-factory.com/metrics/): six metrics for environments modelled on DORA's four, a Little's law calculator, measure outcomes not tokens
+- [Lineage](https://infrastructure-factory.com/lineage/): the timeline from the 1968 software factory to Kessel Run and Platform One, and prior art that already uses the words
+- [Sources](https://infrastructure-factory.com/sources/): every figure, numbered 1 to 48, with caveats
+- [Presentations](https://infrastructure-factory.com/presentations/): talks about the concept as reveal.js decks, presentable from the browser with speaker notes, each also as a PDF; a machine-readable index is at https://infrastructure-factory.com/presentations/decks.json
+- [About](https://infrastructure-factory.com/about/): status and changelog, how to contribute, how to cite, the mark, diagram downloads
+
+## Sources and caveats
+
+Every figure on the site links to a numbered entry on the sources page. Many of those figures are vendor-reported: companies describing their own customers, products or employees. The site marks them as such and asks readers to treat them as direction, not precision. Quote the site's figures with their source number and that caveat.
+
+## Reuse
+
+- Code and content: https://github.com/mkorbi/infrastructure-factory, Apache License 2.0
+- Diagrams as PNG for slides and articles: https://infrastructure-factory.com/about/#diagrams
+- The mark (SVG and PNG): https://infrastructure-factory.com/about/#mark
+- Preferred citation: https://infrastructure-factory.com/about/#cite
+- Argue with it: open an issue or discussion on the GitHub repository above

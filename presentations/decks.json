@@ -1,0 +1,42 @@
+{
+  "generated": "by scripts/build-decks.mjs; do not edit",
+  "site": "https://infrastructure-factory.com",
+  "decks": [
+    {
+      "slug": "the-infrastructure-factory",
+      "title": "The Infrastructure Factory",
+      "subtitle": "Software factories need infrastructure factories",
+      "event": null,
+      "date": "2026-10-30",
+      "author": "Max Körbächer",
+      "duration": "30 min",
+      "description": "The talk version of the concept. Coding agents made code cheap and the environments that code needs still wait for a ticket. The shift, the queue, the definition, the line, the twelve factors and where to start.",
+      "theme": "light",
+      "draft": false,
+      "slides": 18,
+      "url": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/",
+      "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/the-infrastructure-factory/slides.md",
+      "pdf": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/the-infrastructure-factory.pdf",
+      "pageHash": "0f37eabf25c3",
+      "pdfHash": "0f37eabf25c3"
+    },
+    {
+      "slug": "no-ticket-in-the-path",
+      "title": "No ticket in the path",
+      "subtitle": "Why software factories need infrastructure factories, in ten minutes",
+      "event": null,
+      "date": "2026-10-30",
+      "author": "Max Körbächer",
+      "duration": "10 min",
+      "description": "The lightning version. Three numbers, the queue, the definition, the five-line test and the first vending line to build.",
+      "theme": "dark",
+      "draft": false,
+      "slides": 8,
+      "url": "https://infrastructure-factory.com/presentations/no-ticket-in-the-path/",
+      "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/no-ticket-in-the-path/slides.md",
+      "pdf": "https://infrastructure-factory.com/presentations/no-ticket-in-the-path/no-ticket-in-the-path.pdf",
+      "pageHash": "ec2072b748e1",
+      "pdfHash": "ec2072b748e1"
+    }
+  ]
+}

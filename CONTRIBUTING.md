@@ -59,6 +59,17 @@ page, links and anchors, every source cited, figures with captions and PNGs, no 
 anchors redirecting, theme persistence, pages working without JavaScript). Both need Node and
 Playwright with Chromium.
 
+### How to add a presentation
+
+Talks live under `presentations/`, one folder per deck with a `slides.md`: a front matter block
+(`title`, `date`, `author`, a one-sentence `description`, optionally `subtitle`, `event`, `duration`
+and `theme: dark`), then Markdown slides separated by `---`, vertical slides by `--`, speaker notes
+after a line that says `Note:`. The format, the helper classes and the build are described in the
+[README](README.md#presentations). Run `node scripts/build-decks.mjs` and commit what it writes
+together with your slides; the pipeline checks that on every pull request, and after the merge it
+exports the PDF and publishes the deck on `/presentations/`. Decks follow the same rules as the
+pages: every figure names its source, plain language, no em dashes.
+
 ### Sources and citations
 
 Every figure and quote carries a numbered citation linking to `/sources/#sN`. New sources are
