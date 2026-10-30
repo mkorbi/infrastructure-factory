@@ -11,7 +11,12 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'http://infrastructure-factory.local';
-const PAGES = ['/', '/software-factory/', '/infrastructure-factory/', '/three-factories/', '/evidence/', '/metrics/', '/lineage/', '/sources/', '/about/'];
+const PAGES = ['/', '/software-factory/', '/infrastructure-factory/', '/three-factories/', '/evidence/', '/metrics/', '/lineage/', '/sources/', '/presentations/', '/about/'];
+// node scripts/export-png.mjs                   everything
+// node scripts/export-png.mjs --og-only /about/ only the title card(s) of the named page(s)
+const ARGS = process.argv.slice(2);
+const FIG_PAGES = ARGS.includes('--og-only') ? [] : PAGES;
+const OG_PAGES = ARGS.some(a => !a.startsWith('--')) ? PAGES.filter(p => ARGS.includes(p)) : PAGES;
 const TYPES = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
 
 function loadPlaywright() {
@@ -44,7 +49,7 @@ const done = new Set();
 const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 2, colorScheme: 'light', ignoreHTTPSErrors: true });
 await serveFromDisk(ctx);
 const page = await ctx.newPage();
-for (const p of PAGES) {
+for (const p of FIG_PAGES) {
   await page.goto(ORIGIN + p, { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(400);
@@ -78,7 +83,7 @@ const tpl = fs.readFileSync(path.join(ROOT, 'scripts/og-template.html'), 'utf8')
 const og = await browser.newContext({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1, colorScheme: 'light', ignoreHTTPSErrors: true });
 await serveFromDisk(og);
 const card = await og.newPage();
-for (const p of PAGES) {
+for (const p of OG_PAGES) {
   const file = path.join(ROOT, p === '/' ? 'index.html' : p.slice(1) + 'index.html');
   const html = fs.readFileSync(file, 'utf8');
   const slug = p === '/' ? 'home' : p.replace(/\//g, '');

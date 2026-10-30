@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>The Infrastructure Factory · Infrastructure Factory</title>
+<meta name="description" content="The talk version of the concept. Coding agents made code cheap and the environments that code needs still wait for a ticket. The shift, the queue, the definition, the line, the twelve factors and where to start.">
+<meta name="author" content="Max Körbächer">
+<link rel="canonical" href="https://infrastructure-factory.com/presentations/the-infrastructure-factory/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Infrastructure Factory">
+<meta property="og:title" content="The Infrastructure Factory">
+<meta property="og:description" content="The talk version of the concept. Coding agents made code cheap and the environments that code needs still wait for a ticket. The shift, the queue, the definition, the line, the twelve factors and where to start.">
+<meta property="og:url" content="https://infrastructure-factory.com/presentations/the-infrastructure-factory/">
+<meta property="og:image" content="https://infrastructure-factory.com/assets/img/og/presentations.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Infrastructure Factory">
+<meta name="twitter:description" content="The talk version of the concept. Coding agents made code cheap and the environments that code needs still wait for a ticket. The shift, the queue, the definition, the line, the twelve factors and where to start.">
+<meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/presentations.png">
+<meta name="theme-color" content="#eef1f4">
+<link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
+<link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="../vendor/reveal.js/plugin/highlight/monokai.css">
+<link rel="stylesheet" href="../theme/infra.css?v=1aaf43291214">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <section data-markdown data-separator="^\r?\n---\r?\n$" data-separator-vertical="^\r?\n--\r?\n$" data-separator-notes="^Note:">
+      <script type="text/template">
+<!-- .slide: class="title" -->
+# The Infrastructure Factory
+
+Software factories need infrastructure factories
+
+<p class="meta">Max Körbächer · infrastructure-factory.com · October 2026</p>
+
+Note:
+Thirty minutes. The argument in one line: everyone is building software factories, nobody has built the thing they run on. We start with the numbers, name the queue, define the platform that removes it, walk the production line, and end with where to start.
+
+---
+
+<!-- .slide: class="statement" -->
+## Everyone is building software factories. <em>Nobody has built the thing they run on.</em>
+
+Note:
+Pause here. Most people in the room are building or buying a software factory right now. Ask who owns the environments it ships into.
+
+---
+
+<p class="eyebrow">The shift</p>
+
+## Code got cheap. The environments it needs still move through tickets.
+
+<div class="stats">
+<div class="stat blue"><b>75%</b>of new code at Google is AI-generated and approved by engineers.<small>Sundar Pichai, Google Cloud Next, April 2026</small></div>
+<div class="stat"><b>+441%</b>median time a change spends in review, while throughput per developer rose 33.7%.<small>Faros AI, April 2026</small></div>
+<div class="stat"><b>−7%</b>main-branch throughput for the median team, while daily pipeline runs rose 59%.<small>CircleCI, February 2026</small></div>
+</div>
+
+<p class="src">All three figures are reported by the organization that benefits from them. Read them as direction, not precision. Sources 4, 7 and 8 at infrastructure-factory.com/sources</p>
+
+Note:
+Three numbers from three vendors, each with an interest in the result. Code supply went up. Delivery did not follow: review time quadrupled and main-branch throughput fell while pipelines ran more often. The gap between code supply and delivery capacity is where the queue forms.
+
+---
+
+<p class="eyebrow">The software factory</p>
+
+## What thirteen sources agree on
+
+<blockquote class="small">A codified, largely automated production system that carries work through the entire software lifecycle, from incoming signals through planning, implementation, verification and release to monitoring. Agents do most of the execution inside standardized workflows and quality gates. Humans set intent and approve at defined checkpoints.</blockquote>
+
+Engineers build and tune the factory. The factory builds the product.
+
+<p class="src">Consensus definition from thirteen practitioner sources: infrastructure-factory.com/software-factory</p>
+
+Note:
+This is the definition the practitioners converge on. Note what it takes for granted: every change that leaves the loop needs somewhere to run. None of the thirteen sources treats that somewhere as a factory of its own.
+
+---
+
+<p class="eyebrow">The queue</p>
+
+## The queue is the thesis
+
+<div class="cols">
+<div>
+
+### Software lane
+
+Agents write the change, tests run, review happens in minutes. Pull requests ship at agent speed, around the clock.
+
+</div>
+<div>
+
+### Environment lane
+
+Each change needs an environment with an owner, a network position and a budget. That request stops at a gate a person opens a few times a day.
+
+</div>
+</div>
+
+Both lanes receive the same work at the same rate. One ships. One waits.
+
+<p class="src">Live two-lane model with the policy-check switch: infrastructure-factory.com/evidence</p>
+
+Note:
+The site runs this as a simulation. Two lanes, same arrival rate. The software lane clears at agent speed. The environment lane clears when a person opens the gate, a few times a day. The queue in front of that gate is the whole argument.
+
+---
+
+<p class="eyebrow">The definition</p>
+
+## An Infrastructure Factory is
+
+> A platform that turns intents from humans or agents into compliant, owned, observable, cost-attributed environments, with no ticket in the path.
+
+<div class="cols">
+<div>
+
+**Input: an intent.** What the environment is for, who owns it, what data it touches, how long it lives.
+
+</div>
+<div>
+
+**Output: an environment.** Already owned, already compliant, already observable, already attributed to a cost center.
+
+</div>
+</div>
+
+Note:
+Read the definition slowly. Every word in it rules something out, which is the next slide.
+
+---
+
+<p class="eyebrow">The definition, taken apart</p>
+
+## Six words carry the weight
+
+| Word | What it rules out |
+|---|---|
+| Intents | Resource lists. The request names a purpose, not a machine size. |
+| Compliant | Compliance checked afterwards. Policy runs before anything is built. |
+| Owned | Orphans. Cost center, compliance owner and on-call are inherited. |
+| Observable | Dark environments. The factory can see what it made. |
+| Cost-attributed | Unassigned spend. Every environment has a budget line from birth. |
+| No ticket in the path | People deciding per request. They decide once, at the contract. |
+
+---
+
+<p class="eyebrow">Three roles</p>
+
+## Infrastructure plays three roles in a software factory
+
+![Three roles of infrastructure in a software factory: the floor it runs on, a line it runs, and production as the source of the next signal](../../assets/img/d1-three-roles.png)
+
+<p class="src">Diagram D1. Under the loop, inside the loop, and the source of the next signal. infrastructure-factory.com</p>
+
+Note:
+The floor: control plane, context and data plane, environments, sandboxes, models and inference, with identity, policy, observability and supply chain across all of it. The line: Terraform pull requests, incident remediation and CVE fixes move through the same gateway and release control as product code. The signal source: alerts, incidents and logs from production start the next loop. One platform supplies all three.
+
+---
+
+<p class="eyebrow">Not NVIDIA's AI factory</p>
+
+## Not NVIDIA's AI factory, but it overlaps
+
+![The infrastructure factory and the AI factory share a floor, not a product: GPU capacity, inference endpoints, registries, identity, policy, cost and observability sit between them, each seam with one owner](../../assets/img/d3-shared-floor.png)
+
+<p class="src">Diagram D3. The AI factory produces models. The infrastructure factory produces environments. Every shared seam has exactly one owner. Source 48.</p>
+
+Note:
+NVIDIA's AI factory turns power into tokens. In the model sense an AI factory produces models fit for purpose. Ours produces environments. They share a floor: GPU quotas, inference endpoints, registries, identity, policy, cost, observability, sandboxes. Platform engineering builds the shared floor. AI engineering builds the agents that run the factories.
+
+---
+
+<p class="eyebrow">What it is not</p>
+
+## Each of these is at most one part of it
+
+- **An account vending machine.** Vending is one station. Without contracts, policy and ownership it vends orphans faster.
+- **A developer portal.** A portal is a front door. The factory is what happens after the form is submitted, without a person.
+- **An infrastructure-as-code generator.** Generated Terraform is still a pull request that waits for someone to plan, review and apply it.
+- **An AI factory.** That one produces models. This one produces the places they run.
+
+---
+
+<p class="eyebrow">The line</p>
+
+## Seven stations, then the loop closes
+
+<div class="cols">
+<div>
+
+<ol class="steps">
+<li><b>Intent arrives.</b> Purpose, owner, data, lifetime, from a person or an agent.</li>
+<li><b>Golden-path contract.</b> The intent is matched to a contract the platform stands behind.</li>
+<li><b>Policy pre-check.</b> Allow or deny, with a reason the agent can act on.</li>
+<li><b>Vend.</b> Accounts, projects, namespaces, networks, identities.</li>
+</ol>
+
+</div>
+<div>
+
+<ol class="steps" style="counter-reset: step 4">
+<li><b>Execution sandbox.</b> Untrusted code runs isolated from the start.</li>
+<li><b>Attach what humans added by hand.</b> Owner, cost center, monitoring, backup, on-call.</li>
+<li><b>Hand over, then reclaim.</b> Everything expires. Renewal is a decision, not a default.</li>
+</ol>
+
+<p class="muted small">Station eight: what the environment reports back becomes the next intent.</p>
+
+</div>
+</div>
+
+Note:
+Walk the line. A request from an agent at three in the morning passes every station without waking anyone, because the decisions were made once, at the contract, and the policy says yes or no with a reason.
+
+---
+
+<p class="eyebrow">The hard part</p>
+
+## The hard part is ownership, not Terraform
+
+Four fields no agent can sign:
+
+<div class="cols">
+<div>
+
+- Cost center
+- Compliance owner
+
+</div>
+<div>
+
+- Data classification
+- On-call owner
+
+</div>
+</div>
+
+Encode them once: defaults by team and purpose, delegations with limits, policies that explain a denial. After that, a request at any hour is served without a person in the path.
+
+Note:
+Everyone wants to talk about the provisioning engine. The engine is the easy part. The ticket exists because somebody has to fill in these four fields, and no agent is allowed to. Move those decisions from the request to the contract and the ticket has no reason left to exist.
+
+---
+
+<p class="eyebrow">Terrain</p>
+
+## The cloud is the easy case
+
+| Terrain | What changes on the line |
+|---|---|
+| Hyperscaler | Elastic capacity behind an API. The factory is mostly contracts, policy and ownership. |
+| Virtualization estates | Capacity is finite and shared. Vending has to check inventory before it promises. |
+| Bare metal and edge | Lead times, physical placement, hardware lifecycles. Capacity is inventory, and the factory manages stock. |
+| Sovereign and regulated | Evidence ships with the product: residency, attestation, audit trails that a regulator accepts. |
+
+<p class="src">Terrain analysis with NIST's five cloud characteristics as the yardstick: infrastructure-factory.com/evidence</p>
+
+---
+
+<p class="eyebrow">Metrics</p>
+
+## Measure it like a factory
+
+<div class="cols">
+<div>
+
+- **Lead time** to a compliant environment
+- **Zero-touch rate**: environments delivered with no human in the path
+- **Human interventions** per environment
+- **Time to owner** and **orphan rate**
+
+</div>
+<div>
+
+**Little's law.** Environments waiting = request rate × wait time. The request rate is set by the agents. The wait time is yours.
+
+**Outcomes, not tokens.** Count environments delivered and owned, not model calls made.
+
+</div>
+</div>
+
+<p class="src">Six metrics with their software-side counterparts and a Little's law calculator: infrastructure-factory.com/metrics</p>
+
+---
+
+<p class="eyebrow">The twelve factors</p>
+
+## Twelve factors of an Infrastructure Factory
+
+<div class="cols">
+<div>
+
+<ol class="steps">
+<li>Intent in</li>
+<li>Environment out</li>
+<li>Machine-readable contracts</li>
+<li>No ticket in the path</li>
+<li>Policy before provisioning</li>
+<li>Ownership by default</li>
+</ol>
+
+</div>
+<div>
+
+<ol class="steps" style="counter-reset: step 6">
+<li>Scoped identity for every requester</li>
+<li>Everything expires</li>
+<li>Evidence ships with the product</li>
+<li>Capacity is inventory</li>
+<li>The factory measures itself</li>
+<li>Built from replaceable parts</li>
+</ol>
+
+</div>
+</div>
+
+<p class="src">Each factor explained: infrastructure-factory.com/infrastructure-factory/#factors</p>
+
+---
+
+<p class="eyebrow">The ladder</p>
+
+## Most teams are somewhere on this ladder
+
+<div class="ladder">
+<div><b>0</b>Ticket desk</div>
+<div><b>1</b>Automated fulfilment</div>
+<div><b>2</b>Self-service portal</div>
+<div><b>3</b>Contracted API</div>
+<div class="now"><b>4</b>Infrastructure factory</div>
+</div>
+
+Find your stage, then read what the next one removes from the path. A ticket desk automates nothing. Fulfilment automates the work but not the decision. A portal moves the form, not the wait. A contracted API removes the person from the request. The factory removes the person from the path and measures itself.
+
+Note:
+Ask the room where they are. Most will say two. The move from two to three is the hard one, because it is where the ownership fields have to be encoded.
+
+---
+
+<p class="eyebrow">Where to start</p>
+
+## Start with the sandboxes
+
+<ol class="steps">
+<li><b>Ephemeral sandboxes for coding agents.</b> The demand exists already: sandboxes on Google Kubernetes Engine grew 16x in under five months after the Agent Sandbox preview. A sandbox needs an identity, a lifetime and a policy, and nothing a human has to sign.</li>
+<li><b>Preview environments per pull request.</b> Ownership defaults and cost attribution get exercised at volume.</li>
+<li><b>Production vending.</b> By then the contracts, policies and inventory already exist.</li>
+</ol>
+
+<p class="src">Source 9 at infrastructure-factory.com/sources. The three lines in order: infrastructure-factory.com/infrastructure-factory/#start</p>
+
+Note:
+Do not start with production. Start where the demand is already screaming and the blast radius is small. Sandboxes for agents are the first vending line; everything you learn about contracts and ownership there carries into preview environments and then production.
+
+---
+
+<!-- .slide: class="title" -->
+# Argue with it
+
+The concept, the evidence, the twelve factors and every source: **infrastructure-factory.com**
+
+Corrections and counter-examples: **github.com/mkorbi/infrastructure-factory**
+
+<p class="meta">Max Körbächer · Working concept, revised October 2026</p>
+
+Note:
+Leave the site up. Ask for the counter-example: a software factory whose environments arrive without a ticket, and who owns them.
+
+      </script>
+    </section>
+  </div>
+</div>
+<a class="deck-brand" href="https://infrastructure-factory.com/" title="infrastructure-factory.com. Keys: F full screen, S speaker view, Esc overview, ? all shortcuts"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="14" y="44" width="36" height="6" rx="1.5" fill="var(--accent)" fill-opacity="1.0"/><rect x="10" y="52" width="44" height="5" rx="1.5" fill="var(--accent)" fill-opacity="0.7"/><rect x="6" y="59" width="52" height="4" rx="1.5" fill="var(--accent)" fill-opacity="0.45"/><path d="M42.4,33.4 A14,14 0 1 1 42.4,14.6" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/><polygon points="38.2,16.5 44.7,10.6 46.6,19.2" fill="currentColor"/><rect x="16.7" y="27.8" width="6.4" height="6.4" rx="1" transform="rotate(240 19.9 31)" fill="var(--blue)"/><rect x="16.1" y="14.9" width="6.4" height="6.4" rx="1" transform="rotate(295 19.3 18.1)" fill="var(--blue)"/></svg><span>infrastructure-factory.com</span></a>
+<script src="../vendor/reveal.js/dist/reveal.js"></script>
+<script src="../vendor/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../vendor/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="../vendor/reveal.js/plugin/notes/notes.js"></script>
+<script src="../vendor/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+Reveal.initialize({
+  width: 1280, height: 720, margin: 0.08, minScale: 0.2, maxScale: 2,
+  hash: true, slideNumber: 'c/t', showSlideNumber: 'all', controlsTutorial: false,
+  center: false, transition: 'fade', transitionSpeed: 'fast', backgroundTransition: 'none',
+  pdfSeparateFragments: false, pdfMaxPagesPerSlide: 1,
+  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom]
+});
+</script>
+<script data-goatcounter="https://korbi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+# Builds the reveal.js decks from presentations/<slug>/slides.md.
+#
+# On a pull request: fails if a deck's generated page, the listing or the sitemap is out of date
+# (run `node scripts/build-decks.mjs` and commit), then builds the PDFs and uploads everything
+# as a workflow artifact for review.
+#
+# On a push to main (or a manual run): builds the pages, exports the PDFs with Chromium and commits
+# the result back to main, which GitHub Pages then deploys. Pushes made with GITHUB_TOKEN do not
+# start this workflow again, so the commit cannot loop.
+name: Presentations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'presentations/**'
+      - 'scripts/build-decks.mjs'
+      - 'scripts/deck-template.html'
+      - '.github/workflows/presentations.yml'
+  pull_request:
+    paths:
+      - 'presentations/**'
+      - 'scripts/build-decks.mjs'
+      - 'scripts/deck-template.html'
+      - '.github/workflows/presentations.yml'
+  workflow_dispatch:
+    inputs:
+      force_pdf:
+        description: Export every PDF again, not only the decks that changed
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: presentations-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PLAYWRIGHT_VERSION: 1.56.1
+
+jobs:
+  check:
+    name: Check decks
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generated pages are current
+        run: node scripts/build-decks.mjs --check
+      - name: Install Chromium for the PDF export
+        run: |
+          npm install --no-save --no-audit --no-fund "playwright@${PLAYWRIGHT_VERSION}"
+          npx playwright install --with-deps chromium
+      - name: Export PDFs
+        run: node scripts/build-decks.mjs --pdf --force
+      - name: Upload the built presentations
+        uses: actions/upload-artifact@v4
+        with:
+          name: presentations
+          path: presentations/
+          retention-days: 14
+
+  publish:
+    name: Build and publish decks
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Chromium for the PDF export
+        run: |
+          npm install --no-save --no-audit --no-fund "playwright@${PLAYWRIGHT_VERSION}"
+          npx playwright install --with-deps chromium
+      - name: Build pages and export PDFs
+        run: node scripts/build-decks.mjs --pdf ${{ inputs.force_pdf == true && '--force' || '' }}
+      - name: Commit what changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add presentations sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Nothing to publish: the generated files are already current."
+            exit 0
+          fi
+          git commit -m "Build presentations"
+          git push

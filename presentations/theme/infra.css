@@ -1,0 +1,314 @@
+/* Infrastructure Factory deck theme for reveal.js.
+   Same tokens, fonts and mark as the site. Set data-theme="dark" on <html> for the dark variant
+   (the build does this for decks with "theme: dark" in their front matter).
+   The slide canvas is 1280 x 720; pixel sizes below are in those units and scale with the deck. */
+
+:root {
+  --bg: #eef1f4;
+  --surface: #f9fafb;
+  --surface-2: #e4e9ee;
+  --fg: #121b25;
+  --muted: #4b5661;
+  --faint: #76818c;
+  --line: #cdd4db;
+  --line-strong: #aab3bc;
+  --blue: #2a78d6;
+  --blue-ink: #1b5aa6;
+  --blue-soft: rgba(42, 120, 214, 0.12);
+  --accent: #e8541e;
+  --accent-ink: #b23c0e;
+  --accent-soft: rgba(232, 84, 30, 0.12);
+  --accent2: #4a3aa7;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 6px;
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  --bg: #0f161c;
+  --surface: #161e26;
+  --surface-2: #1f2a34;
+  --fg: #e8ecf0;
+  --muted: #aab4be;
+  --faint: #7f8a95;
+  --line: #2a3640;
+  --line-strong: #3b4954;
+  --blue: #3987e5;
+  --blue-ink: #7fb2f2;
+  --blue-soft: rgba(57, 135, 229, 0.18);
+  --accent: #ea6024;
+  --accent-ink: #ff9361;
+  --accent-soft: rgba(234, 96, 36, 0.18);
+  --accent2: #9085e9;
+  color-scheme: dark;
+}
+
+/* ---------- canvas ---------- */
+html, body, .reveal-viewport { background: var(--bg); }
+.reveal {
+  font-family: var(--font-body);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--fg);
+}
+.reveal ::selection { color: #fff; background: var(--blue); text-shadow: none; }
+.reveal .slides { text-align: left; }
+.reveal .slides section,
+.reveal .slides section > section {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  line-height: 1.4;
+  font-weight: inherit;
+}
+
+/* ---------- type ---------- */
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.08;
+  text-transform: none;
+  text-shadow: none;
+  color: var(--fg);
+  margin: 0 0 0.5em;
+  overflow-wrap: break-word;
+}
+.reveal h1 { font-size: 2.4em; }
+.reveal h2 { font-size: 1.7em; }
+.reveal h3 { font-size: 1.15em; margin-bottom: 0.35em; }
+.reveal h4 { font-size: 1em; margin-bottom: 0.3em; }
+.reveal p { margin: 0 0 0.6em; }
+.reveal p:last-child { margin-bottom: 0; }
+.reveal strong { font-weight: 600; }
+.reveal em { font-style: italic; }
+.reveal a { color: var(--blue-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.12em; transition: color 0.15s; }
+.reveal a:hover { color: var(--accent-ink); }
+.reveal ul, .reveal ol { display: block; margin: 0 0 0.6em 1.1em; }
+.reveal ul { list-style: disc; }
+.reveal ol { list-style: decimal; }
+.reveal li { margin: 0.3em 0; }
+.reveal li::marker { color: var(--accent-ink); font-family: var(--font-mono); font-size: 0.85em; }
+.reveal ul ul, .reveal ol ol, .reveal ul ol, .reveal ol ul { font-size: 0.9em; margin-bottom: 0; }
+
+.reveal blockquote {
+  display: block;
+  width: 100%;
+  margin: 0.4em 0 0.8em;
+  padding: 0.5em 0 0.5em 0.9em;
+  border-left: 8px solid var(--accent);
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--font-display);
+  font-stretch: 105%;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 1.25em;
+  line-height: 1.25;
+}
+.reveal blockquote p { margin: 0; }
+.reveal blockquote p + p { margin-top: 0.5em; }
+.reveal blockquote cite { display: block; margin-top: 0.6em; font-family: var(--font-mono); font-style: normal; font-weight: 400; font-size: 0.45em; color: var(--muted); }
+
+.reveal code { font-family: var(--font-mono); }
+.reveal :not(pre) > code { font-size: 0.85em; background: var(--surface-2); color: var(--fg); padding: 0.05em 0.35em; border-radius: 4px; }
+.reveal pre {
+  display: block;
+  width: 100%;
+  margin: 0.5em 0;
+  font-family: var(--font-mono);
+  font-size: 0.5em;
+  line-height: 1.45;
+  box-shadow: none;
+}
+.reveal pre code {
+  display: block;
+  padding: 0.9em 1.1em;
+  max-height: 500px;
+  overflow: auto;
+  background: #121b25;
+  color: #e8ecf0;
+  border-radius: var(--radius);
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.reveal table { margin: 0.4em 0 0.8em; border-collapse: collapse; border-spacing: 0; font-size: 0.72em; line-height: 1.3; }
+.reveal table th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.72em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.4em 1.2em 0.4em 0;
+  border-bottom: 2px solid var(--line-strong);
+}
+.reveal table td { padding: 0.45em 1.2em 0.45em 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.reveal table tr:last-child td { border-bottom: 1px solid var(--line); }
+.reveal table td:last-child, .reveal table th:last-child { padding-right: 0; }
+
+.reveal img, .reveal video, .reveal iframe {
+  max-width: 100%;
+  max-height: 500px;
+  margin: 0.3em 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.reveal img.plain { background: none; border: 0; }
+.reveal hr { border: 0; border-top: 1px solid var(--line); margin: 0.8em 0; }
+
+/* ---------- helpers for slide authors ---------- */
+.reveal .eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-ink);
+  margin: 0 0 1.4em;
+}
+.reveal .muted { color: var(--muted); }
+.reveal .small { font-size: 0.7em; }
+.reveal .src {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.45em;
+  line-height: 1.4;
+  color: var(--faint);
+}
+.reveal .src a { color: inherit; }
+.reveal .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; align-items: start; }
+.reveal .cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 36px; align-items: start; }
+.reveal .cols > *, .reveal .cols-3 > * { min-width: 0; }
+.reveal .cols h3:first-child, .reveal .cols-3 h3:first-child { margin-top: 0; }
+
+.reveal .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 0.4em 0 0.9em; }
+.reveal .stat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 22px 24px 20px;
+  font-size: 0.6em;
+  line-height: 1.35;
+}
+.reveal .stat.blue { border-top-color: var(--blue); }
+.reveal .stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-stretch: 110%;
+  font-weight: 600;
+  font-size: 3em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25em;
+  color: var(--fg);
+}
+.reveal .stat small { display: block; margin-top: 0.7em; font-family: var(--font-mono); font-size: 0.78em; color: var(--muted); }
+
+.reveal .steps { counter-reset: step; list-style: none; margin-left: 0; }
+.reveal .steps li { counter-increment: step; position: relative; padding-left: 1.9em; margin: 0.28em 0; }
+.reveal .steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1.35em;
+  height: 1.35em;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  line-height: 1.35em;
+  text-align: center;
+}
+.reveal .ladder { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin: 0.6em 0; font-size: 0.6em; }
+.reveal .ladder > div { border-top: 4px solid var(--line-strong); padding-top: 0.6em; }
+.reveal .ladder > div.now { border-top-color: var(--accent); }
+.reveal .ladder b { display: block; font-family: var(--font-mono); font-weight: 500; color: var(--muted); font-size: 0.85em; margin-bottom: 0.3em; }
+
+/* ---------- slide kinds: <!-- .slide: class="title" --> and class="statement" ---------- */
+.reveal section.title::before {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 10px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 70px 0 44px;
+}
+.reveal section.title h1 { font-size: 3em; margin-bottom: 0.3em; }
+.reveal section.title h1 + p {
+  font-family: var(--font-display);
+  font-stretch: 105%;
+  font-weight: 400;
+  font-size: 1.2em;
+  line-height: 1.25;
+  color: var(--muted);
+  max-width: 24em;
+}
+.reveal section.title .meta { position: absolute; left: 0; bottom: 0; margin: 0; font-family: var(--font-mono); font-size: 0.5em; color: var(--muted); }
+.reveal section.statement h2 {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  transform: translateY(-50%);
+  font-size: 2.1em;
+}
+.reveal section.statement h2 em { font-style: normal; color: var(--accent-ink); }
+
+/* ---------- chrome ---------- */
+.reveal .progress { height: 4px; color: var(--accent); background: rgba(18, 27, 37, 0.08); }
+:root[data-theme="dark"] .reveal .progress { background: rgba(232, 236, 240, 0.1); }
+.reveal .controls { color: var(--accent); }
+.reveal .slide-number {
+  right: 22px;
+  bottom: 16px;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+}
+.reveal .slide-number a { color: inherit; text-decoration: none; }
+.deck-brand {
+  position: fixed;
+  left: 22px;
+  bottom: 14px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-decoration: none;
+}
+.deck-brand svg { width: 22px; height: 22px; color: var(--fg); display: block; }
+.deck-brand:hover { color: var(--fg); }
+.reveal .speaker-notes { font-family: var(--font-body); }
+
+/* print view (?print-pdf): reveal.js places each slide inside a page block that is taller than the slide
+   by the margin, so the slide keeps its own height here and bottom-anchored lines stay on the page */
+html.reveal-print .reveal .slides section,
+html.reveal-print .reveal .slides section > section { height: 720px; }
+@media print {
+  .deck-brand { display: none; }
+  .reveal pre code { max-height: none; }
+}

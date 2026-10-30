@@ -54,6 +54,7 @@ Seven stations: intent arrives, golden-path contract, a policy pre-check the age
 - [Metrics](https://infrastructure-factory.com/metrics/): six metrics for environments modelled on DORA's four, a Little's law calculator, measure outcomes not tokens
 - [Lineage](https://infrastructure-factory.com/lineage/): the timeline from the 1968 software factory to Kessel Run and Platform One, and prior art that already uses the words
 - [Sources](https://infrastructure-factory.com/sources/): every figure, numbered 1 to 48, with caveats
+- [Presentations](https://infrastructure-factory.com/presentations/): talks about the concept as reveal.js decks, presentable from the browser with speaker notes, each also as a PDF; a machine-readable index is at https://infrastructure-factory.com/presentations/decks.json
 - [About](https://infrastructure-factory.com/about/): status and changelog, how to contribute, how to cite, the mark, diagram downloads
 
 ## Sources and caveats

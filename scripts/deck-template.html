@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="{{lang}}"{{themeAttr}}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{{title}} · Infrastructure Factory</title>
+<meta name="description" content="{{description}}">
+<meta name="author" content="{{author}}">
+<link rel="canonical" href="{{url}}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Infrastructure Factory">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{url}}">
+<meta property="og:image" content="https://infrastructure-factory.com/assets/img/og/presentations.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/presentations.png">
+<meta name="theme-color" content="{{themeColor}}">
+<link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..800;1,8..60,300..800&display=swap">
+<link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
+<link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="../vendor/reveal.js/plugin/highlight/monokai.css">
+<link rel="stylesheet" href="../theme/infra.css?v={{themeVersion}}">
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <section data-markdown data-separator="^\r?\n---\r?\n$" data-separator-vertical="^\r?\n--\r?\n$" data-separator-notes="^Note:">
+      <script type="text/template">
+{{markdown}}
+      </script>
+    </section>
+  </div>
+</div>
+<a class="deck-brand" href="https://infrastructure-factory.com/" title="infrastructure-factory.com. Keys: F full screen, S speaker view, Esc overview, ? all shortcuts"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><rect x="14" y="44" width="36" height="6" rx="1.5" fill="var(--accent)" fill-opacity="1.0"/><rect x="10" y="52" width="44" height="5" rx="1.5" fill="var(--accent)" fill-opacity="0.7"/><rect x="6" y="59" width="52" height="4" rx="1.5" fill="var(--accent)" fill-opacity="0.45"/><path d="M42.4,33.4 A14,14 0 1 1 42.4,14.6" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"/><polygon points="38.2,16.5 44.7,10.6 46.6,19.2" fill="currentColor"/><rect x="16.7" y="27.8" width="6.4" height="6.4" rx="1" transform="rotate(240 19.9 31)" fill="var(--blue)"/><rect x="16.1" y="14.9" width="6.4" height="6.4" rx="1" transform="rotate(295 19.3 18.1)" fill="var(--blue)"/></svg><span>infrastructure-factory.com</span></a>
+<script src="../vendor/reveal.js/dist/reveal.js"></script>
+<script src="../vendor/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="../vendor/reveal.js/plugin/highlight/highlight.js"></script>
+<script src="../vendor/reveal.js/plugin/notes/notes.js"></script>
+<script src="../vendor/reveal.js/plugin/zoom/zoom.js"></script>
+<script>
+Reveal.initialize({
+  width: 1280, height: 720, margin: 0.08, minScale: 0.2, maxScale: 2,
+  hash: true, slideNumber: 'c/t', showSlideNumber: 'all', controlsTutorial: false,
+  center: false, transition: 'fade', transitionSpeed: 'fast', backgroundTransition: 'none',
+  pdfSeparateFragments: false, pdfMaxPagesPerSlide: 1,
+  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom]
+});
+</script>
+<script data-goatcounter="https://korbi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
