@@ -162,6 +162,10 @@ html, body, .reveal-viewport { background: var(--bg); }
   box-shadow: none;
 }
 .reveal img.plain { background: none; border: 0; }
+.reveal .fig { margin: 0.2em 0 0; }
+.reveal svg.diagram { display: block; width: 100%; height: auto; max-height: 550px; }
+.reveal .dense { font-size: 0.82em; }
+.reveal .dense h3 { font-size: 1.25em; }
 .reveal hr { border: 0; border-top: 1px solid var(--line); margin: 0.8em 0; }
 
 /* ---------- helpers for slide authors ---------- */

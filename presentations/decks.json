@@ -3,6 +3,24 @@
   "site": "https://infrastructure-factory.com",
   "decks": [
     {
+      "slug": "devrel-foundation",
+      "title": "The Infrastructure Factory",
+      "subtitle": "An MCP front door, a policy gate, and where the agents work",
+      "event": "DevRel Foundation",
+      "date": "2026-11-10",
+      "author": "Max Körbächer",
+      "duration": null,
+      "description": "A platform that turns requests from humans or agents into compliant, observable environments with clear cost attribution. The concept, then the architecture with an MCP server as the front door and agentgateway as the policy gate, how it connects to the software and AI factories, and where AI agents do their work inside it.",
+      "theme": "light",
+      "draft": false,
+      "slides": 26,
+      "url": "https://infrastructure-factory.com/presentations/devrel-foundation/",
+      "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/devrel-foundation/slides.md",
+      "pdf": "https://infrastructure-factory.com/presentations/devrel-foundation/devrel-foundation.pdf",
+      "pageHash": "3047baaf95da",
+      "pdfHash": "3047baaf95da"
+    },
+    {
       "slug": "the-infrastructure-factory",
       "title": "The Infrastructure Factory",
       "subtitle": "Software factories need infrastructure factories",
@@ -17,8 +35,8 @@
       "url": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/",
       "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/the-infrastructure-factory/slides.md",
       "pdf": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/the-infrastructure-factory.pdf",
-      "pageHash": "0f37eabf25c3",
-      "pdfHash": "0f37eabf25c3"
+      "pageHash": "a4f1dcef3798",
+      "pdfHash": "a4f1dcef3798"
     }
   ]
 }
