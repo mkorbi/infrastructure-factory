@@ -218,12 +218,48 @@
     </figure>
     <div class="two-col">
       <div>
-        <h3>Observe and reclaim</h3>
+        <h3>Operate: observe, remediate, reclaim</h3>
         <p>Five signals leave a running environment and re-enter the line as intents. Drift: the environment no longer matches its contract, so the factory reconciles it or raises a change. Expiry: the lifetime ends, so the factory reclaims, or the owner renews through a request like any other. Cost anomalies: spend leaves the budget ceiling, so the factory throttles, notifies the owner, or both. Incidents: an alert names the environment, so a remediation agent raises the fix as a pull request. Policy changes: a rule changes, so every environment it touches is re-evaluated and the gaps become work.</p>
       </div>
       <div>
         <h3>Why it matters</h3>
         <p>Without station eight the factory produces environments and forgets them. Orphans accumulate, cost drifts, and the audit is assembled by hand. With it, the factory's output is also its input, which is what makes the metrics on the <a href="/metrics/">metrics page</a> measurable at all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="operations">
+  <div class="frame">
+    <div class="section-head">
+      <p class="eyebrow">Operations</p>
+      <h2>Operations is the loop, and agents run most of it</h2>
+      <p>There is no separate operations department behind the line. Every operational event is a signal from station eight, and every response is an intent that goes through the same contract, policy and evidence path as a new environment. That makes operations the place where agents do the most work: the events are frequent, the fixes are mostly known, and the contract says what a correct state looks like.</p>
+    </div>
+    <ul class="seams">
+      <li><span class="name">Triage agent</span><span class="detail">Reads the alert, compares the environment against its contract and decides on which side of the boundary the problem sits: the factory's or the workload's. Routes it to the owner from the catalog with the evidence attached.</span></li>
+      <li><span class="name">Remediation agent</span><span class="detail">Raises the fix for a known failure or a drift as a pull request on the infrastructure line. The policy engine decides whether it may apply on its own or needs the owner.</span></li>
+      <li><span class="name">Rollout agent</span><span class="detail">Moves environments to a new contract version: OS and cluster upgrades, certificate rotation, CVE fixes. Canary first, then waves inside the maintenance windows the contract names, and a rollback when a health check fails.</span></li>
+      <li><span class="name">Cost agent</span><span class="detail">Watches spend against the budget ceiling, right-sizes idle capacity and asks the owner before anything is throttled.</span></li>
+      <li><span class="name">Steward agent</span><span class="detail">Finds orphans and environments near expiry, asks owners, and hands renewals and reclaims to the engine.</span></li>
+    </ul>
+    <p>The rule is the same as on the line: agents propose and execute within the contract, engines decide, people decide once. A human approves only where the contract says so: a change to production outside its window, a blast radius above a threshold, or a fix the contract does not describe.</p>
+    <div class="two-col">
+      <div>
+        <h3>Who operates the factory itself</h3>
+        <p>The platform engineers. The factory is a production system with its own on-call rotation, its own SLOs (the metrics in factor XI) and its own environments, vended by its own line where it can. When the front door or the gate is down, environments that exist keep running; only new requests wait. An emergency change made by hand goes through a break-glass path and is recorded as an intent afterwards, so the evidence stays complete.</p>
+      </div>
+      <div>
+        <h3>Who owns an incident</h3>
+        <p>The contract draws the line. The factory owns what the contract promises: the account, the cluster, the network, identity, monitoring and backup. The on-call owner attached at station six owns the workload: code, data and configuration. The triage agent checks the environment against the contract first. If it has drifted, the incident is the factory's. If it has not, it goes to the workload's owner, and the signal goes back to the software factory as its next input.</p>
+      </div>
+      <div>
+        <h3>How long-lived production is kept current</h3>
+        <p>Everything expires, in production too, but what expires is the contract version, not the environment. OS and cluster upgrades, certificate rotation and CVE fixes arrive as a new contract version. An environment on an outdated version is drift, and the rollout agent moves it forward in waves. Renewal of a production environment is a re-attestation: the owner, the budget and the classification are confirmed again, and nothing is deleted.</p>
+      </div>
+      <div>
+        <h3>What stays with humans</h3>
+        <p>Writing and changing contracts and policies, approving at the checkpoints the contract names, and running the post-incident review. When the same incident comes back, the fix belongs in the contract or the policy, not in another remediation.</p>
       </div>
     </div>
   </div>
@@ -236,9 +272,9 @@
       <h2>Who does what</h2>
     </div>
     <div class="adds">
-      <div><h3>Agents</h3><p>Raise and execute Terraform pull requests, remediations and CVE fixes, within the contract and under a scoped identity.</p></div>
+      <div><h3>Agents</h3><p>Raise and execute Terraform pull requests, remediations, rollouts and CVE fixes, and triage what the running environments report, within the contract and under a scoped identity. <a href="#operations">Most of operations is theirs.</a></p></div>
       <div><h3>Humans</h3><p>Sign ownership once, through contracts and defaults, and approve at the few defined checkpoints: a renewal above a threshold, a classification the contract does not cover.</p></div>
-      <div><h3>Platform engineers</h3><p>Build the factory: the contracts, the policies, the vending lines and the inventory. They do not fulfil requests. <a href="/three-factories/#glue">How platform engineering holds the three factories together.</a></p></div>
+      <div><h3>Platform engineers</h3><p>Build the factory: the contracts, the policies, the vending lines and the inventory. They do not fulfil requests, and they are on call for the factory itself. <a href="/three-factories/#glue">How platform engineering holds the three factories together.</a></p></div>
     </div>
   </div>
 </section>

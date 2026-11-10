@@ -1,0 +1,573 @@
+---
+title: The Infrastructure Factory
+subtitle: An MCP front door, a policy gate, and where the agents work
+event: DevRel Foundation
+date: 2026-11-10
+author: Max Körbächer
+description: A platform that turns requests from humans or agents into compliant, observable environments with clear cost attribution. The concept, then the architecture with an MCP server as the front door and agentgateway as the policy gate, how it connects to the software and AI factories, and where AI agents do their work inside it.
+theme: light
+---
+
+<!-- .slide: class="title" -->
+# The Infrastructure Factory
+
+A platform that turns requests from humans or agents into compliant, observable environments with clear cost attribution
+
+<p class="meta">DevRel Foundation · Max Körbächer · infrastructure-factory.com</p>
+
+Note:
+Three parts. First the concept: what an infrastructure factory is and why software factories need one. Then the architecture, with two named tools: an MCP server as the front door and agentgateway as the policy gate, and how the factory connects to the software and AI factories. Last, where the AI agents actually work inside it, and where they do not.
+
+---
+
+<!-- .slide: class="statement" -->
+## Everyone is building software factories. <em>Nobody has built the thing they run on.</em>
+
+Note:
+Most people here are building or buying a software factory: agents that take a signal and carry it to a release. Ask the room who owns the environments those releases land in, and how long the request for one takes.
+
+---
+
+## How these slides were made
+
+- Concept: based on experience, research and implementations - humanly crafted
+- Website/Slides: based on concept - AI work via Claude
+- Updates/Continuous Research: scheduled AI job, human input (e.g. from conferences, workshops)
+- Images/Diagrams: Described, sketched by hand - AI generated
+
+---
+
+<p class="eyebrow">About me</p>
+
+## Max Körbächer
+
+<div class="cols dense">
+<div>
+
+- **Founder at Liquid Reply.** Platform and AI strategy with leadership and engineering teams.
+- **Community.** CNCF Governing Board member, Linux Foundation Europe Advisory Board, CNCF and AAIF Ambassador.
+- **Speaker.** KubeCon, PlatformCon and beyond, more than 80 talks.
+- **Author.** "Platform Engineering for Architects" and the newsletter "Zeitgeist of Bytes".
+- **Topics.** Platform engineering, AI engineering, cloud native, digital sovereignty, open source.
+
+<p class="muted small">max.koerbaecher.io</p>
+
+</div>
+<div>
+
+<img class="plain" src="../../assets/img/max-koerbaecher-kubecon2024.webp" alt="Max Körbächer on stage at Platform Engineering Day">
+
+</div>
+</div>
+
+---
+
+<p class="eyebrow">The shift</p>
+
+## Code got cheap. The environments it needs still move through tickets.
+
+<div class="stats">
+<div class="stat blue"><b>75%</b>of new code at Google is AI-generated and approved by engineers.<small>Sundar Pichai, Google Cloud Next, April 2026</small></div>
+<div class="stat"><b>+441%</b>median time a change spends in review, while throughput per developer rose 33.7%.<small>Faros AI, April 2026</small></div>
+<div class="stat"><b>−7%</b>main-branch throughput for the median team, while daily pipeline runs rose 59%.<small>CircleCI, February 2026</small></div>
+</div>
+
+<p class="src">All three figures are reported by the organization that benefits from them. Read them as direction, not precision. Sources 4, 7 and 8 at infrastructure-factory.com/sources</p>
+
+Note:
+Three numbers from three vendors, each with a stake in the result. Code supply went up. Delivery did not follow: review time quadrupled, main-branch throughput fell while pipelines ran more often. The gap between code supply and delivery capacity is where the queue forms.
+
+---
+
+<p class="eyebrow">The queue</p>
+
+## Different speed
+
+<div class="cols">
+<div>
+
+### Software lane
+
+Agents write the change, tests run, review happens in minutes. Pull requests ship at agent speed, around the clock.
+
+</div>
+<div>
+
+### Environment lane
+
+Each change needs an environment with an owner, a network position and a budget. That request stops at a gate a person opens a few times a day.
+
+</div>
+</div>
+<br><br>
+Both lanes receive the same work at the same rate.
+
+
+Note:
+The site runs this as a simulation. Two lanes, same arrival rate. The software lane clears at agent speed. The environment lane clears when a person opens the gate, a few times a day. The queue in front of that gate is the whole argument.
+
+---
+
+<p class="eyebrow">The definition</p>
+
+## An Infrastructure Factory is
+
+> A platform that turns intents from humans or agents autonomously into compliant, owned, observable, cost-attributed environments, with no ticket in the path.
+
+<div class="cols">
+<div>
+
+**Input: an intent.** What the environment is for, who owns it, what data it touches, how long it lives.
+
+</div>
+<div>
+
+**Output: an environment.** Already owned, already compliant, already observable, already attributed to a cost center.
+
+</div>
+</div>
+
+Note:
+Read it slowly. Intent, not a resource list. Compliant before it exists, not audited afterwards. Owned and attributed from birth. And the last clause is the hard one: no ticket in the path means the human decisions are made once, at the contract, not per request.
+
+---
+
+<p class="eyebrow">Different roles</p>
+
+## Infrastructure interacts with the software factory multiple times
+
+![The roles of infrastructure in a software factory: the floor it runs on, a line it runs, and production as the source of the next signal](../../assets/img/d1-three-roles.png)
+
+<p class="src">Diagram D1. Under the loop, inside the loop, and the source of the next signal.</p>
+
+Note:
+The floor: control plane, context and data plane, environments, sandboxes, models and inference, with identity, policy, observability and supply chain across all of it. The line: Terraform pull requests, incident remediation and CVE fixes move through the same gateway and release control as product code. The signal source: alerts, incidents and logs from production start the next loop. One platform supplies all three, and that platform is the infrastructure factory.
+
+---
+
+<p class="eyebrow">What it is not</p>
+
+## Each of these is at most one part of it
+
+- **An account vending machine.** Vending is one station. Without contracts, policy and ownership it vends orphans faster.
+- **A developer portal.** A portal is a front door for people. The factory is what happens after the form is submitted, without a person.
+- **An infrastructure-as-code generator.** Generated Terraform is still a pull request that waits for someone to plan, review and apply it.
+- **An AI factory.** That one produces models. This one produces the places they run.
+
+Note:
+Each of these exists and each is useful. None of them removes the ticket, because none of them encodes the decisions the ticket exists to collect.
+
+---
+
+<p class="eyebrow">The line</p>
+
+## From station to station until the loop closes
+
+<div class="fig">
+<svg class="diagram" viewBox="0 0 1120 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The line as a loop of seven stations. An intent from a person or an agent arrives at station one and goes through station two, golden-path contract; three, policy pre-check; four, vend; five, execution sandbox; six, attach human context; and seven, hand over and reclaim. The environment leaves the loop at station seven, owned, costed, observable and expiring. Station eight closes the loop: what the environment reports back becomes the next intent."><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#121b25"/></marker><marker id="arrow-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8541e"/></marker></defs><rect width="1120" height="490" rx="10" fill="#f9fafb" stroke="#cdd4db"/><text x="24" y="30" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="600">The line becomes a loop</text><rect x="55" y="110" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="77" cy="136" r="12" fill="#e8541e"/><text x="77" y="140.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">1</text><text x="97" y="141" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Intent arrives</text><text x="71" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">purpose, owner, data,</text><text x="71" y="180" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">lifetime</text><rect x="315" y="110" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="337" cy="136" r="12" fill="#e8541e"/><text x="337" y="140.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">2</text><text x="357" y="141" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Golden-path contract</text><text x="331" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">matched to a contract the</text><text x="331" y="180" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">platform stands behind</text><rect x="575" y="110" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="597" cy="136" r="12" fill="#e8541e"/><text x="597" y="140.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">3</text><text x="617" y="141" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Policy pre-check</text><text x="591" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">allow or deny, with a</text><text x="591" y="180" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">reason an agent can use</text><rect x="835" y="110" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="857" cy="136" r="12" fill="#e8541e"/><text x="857" y="140.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">4</text><text x="877" y="141" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Vend</text><text x="851" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">accounts, namespaces,</text><text x="851" y="180" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">networks, identities</text><rect x="835" y="300" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="857" cy="326" r="12" fill="#e8541e"/><text x="857" y="330.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">5</text><text x="877" y="331" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Execution sandbox</text><text x="851" y="354" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">untrusted code runs</text><text x="851" y="370" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">isolated from the start</text><rect x="575" y="300" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="597" cy="326" r="12" fill="#e8541e"/><text x="597" y="330.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">6</text><text x="617" y="331" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Attach human context</text><text x="591" y="354" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">owner, cost center,</text><text x="591" y="370" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">monitoring, backup, on-call</text><rect x="315" y="300" width="230" height="80" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="337" cy="326" r="12" fill="#e8541e"/><text x="337" y="330.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">7</text><text x="357" y="331" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Hand over, reclaim</text><text x="331" y="354" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">everything expires;</text><text x="331" y="370" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">renewal is a decision</text><path d="M170 52 V106" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><text x="184" y="72" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Intent</text><text x="184" y="90" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">from a person or an agent</text><path d="M285 150 H315" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M545 150 H575" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M805 150 H835" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M950 190 V296" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M835 340 H805" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M575 340 H545" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><path d="M315 340 H170 V194" fill="none" stroke="#e8541e" stroke-width="1.6" stroke-dasharray="6 5" marker-end="url(#arrow-o)"/><text x="186" y="244" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#b23c0e" text-anchor="start" font-weight="600">Station 8: the loop closes</text><text x="186" y="262" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">what the environment reports back becomes the next intent</text><path d="M430 380 V460" fill="none" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><text x="444" y="424" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Environment out</text><text x="444" y="442" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">owned, costed, observable, expiring</text></svg>
+</div>
+
+Note:
+Keep this picture. The rest of the talk puts two tools in front of station one and shows which stations agents may touch. Station eight is where operations lives: drift, expiry, cost, incidents and policy changes come back as intents, and that is where agents do most of the work.
+
+---
+
+<!-- .slide: class="statement" -->
+## The architecture: <em>an entry point for agents, a gateway that understand them, a production line, and a floor.</em>
+
+Note:
+Part two. Two named tools, both open source, both under the Linux Foundation's Agentic AI Foundation: the Model Context Protocol for the front door and agentgateway for the gate.
+
+---
+
+<p class="eyebrow">A front door, a gate, a line and a floor</p>
+
+## Architecture
+
+<div class="fig">
+<svg class="diagram" viewBox="0 0 1120 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture: coding agents, people and the factory's own agents call the factory through agentgateway, the policy gate, which checks identity, tool rules, rate limits and traces every call; behind it the factory MCP server offers tools, resources and elicitation; behind that the line's stations match a contract, pre-check policy, vend, sandbox, attach owner and cost center, hand over and expire. Signals flow back as the next intents. All of it stands on a shared floor of identity, policy, cost, observability, registries and GPU quotas, which the software factory and the AI factory also use."><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#121b25"/></marker><marker id="arrow-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8541e"/></marker><marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker></defs><rect width="1120" height="570" rx="10" fill="#f9fafb" stroke="#cdd4db"/><text x="24" y="30" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="600">The factory with an MCP front door and a policy gate</text><text x="24" y="62" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#76818c" text-anchor="start" font-weight="400" letter-spacing="0.08em">REQUESTERS</text><rect x="24" y="74" width="216" height="62" rx="8" fill="#e3edf9" stroke="#2a78d6" stroke-width="1.4"/><text x="38" y="100" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Coding agents</text><text x="38" y="120" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">the software factory's loop</text><line x1="240" y1="105" x2="292" y2="105" stroke="#2a78d6" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="24" y="152" width="216" height="62" rx="8" fill="#e4e9ee" stroke="#121b25" stroke-width="1.4"/><text x="38" y="178" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">People</text><text x="38" y="198" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">CLI, portal, chat</text><line x1="240" y1="183" x2="292" y2="183" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="24" y="230" width="216" height="62" rx="8" fill="#fbe6dd" stroke="#e8541e" stroke-width="1.4"/><text x="38" y="256" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">The factory's own agents</text><text x="38" y="276" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">signals from production</text><line x1="240" y1="261" x2="292" y2="261" stroke="#e8541e" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="294" y="62" width="262" height="258" rx="8" fill="#fff" stroke="#e8541e" stroke-width="2"/><text x="310" y="88" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="700">agentgateway</text><text x="310" y="106" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#e8541e" text-anchor="start" font-weight="400" letter-spacing="0.08em">THE POLICY GATE</text><text x="310" y="134" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">who asks: JWT, OIDC, API keys</text><text x="310" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">what they may call: CEL rules</text><text x="310" y="194" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">how often: rate limits per tool</text><text x="310" y="224" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">what happened: OpenTelemetry traces</text><text x="310" y="254" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">many MCP servers, one endpoint</text><text x="310" y="284" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">REST APIs become tools (OpenAPI)</text><line x1="556" y1="191" x2="598" y2="191" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="600" y="62" width="262" height="258" rx="8" fill="#fff" stroke="#121b25" stroke-width="1.6"/><text x="616" y="88" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="700">Factory MCP server</text><text x="616" y="106" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#2a78d6" text-anchor="start" font-weight="400" letter-spacing="0.08em">THE FRONT DOOR</text><text x="616" y="134" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#76818c" text-anchor="start" font-weight="400">Tools</text><text x="616" y="152" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">request_environment(intent)</text><text x="616" y="170" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">check_policy(intent)</text><text x="616" y="188" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">get_status · extend · release</text><text x="616" y="222" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#76818c" text-anchor="start" font-weight="400">Resources</text><text x="616" y="240" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">contracts, policies, cost reports</text><text x="616" y="276" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#76818c" text-anchor="start" font-weight="400">Elicitation and tasks</text><text x="616" y="294" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">ask a person once; hand back a task</text><line x1="862" y1="191" x2="904" y2="191" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="906" y="62" width="190" height="258" rx="8" fill="#e4e9ee" stroke="#cdd4db" stroke-width="1.2"/><text x="922" y="88" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="700">The line</text><text x="922" y="106" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#76818c" text-anchor="start" font-weight="400" letter-spacing="0.08em">STATIONS</text><rect x="922" y="128" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="143" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">1 contract match</text><rect x="922" y="158" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="173" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">2 policy pre-check</text><rect x="922" y="188" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="203" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">3 vend</text><rect x="922" y="218" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="233" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">4 sandbox</text><rect x="922" y="248" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="263" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">5 attach owner, budget</text><rect x="922" y="278" width="158" height="22" rx="4" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><text x="932" y="293" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.2" fill="#121b25" text-anchor="start" font-weight="400">6 hand over, expire</text><path d="M 1001 320 L 1001 346 L 132 346 L 132 316" fill="none" stroke="#e8541e" stroke-width="1.6" stroke-dasharray="5 4"/><path d="M 132 322 L 132 310" fill="none" stroke="#e8541e" stroke-width="1.6" marker-end="url(#arrow-o)"/><text x="560" y="340" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#e8541e" text-anchor="middle" font-weight="400">signals from the environments become the next intents</text><rect x="24" y="372" width="1072" height="88" rx="8" fill="#e6e3f4" stroke="#4a3aa7" stroke-width="1.4"/><text x="40" y="396" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Shared floor</text><text x="40" y="416" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#4b5661" text-anchor="start" font-weight="400">identity · policy · cost attribution · observability · registries · GPU capacity and quotas</text><text x="40" y="444" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4a3aa7" text-anchor="start" font-weight="400">each capability has exactly one owner</text><rect x="24" y="480" width="520" height="70" rx="8" fill="#e3edf9" stroke="#2a78d6" stroke-width="1.2"/><text x="40" y="504" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="start" font-weight="600">Software factory</text><text x="40" y="524" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">calls the front door for sandboxes and preview environments,</text><text x="40" y="540" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">sends alerts, incidents and logs back as the next signals</text><rect x="576" y="480" width="520" height="70" rx="8" fill="#e6e3f4" stroke="#4a3aa7" stroke-width="1.2"/><text x="592" y="504" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="start" font-weight="600">AI factory</text><text x="592" y="524" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">supplies models to the factory's agents through the same gateway,</text><text x="592" y="540" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">provides and consumes GPU environments vended by the line</text></svg>
+</div>
+
+
+Note:
+Left to right. Three kinds of requester: coding agents from the software factory, people through a CLI or portal, and the factory's own agents working on signals from production. All of them go through agentgateway, which answers four questions: who is asking, what may they call, how often, and what happened. Behind it the factory's MCP server offers the tools, the catalog and cost reports as resources, and two protocol features we will come to. Behind that, the stations. Underneath, the shared floor the other two factories also stand on.
+
+---
+
+<p class="eyebrow">The front door</p>
+
+## MCP as the portier
+
+<div class="cols dense">
+<div>
+
+### What the factory exposes
+
+- **Tools**: request_environment, check_policy, get_status, extend, release
+- **Resources**: the contract catalog, the policies, cost reports per owner
+- **Prompts**: "request a sandbox for this repository", the golden path as a conversation starter
+
+</div>
+<div>
+
+### Why MCP
+
+- Coding agents already speak it. The factory joins the tool set they already have.
+- A tool is a contract: typed input, typed output, a description that a model and a person both read.
+- Open governance: MCP moved to the Linux Foundation's Agentic AI Foundation in December 2025.
+- The 2026-07-28 revision made the core stateless: no handshake, no protocol session. The front door scales like any HTTP API.
+
+</div>
+</div>
+
+<p class="src">modelcontextprotocol.io specification 2026-07-28</p>
+
+Note:
+Why not a REST API? You can have both, and agentgateway can even expose the REST API as MCP tools. But MCP is what the agents in the software factory already use for every other tool, and the tool description is the one piece of documentation a model is guaranteed to read. The stateless 2026 revision matters for a platform team: a front door with no sessions scales and fails over like any other HTTP service.
+
+---
+
+<p class="eyebrow">The front door</p>
+
+## Important protocol features for the factory
+
+<div class="cols dense">
+<div>
+
+### Elicitation
+
+The server asks the person a question through the agent's client: which cost center? It asks once, and the answer becomes the team's default. The ticket's last remaining job, done inside the protocol.
+
+### Tasks
+
+Vending takes minutes. Asynchronous task execution; the agent polls and gets the result when the environment exists. An official MCP extension since the 2026-07-28 revision.
+
+</div>
+<div>
+
+```json
+{
+  "tool": "request_environment",
+  "arguments": {
+    "purpose": "preview",
+    "repo": "shop/checkout",
+    "data": "internal",
+    "lifetime": "72h",
+    "on_behalf_of": "ana@example.com"
+  }
+}
+```
+
+```json
+{
+  "task": "env-7f3a",
+  "status": "working",
+  "statusMessage": "policy ok, vending namespace"
+}
+```
+
+</div>
+</div>
+
+<p class="src">Elicitation and the Tasks extension: modelcontextprotocol.io, specification 2026-07-28. The payloads are illustrative.</p>
+
+Note:
+These two features are why the ticket can die without the human decisions dying with it. Elicitation routes the one question a person must answer to that person, once, in the tool the agent is already using. Tasks make a minutes-long vend a normal tool call instead of a webhook and a polling loop you have to invent.
+
+---
+
+<p class="eyebrow">Request Process</p>
+
+## End to end request
+
+<div class="fig">
+<svg class="diagram" viewBox="0 0 1120 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sequence of one request: a coding agent calls request_environment through agentgateway, which checks identity, applies a CEL tool rule and a rate limit and starts a trace; the factory MCP server matches the preview-env contract and runs the policy pre-check, which allows with one missing field; elicitation asks the owner for the cost center once; the line vends the environment, attaches owner, cost center, monitoring, backup and a 72 hour expiry; the agent receives a task handle and then the ready environment without anyone being paged."><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#121b25"/></marker><marker id="arrow-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8541e"/></marker><marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker></defs><rect width="1120" height="570" rx="10" fill="#f9fafb" stroke="#cdd4db"/><text x="24" y="30" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="600">End to end request</text><rect x="12" y="48" width="200" height="36" rx="8" fill="#e3edf9" stroke="#2a78d6" stroke-width="1.4"/><text x="112" y="71" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="middle" font-weight="600">Coding agent</text><line x1="112" y1="84" x2="112" y2="548" stroke="#cdd4db" stroke-width="1.2" stroke-dasharray="3 4"/><rect x="236" y="48" width="200" height="36" rx="8" fill="#fbe6dd" stroke="#e8541e" stroke-width="1.4"/><text x="336" y="71" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="middle" font-weight="600">agentgateway</text><line x1="336" y1="84" x2="336" y2="548" stroke="#cdd4db" stroke-width="1.2" stroke-dasharray="3 4"/><rect x="460" y="48" width="200" height="36" rx="8" fill="#e4e9ee" stroke="#121b25" stroke-width="1.4"/><text x="560" y="71" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="middle" font-weight="600">Factory MCP server</text><line x1="560" y1="84" x2="560" y2="548" stroke="#cdd4db" stroke-width="1.2" stroke-dasharray="3 4"/><rect x="684" y="48" width="200" height="36" rx="8" fill="#e4e9ee" stroke="#121b25" stroke-width="1.4"/><text x="784" y="71" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="middle" font-weight="600">Policy and vend</text><line x1="784" y1="84" x2="784" y2="548" stroke="#cdd4db" stroke-width="1.2" stroke-dasharray="3 4"/><rect x="908" y="48" width="200" height="36" rx="8" fill="#e6e3f4" stroke="#4a3aa7" stroke-width="1.4"/><text x="1008" y="71" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="middle" font-weight="600">Owner (a person)</text><line x1="1008" y1="84" x2="1008" y2="548" stroke="#cdd4db" stroke-width="1.2" stroke-dasharray="3 4"/><line x1="112" y1="118" x2="336" y2="118" stroke="#2a78d6" stroke-width="1.6" marker-end="url(#arrow-b)"/><text x="124" y="110" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">1  request_environment(purpose: preview, repo, data: internal, 3 days)</text><text x="124" y="134" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11" fill="#4b5661" text-anchor="start" font-weight="400">with a workload identity, on behalf of a person</text><line x1="336" y1="172" x2="560" y2="172" stroke="#e8541e" stroke-width="1.6" marker-end="url(#arrow-o)"/><text x="348" y="164" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">2  identity checked, tool allowed by a CEL rule, rate limit ok, trace started</text><line x1="560" y1="226" x2="784" y2="226" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><text x="572" y="218" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">3  contract: preview-env · policy pre-check: allow, one field missing</text><line x1="560" y1="280" x2="1008" y2="280" stroke="#4a3aa7" stroke-width="1.6" marker-end="url(#arrow)"/><text x="572" y="272" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">4  elicitation: which cost center? (asked once, kept as the team default)</text><line x1="1008" y1="322" x2="560" y2="322" stroke="#4a3aa7" stroke-width="1.6" marker-end="url(#arrow)"/><text x="996" y="314" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="end" font-weight="400">5  cost center 4711</text><line x1="560" y1="364" x2="784" y2="364" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><text x="572" y="356" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="start" font-weight="400">6  vend: namespace, identity, network position, sandbox runtime</text><line x1="784" y1="406" x2="560" y2="406" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><text x="772" y="398" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="end" font-weight="400">7  attached: owner, cost center, monitoring, backup, expiry in 72 h</text><line x1="560" y1="448" x2="112" y2="448" stroke="#2a78d6" stroke-width="1.6" marker-end="url(#arrow-b)"/><text x="548" y="440" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.8" fill="#121b25" text-anchor="end" font-weight="400">8  task handle, then ready: URL, identity, expiry</text><text x="548" y="464" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11" fill="#4b5661" text-anchor="end" font-weight="400">the agent polls get_status, nobody was paged</text><rect x="24" y="486" width="1072" height="66" rx="8" fill="#fbe6dd" stroke="#e8541e" stroke-width="1.2"/><text x="40" y="510" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13" fill="#121b25" text-anchor="start" font-weight="600">Gates & Policies</text><text x="40" y="526" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">the gateway asks who may call what, and how often. The policy station asks what may be built, where, with which data.</text><text x="40" y="542" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">both deny with a reason the agent can act on</text></svg>
+</div>
+
+Note:
+Walk it slowly. One: the agent asks for a preview environment, with its own workload identity, on behalf of Ana. Two: the gateway verifies the token, finds a rule that allows this identity to call this tool, checks the rate limit, starts a trace. Three: the server matches the preview-env contract and runs the policy pre-check; everything passes except one missing field. Four and five: elicitation asks Ana for the cost center, once; the answer becomes the team default. Six and seven: the line vends and attaches owner, cost center, monitoring, backup and a 72 hour expiry. Eight: the agent gets a task handle and then a ready environment. Nobody was paged, and every step is in the trace.
+
+---
+
+<p class="eyebrow">The policy gate</p>
+
+## agentgateway: the gate agents already pass through
+
+<div class="cols dense">
+<div>
+
+### What it is
+
+An open source proxy for agent traffic: MCP, A2A and LLM calls through one data plane. Rust, Apache 2.0. Created by Solo.io, a Linux Foundation project since August 2025, hosted by the Agentic AI Foundation since June 2026. One binary with a YAML file, or Kubernetes with the Gateway API.
+
+<div class="logo-chip"><img src="../../assets/img/agentgateway-logo-dark.svg" alt="agentgateway logo"></div>
+
+</div>
+<div>
+
+### What it does at the factory's gate
+
+- **Identity**: JWT, API keys, OAuth. Every call says who asks.
+- **Authorization**: CEL rules per tool and per backend.
+- **Rate limits**: per tool, per session.
+- **Observability**: OpenTelemetry on every call.
+- **Federation**: many MCP servers, one endpoint.
+- **OpenAPI**: a REST API becomes MCP tools, no rewrite.
+
+</div>
+</div>
+
+<p class="src">agentgateway.dev docs and logo, github.com/agentgateway/agentgateway, aaif.io/projects/agentgateway</p>
+
+Note:
+Why a gateway at all, when the MCP server could check tokens itself? Because the software factory will have dozens of MCP servers, and the rules about who may call what belong in one place with one audit trail. The gateway is that place. It also carries the LLM traffic of the factory's own agents, which matters on the identity slide later.
+
+---
+
+<p class="eyebrow">The policy gate</p>
+
+## A rule the agent can read
+
+<div class="dense">
+
+```yaml
+mcp:
+  policies:
+    mcpAuthentication:
+      mode: optional
+      issuer: http://localhost:9000
+      audiences:
+      - http://localhost:3000/mcp
+      jwks:
+        url: http://localhost:9000/.well-known/jwks.json
+    mcpAuthorization:
+      rules:
+      # Allow anyone to access tools on the public-tools target
+      - 'mcp.tool.target == "public-tools"'
+      # Only authenticated admins can access tools on the admin-tools target
+      - 'mcp.tool.target == "admin-tools" && has(jwt.sub) && "admin" in jwt.roles'
+```
+
+The token is verified, a rule decides whether this identity may call this tool, and the rate limit decides whether it may call it now. A denial carries a reason the agent can act on. A tool the caller may not use is left out of the tool list.
+
+</div>
+
+<p class="src">agentgateway.dev docs, MCP authorization</p>
+
+Note:
+CEL is the Common Expression Language, the same thing Kubernetes uses for validating admission policies. The variables are the tool name, the backend the tool belongs to, and the claims of the verified token. Platform teams already know how to review this: it is a pull request against a text file.
+
+---
+
+<p class="eyebrow">Gates gates gates</p>
+
+## Technically one gate, practically an onion style is better
+
+<div class="cols">
+<div>
+
+### At the gateway: who may call what, and how often
+
+The identity of the agent and of the person behind it. Tool-level rules. Rate limits. A trace for every call. This gate knows nothing about regions or data classes, and it should not.
+
+</div>
+<div>
+
+### At the policy station: what may be built
+
+Region and residency, data classification, network position, cost ceiling, lifetime. Evaluated before anything is provisioned, by an engine: OPA, Kyverno, CEL. Allow, or deny with a reason.
+
+</div>
+</div>
+<br><br>
+Both answers are machine-readable. An agent that is denied changes its request and asks again. Nobody opens a ticket, and nobody reads one.
+
+Note:
+People sometimes want one policy engine for everything. Resist it. The gateway's question is about the caller; the station's question is about the thing being built. Keeping them apart keeps each rule set small enough to review.
+
+---
+
+<p class="eyebrow">The line</p>
+
+## Engines and agents
+
+<div class="cols-3">
+<div>
+
+### Vend
+
+Crossplane compositions, Terraform or OpenTofu modules, Kubernetes namespaces. For untrusted code: agent-sandbox, the Kubernetes SIG Apps project, with gVisor or Kata Containers underneath.
+
+</div>
+<div>
+
+### Attach
+
+What people used to add by hand: owner, cost center, monitoring, backup, on-call. Inherited from the contract and the team's defaults, applied by the engine, never typed.
+
+</div>
+<div>
+
+### Expire
+
+Everything has a lifetime. Renewal is a decision an owner makes when asked, not a default. Orphans cannot form, because nothing is born without an owner or lives without an end.
+
+</div>
+</div>
+
+<p class="src">agent-sandbox: github.com/kubernetes-sigs/agent-sandbox</p>
+
+Note:
+Notice what is not here: a model. Vending, attaching and expiring are deterministic. They are the parts of the factory you want to be boring, auditable and identical at three in the morning.
+
+---
+
+<p class="eyebrow">Observable, with a cost</p>
+
+## Every call traced, every environment attributed
+
+<div class="cols dense">
+<div>
+
+### At the gate
+
+OpenTelemetry on every tool call: who called, which tool, how long, allowed or denied, and why. The audit trail is a by-product of the gateway, not a project of its own.
+
+### On the floor
+
+Owner and cost center are labels applied at birth, so cost reports need no reconciliation. The factory publishes them as MCP resources: an agent can ask what its sandboxes cost this week.
+
+</div>
+<div>
+
+### The factory measures itself
+
+- **Lead time** to a compliant environment
+- **Zero-touch rate**: environments delivered with no person in the path
+- **Human interventions** per environment
+- **Time to owner** and **orphan rate**
+
+Published to the factory's customers: the teams and the agents that use it.
+
+</div>
+</div>
+
+<p class="src">Each metrics has their software-side counterparts: infrastructure-factory.com/metrics</p>
+
+Note:
+Cost attribution is usually a reconciliation project that runs a month behind. Here it is a label the engine applies at station six, so the report is just a query. The zero-touch rate is the number to watch: it tells you how much of the ticket you have actually removed.
+
+---
+
+<p class="eyebrow">Shared Floors</p>
+
+## The factories are overlapping (share the floor)
+
+![The infrastructure factory and the AI factory share a floor, not a product: GPU capacity, inference endpoints, registries, identity, policy, cost and observability sit between them, each capability with one owner](../../assets/img/d3-shared-floor.png)
+
+<p class="src">Diagram D3, infrastructure-factory.com/three-factories. The software factory ships code, the AI factory ships models, the infrastructure factory ships the places both run. Every shared capability has one owner.</p>
+
+Note:
+How the three connect. The software factory calls the front door for sandboxes and preview environments and sends alerts, incidents and logs back as the next signals. The AI factory supplies the models that the factory's own agents use, through the same gateway, and consumes the GPU environments the line vends. They share a floor: identity, policy, cost, observability, registries, GPU quotas. Each capability has exactly one owner, or the ticket comes back under a new name.
+
+---
+
+<!-- .slide: class="statement" -->
+## Part three: <em>where the agents work, and where they do not.</em>
+
+Note:
+The question I get most often: if agents are so capable, why not let them run the factory? Because the factory's value is that its decisions are the same at any hour. Agents are good at translation and proposal. Engines are good at decisions that must not vary.
+
+---
+
+<p class="eyebrow">Agents on the line</p>
+
+## Where the agents work
+
+<div class="fig">
+<svg class="diagram" viewBox="0 0 1120 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The eight stations of the line with who works at each: agents and people state intents; an engine matches contracts with an intent-desk agent translating loose requests; policy pre-check is engine only, with an explainer agent turning denials into fixes; vending, sandboxing with gVisor or Kata, and attaching owner, cost center, monitoring, backup and on-call are engines; hand over and reclaim is an engine with a steward agent asking owners before renewing; the loop is agents turning alerts, drift and CVEs into intents and pull requests. Agents propose and translate, engines decide and build, people decide once at the contract."><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#121b25"/></marker><marker id="arrow-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8541e"/></marker><marker id="arrow-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker></defs><rect width="1120" height="560" rx="10" fill="#f9fafb" stroke="#cdd4db"/><text x="24" y="30" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="15" fill="#121b25" text-anchor="start" font-weight="600">Where the agents work on the line</text><rect x="24" y="58" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="46" cy="82" r="12" fill="#e8541e"/><text x="46" y="86.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">1</text><text x="66" y="87" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Intent arrives</text><text x="40" y="116" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">agent or person</text><text x="40" y="133" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">states purpose, owner,</text><text x="40" y="150" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">data, lifetime</text><rect x="40" y="190" width="49.0" height="18" rx="9" fill="#e8541e" stroke="#e8541e" stroke-width="1.2"/><text x="64.5" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">AGENT</text><rect x="97.0" y="190" width="55.599999999999994" height="18" rx="9" fill="#2a78d6" stroke="#2a78d6" stroke-width="1.2"/><text x="124.8" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">PERSON</text><line x1="272" y1="142" x2="296" y2="142" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="296" y="58" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="318" cy="82" r="12" fill="#e8541e"/><text x="318" y="86.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">2</text><text x="338" y="87" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Contract match</text><text x="312" y="116" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine picks the golden</text><text x="312" y="133" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">path; an intent-desk agent</text><text x="312" y="150" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">translates loose requests</text><rect x="312" y="190" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="339.8" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><rect x="375.6" y="190" width="49.0" height="18" rx="9" fill="#e8541e" stroke="#e8541e" stroke-width="1.2"/><text x="400.1" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">AGENT</text><line x1="544" y1="142" x2="568" y2="142" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="568" y="58" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="590" cy="82" r="12" fill="#e8541e"/><text x="590" y="86.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">3</text><text x="610" y="87" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Policy pre-check</text><text x="584" y="116" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine only: OPA, Kyverno,</text><text x="584" y="133" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">CEL. An explainer agent</text><text x="584" y="150" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">turns a denial into a fix</text><rect x="584" y="190" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="611.8" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><rect x="647.6" y="190" width="49.0" height="18" rx="9" fill="#e8541e" stroke="#e8541e" stroke-width="1.2"/><text x="672.1" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">AGENT</text><line x1="816" y1="142" x2="840" y2="142" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="840" y="58" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="862" cy="82" r="12" fill="#e8541e"/><text x="862" y="86.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">4</text><text x="882" y="87" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Vend</text><text x="856" y="116" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine: Crossplane,</text><text x="856" y="133" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">Terraform, namespaces.</text><text x="856" y="150" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">No agent builds</text><rect x="856" y="190" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="883.8" y="202.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><rect x="24" y="254" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="46" cy="278" r="12" fill="#e8541e"/><text x="46" y="282.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">5</text><text x="66" y="283" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Sandbox</text><text x="40" y="312" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine: agent-sandbox with</text><text x="40" y="329" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">gVisor or Kata isolates</text><text x="40" y="346" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">untrusted code</text><rect x="40" y="386" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="67.8" y="398.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><line x1="272" y1="338" x2="296" y2="338" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="296" y="254" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="318" cy="278" r="12" fill="#e8541e"/><text x="318" y="282.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">6</text><text x="338" y="283" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Attach</text><text x="312" y="312" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine applies defaults:</text><text x="312" y="329" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">owner, cost center,</text><text x="312" y="346" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">monitoring, backup, on-call</text><rect x="312" y="386" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="339.8" y="398.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><line x1="544" y1="338" x2="568" y2="338" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="568" y="254" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="590" cy="278" r="12" fill="#e8541e"/><text x="590" y="282.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">7</text><text x="610" y="283" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Hand over, reclaim</text><text x="584" y="312" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">engine expires; a steward</text><text x="584" y="329" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">agent asks the owner</text><text x="584" y="346" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">before renewing</text><rect x="584" y="386" width="55.599999999999994" height="18" rx="9" fill="#121b25" stroke="#121b25" stroke-width="1.2"/><text x="611.8" y="398.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">ENGINE</text><rect x="647.6" y="386" width="49.0" height="18" rx="9" fill="#e8541e" stroke="#e8541e" stroke-width="1.2"/><text x="672.1" y="398.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">AGENT</text><line x1="816" y1="338" x2="840" y2="338" stroke="#121b25" stroke-width="1.6" marker-end="url(#arrow)"/><rect x="840" y="254" width="248" height="168" rx="8" fill="#fff" stroke="#cdd4db" stroke-width="1.2"/><circle cx="862" cy="278" r="12" fill="#e8541e"/><text x="862" y="282.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="12" fill="#fff" text-anchor="middle" font-weight="600">8</text><text x="882" y="283" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">The loop</text><text x="856" y="312" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">agents turn alerts, drift</text><text x="856" y="329" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">and CVEs into intents</text><text x="856" y="346" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">and pull requests</text><rect x="856" y="386" width="49.0" height="18" rx="9" fill="#e8541e" stroke="#e8541e" stroke-width="1.2"/><text x="880.5" y="398.5" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="10.5" fill="#fff" text-anchor="middle" font-weight="500" letter-spacing="0.06em">AGENT</text><path d="M 968 226 L 968 240 L 148 240 L 148 252" fill="none" stroke="#121b25" stroke-width="1.4" marker-end="url(#arrow)"/><path d="M 968 422 L 968 446 L 12 446 L 12 142 L 22 142" fill="none" stroke="#e8541e" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-o)"/><text x="560" y="464" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#e8541e" text-anchor="middle" font-weight="400">station 8 feeds station 1: what the environments report becomes the next intent</text><rect x="24" y="482" width="1072" height="60" rx="8" fill="#e4e9ee" stroke="#cdd4db" stroke-width="1.2"/><text x="40" y="506" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" fill="#121b25" text-anchor="start" font-weight="600">Agents propose and translate. Engines decide and build. People decide once, at the contract.</text><text x="40" y="528" font-family="'IBM Plex Mono', Menlo, Consolas, monospace" font-size="11.5" fill="#4b5661" text-anchor="start" font-weight="400">no agent sits in the policy gate or runs the vending engine. Every agent calls with a scoped identity, a budget and an expiry</text></svg>
+</div>
+
+Note:
+Eight stations, three kinds of worker. Agents and people state intents. An engine matches contracts, with an intent-desk agent translating loose requests into contract-shaped ones. Policy pre-check is engine only; an explainer agent turns a denial into a fix the requester can apply. Vend, sandbox and attach are engines. Hand over and reclaim is an engine, with a steward agent asking owners before anything is renewed. Station eight is where agents shine: turning alerts, drift and CVEs into the next intents and into pull requests on the infrastructure line.
+
+---
+
+<p class="eyebrow">Inside the factory</p>
+
+## Your agents on the payroll, and what they may not do
+
+| Agent | Job | Never |
+|---|---|---|
+| Intent desk | Turns a loose request into a contract-shaped intent and asks the person for what is missing | Approves anything |
+| Explainer | Turns a policy denial into a concrete fix, and proposes contract changes as pull requests | Changes a policy |
+| Steward | Finds orphans and idle environments, asks owners before expiry, negotiates renewals | Deletes without an owner's answer |
+| Loop | Turns alerts, drift and CVEs into intents and pull requests on the infrastructure line | Applies to production on its own |
+
+Every one of them is a requester like any other: a scoped identity, a budget, an expiry, and the same gate in front of it.
+
+Note:
+The right-hand column is the one to argue about. The agents inside the factory are powerful because they are constrained the same way the agents outside it are. Their pull requests go through the same software factory everyone else's do.
+
+---
+
+<p class="eyebrow">Operations</p>
+
+## Agents run most of operations
+
+| Signal | Agent | The engine decides | A human, only when |
+|---|---|---|---|
+| Alert | Triage: environment or workload? Routes with evidence | Owner from the catalog | It is the workload's: its on-call owner |
+| Drift | Remediation: the fix as a pull request | Policy: apply alone or ask | The contract does not describe the fix |
+| New contract version | Rollout: upgrades, certificates, CVEs, canary first | Waves inside the maintenance window | Outside the window, or above a blast radius |
+| Cost anomaly | Cost: right-size, propose a throttle | Budget ceiling | The owner disagrees |
+| Expiry | Steward: asks the owner, renews or reclaims | Lifetime in the contract | Renewal above a threshold |
+
+
+Note:
+Four questions people ask here. Who operates the factory: the platform engineers, it is a production system with its own on-call and SLOs, and a hand-made emergency change goes through break-glass and is recorded as an intent afterwards. Who owns an incident: the contract draws the line; the factory owns what the contract promises, the on-call owner from station six owns the workload, and the triage agent checks for drift first. Long-lived production: what expires is the contract version, not the environment; upgrades and CVE fixes arrive as a new version and the rollout agent moves environments forward. And what stays with humans: contracts, policies, the named checkpoints and the post-incident review. A repeated incident means the contract or the policy is wrong.
+
+---
+
+<p class="eyebrow">Identity</p>
+
+## Scoped identity for every requester
+
+- An agent never borrows a person's credentials. It has a workload identity of its own, OIDC or SPIFFE, and carries the person it acts for as a claim.
+- The gateway reads both: a rule may allow the tool for the workload and the budget for the person.
+- Budgets and lifetimes attach to the identity. A coding agent gets a sandbox quota and 72-hour environments, not a cloud account.
+- Model calls go through the same gateway. Token spend lands on the same cost center as the environments. The AI factory is a supplier with an invoice.
+
+<p class="src">Factor 7 of twelve: infrastructure-factory.com/infrastructure-factory/#factors</p>
+
+Note:
+This is the factor that makes the rest safe. Without a scoped identity per agent, the gateway's rules are theatre and the cost report is a guess. With it, an agent is just another tenant with a budget and an end date.
+
+---
+
+<p class="eyebrow">For developer relations</p>
+
+## Your next developers are agents
+
+- **Tool descriptions are documentation.** A model reads them before a person does. Write them the way you write a quickstart.
+- **Contracts are the catalog.** The golden paths are the product. Name them, version them, show what each one gives and what it asks for.
+- **Denials are onboarding.** The reason behind a "no" is the most-read text in the factory. Make it say what to do next.
+- **Publish the metrics.** Zero-touch rate and lead time tell the community whether the factory is real or a portal with a new name.
+- **Argue in the open.** Contracts and policies as pull requests, and a place to disagree.
+
+Note:
+For this audience in particular. The factory has customers, and half of them are not people. Everything developer relations knows about docs, onboarding, feedback loops and community applies, except that the first reader of your documentation is now a model, and the thing it reads is the tool description and the denial message.
+
+---
+
+<!-- .slide: class="title" -->
+# Argue with it
+
+The concept, the evidence, the twelve factors and every source: **infrastructure-factory.com**
+
+Corrections and counter-examples: **github.com/mkorbi/infrastructure-factory**
+
+<p class="meta">Max Körbächer · DevRel Foundation · Working concept, revised November 2026</p>
+
+Note:
+Leave the site up. Ask for the counter-example: a software factory whose environments arrive without a ticket, and who owns them.

@@ -54,7 +54,7 @@ The site is static: nine pages, one stylesheet, one script. Together they cover:
 | `/` | The pitch: definition, the shift in three numbers, the live-model teaser, the three roles of infrastructure, the overlap with NVIDIA's AI factory, the five-line test, where to start |
 | `/software-factory/` | What a software factory is (a consensus definition from thirteen sources), its loop, the floor it runs on, the gap, and why it needs an infrastructure factory |
 | `/infrastructure-factory/` | The definition taken apart, components, what it is not, the seven-station line, the loop, the workers, the twelve factors, the checklist, the maturity ladder, where to start |
-| `/three-factories/` | Software, AI and infrastructure factories: three products, the shared floor, seams and owners, the glue |
+| `/three-factories/` | Software, AI and infrastructure factories: three products, the shared floor, capabilities and owners, the glue |
 | `/evidence/` | The full live model, the figures and charts, the four pressures, the terrain analysis |
 | `/metrics/` | Six metrics with their software-side counterparts, Little's law, outcomes not tokens |
 | `/lineage/` | The timeline from 1968 to Platform One, and who already uses the words |
@@ -135,7 +135,7 @@ Note:
 Speaker notes, shown in the speaker view.
 ~~~
 
-Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the deck in the repository uses most of them. Site rules apply: every figure names its source, no em dashes.
+Slides are separated by a line with `---`, vertical slides by a line with `--`, each surrounded by blank lines. Images live in the deck's folder and are referenced relatively; the site's diagrams are at `../../assets/img/`. `title`, `date` and `author` are required. `subtitle`, `event`, `duration`, `description`, `theme` (`light` or `dark`), `pdf: false`, `draft: true` (built, not listed) and `order` (sorts decks that share a date) are optional. The theme adds `class="title"` and `class="statement"` slides and the helpers `.eyebrow`, `.src`, `.stats`, `.cols`, `.steps` and `.ladder`; the decks in the repository use most of them. Site rules apply: every figure names its source, no em dashes.
 
 Build locally and commit the result:
 

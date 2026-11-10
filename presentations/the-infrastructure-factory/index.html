@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="../vendor/reveal.js/dist/reset.css">
 <link rel="stylesheet" href="../vendor/reveal.js/dist/reveal.css">
 <link rel="stylesheet" href="../vendor/reveal.js/plugin/highlight/monokai.css">
-<link rel="stylesheet" href="../theme/infra.css?v=1aaf43291214">
+<link rel="stylesheet" href="../theme/infra.css?v=bb5e8f1533d2">
 </head>
 <body>
 <div class="reveal">
@@ -172,9 +172,9 @@ The floor: control plane, context and data plane, environments, sandboxes, model
 
 ## Not NVIDIA's AI factory, but it overlaps
 
-![The infrastructure factory and the AI factory share a floor, not a product: GPU capacity, inference endpoints, registries, identity, policy, cost and observability sit between them, each seam with one owner](../../assets/img/d3-shared-floor.png)
+![The infrastructure factory and the AI factory share a floor, not a product: GPU capacity, inference endpoints, registries, identity, policy, cost and observability sit between them, each capability with one owner](../../assets/img/d3-shared-floor.png)
 
-<p class="src">Diagram D3. The AI factory produces models. The infrastructure factory produces environments. Every shared seam has exactly one owner. Source 48.</p>
+<p class="src">Diagram D3. The AI factory produces models. The infrastructure factory produces environments. Every shared capability has exactly one owner. Source 48.</p>
 
 Note:
 NVIDIA's AI factory turns power into tokens. In the model sense an AI factory produces models fit for purpose. Ours produces environments. They share a floor: GPU quotas, inference endpoints, registries, identity, policy, cost, observability, sandboxes. Platform engineering builds the shared floor. AI engineering builds the agents that run the factories.

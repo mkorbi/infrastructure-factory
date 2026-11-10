@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Software, AI and infrastructure factories</title>
-<meta name="description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the seams are, and who owns each one.">
+<meta name="description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the capabilities are, and who owns each one.">
 <link rel="canonical" href="https://infrastructure-factory.com/three-factories/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Infrastructure Factory">
 <meta property="og:title" content="Software, AI and infrastructure factories">
-<meta property="og:description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the seams are, and who owns each one.">
+<meta property="og:description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the capabilities are, and who owns each one.">
 <meta property="og:url" content="https://infrastructure-factory.com/three-factories/">
 <meta property="og:image" content="https://infrastructure-factory.com/assets/img/og/three-factories.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Software, AI and infrastructure factories">
-<meta name="twitter:description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the seams are, and who owns each one.">
+<meta name="twitter:description" content="One platform, three lines. How the software factory, the AI factory and the infrastructure factory share a floor, where the capabilities are, and who owns each one.">
 <meta name="twitter:image" content="https://infrastructure-factory.com/assets/img/og/three-factories.png">
 <meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f161c" media="(prefers-color-scheme: dark)">
@@ -93,7 +93,7 @@
         <p>NVIDIA describes an AI factory as computing infrastructure built to manufacture intelligence at scale, with output measured in token throughput and economics measured in tokens per watt and cost per token.<a class="cite" href="/sources/#s48"><sup>48</sup></a> That is accelerated-compute infrastructure: power in, tokens out. Under that reading it is a specialised infrastructure factory, and the overlap with this site's concept is near total. Its product is still a place to run things; the place happens to be full of GPUs.</p>
       </div>
       <div>
-        <p>The AI factory in the model sense is a different production system. Its product is a model fit for purpose, its loop is sourcing, adaptation, evaluation, registration and serving, and its quality signal is an evaluation score rather than a lead time. It overlaps with the infrastructure factory only at the seams listed below. Keeping the two meanings apart is what makes the seams visible.</p>
+        <p>The AI factory in the model sense is a different production system. Its product is a model fit for purpose, its loop is sourcing, adaptation, evaluation, registration and serving, and its quality signal is an evaluation score rather than a lead time. It overlaps with the infrastructure factory only at the capabilities listed below. Keeping the two meanings apart is what makes the capabilities visible.</p>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@
     <div class="section-head">
       <p class="eyebrow">The shared floor</p>
       <h2>They share a floor, not a product</h2>
-      <p>Seven seams where the infrastructure factory and the model factory depend on the same thing.</p>
+      <p>Seven capabilities where the infrastructure factory and the model factory depend on the same thing.</p>
     </div>
     <!-- D3 -->
     <figure class="fig dg-fig" data-png="d3-shared-floor">
@@ -134,7 +134,7 @@
   <text x="520" y="326" class="t11">eval scores, drift, cost per token</text>
   <rect x="256" y="64" width="248" height="260" rx="8" fill="url(#floor-grad)" stroke="var(--line-strong)" stroke-width="1"></rect>
   <text x="272" y="90" class="t13">Shared floor</text>
-  <text x="272" y="108" class="t11 muted">seams both depend on</text>
+  <text x="272" y="108" class="t11 muted">capabilities both depend on</text>
   <text x="272" y="134" class="t11">· GPU capacity and quotas</text>
   <text x="272" y="152" class="t11">· inference endpoints, gateway</text>
   <text x="272" y="170" class="t11">· artifact and model registries</text>
@@ -146,7 +146,7 @@
   <rect x="16" y="356" width="728" height="32" rx="8" class="band"></rect>
   <text x="380" y="377" class="t11 tb" text-anchor="middle">Platform engineering builds the shared floor. AI engineering builds the agents that run the factories.</text>
 </svg></div>
-      <figcaption>D3. The infrastructure factory and the AI factory share a floor, not a product. Every seam in the middle has exactly one owner. <a class="png" href="/assets/img/d3-shared-floor.png" download>Download PNG</a></figcaption>
+      <figcaption>D3. The infrastructure factory and the AI factory share a floor, not a product. Every capability in the middle has exactly one owner. <a class="png" href="/assets/img/d3-shared-floor.png" download>Download PNG</a></figcaption>
     </figure>
     <ul class="seams">
       <li><span class="name">GPU capacity and quotas</span><span class="detail">Accelerated compute, held as inventory, metered per tenant.</span></li>
@@ -163,12 +163,12 @@
 <section class="section" id="seams">
   <div class="frame">
     <div class="section-head">
-      <p class="eyebrow">Seams and owners</p>
-      <h2>Every seam has exactly one owner</h2>
+      <p class="eyebrow">Capabilities and owners</p>
+      <h2>Every capability has exactly one owner</h2>
     </div>
     <div class="table-wrap stack seams-table">
       <table>
-        <thead><tr><th scope="col">Seam</th><th scope="col">Owner</th><th scope="col">What the other factory does there</th></tr></thead>
+        <thead><tr><th scope="col">Capability</th><th scope="col">Owner</th><th scope="col">What the other factory does there</th></tr></thead>
         <tbody>
           <tr><td>GPU capacity, tenancy, identity</td><td data-label="Owner" class="inf">Infrastructure factory</td><td data-label="What the other factory does there">The AI factory requests capacity through the contract, like any other customer.</td></tr>
           <tr><td>Model catalog, evaluations, routing policy</td><td data-label="Owner">AI factory</td><td data-label="What the other factory does there">The infrastructure factory stores and serves them but does not decide what is fit for purpose.</td></tr>
@@ -178,7 +178,7 @@
       </table>
     </div>
     <div class="spine">
-      <p>Overlap in the floor is a feature. Overlap in the product is a smell. Every seam has exactly one owner.</p>
+      <p>Overlap in the floor is a feature. Overlap in the product is a smell. Every capability has exactly one owner.</p>
     </div>
   </div>
 </section>
