@@ -54,7 +54,7 @@ The site is static: nine pages, one stylesheet, one script. Together they cover:
 | `/` | The pitch: definition, the shift in three numbers, the live-model teaser, the three roles of infrastructure, the overlap with NVIDIA's AI factory, the five-line test, where to start |
 | `/software-factory/` | What a software factory is (a consensus definition from thirteen sources), its loop, the floor it runs on, the gap, and why it needs an infrastructure factory |
 | `/infrastructure-factory/` | The definition taken apart, components, what it is not, the seven-station line, the loop, the workers, the twelve factors, the checklist, the maturity ladder, where to start |
-| `/three-factories/` | Software, AI and infrastructure factories: three products, the shared floor, seams and owners, the glue |
+| `/three-factories/` | Software, AI and infrastructure factories: three products, the shared floor, capabilities and owners, the glue |
 | `/evidence/` | The full live model, the figures and charts, the four pressures, the terrain analysis |
 | `/metrics/` | Six metrics with their software-side counterparts, Little's law, outcomes not tokens |
 | `/lineage/` | The timeline from 1968 to Platform One, and who already uses the words |

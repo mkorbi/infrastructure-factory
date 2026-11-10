@@ -153,9 +153,10 @@ html, body, .reveal-viewport { background: var(--bg); }
 .reveal table td:last-child, .reveal table th:last-child { padding-right: 0; }
 
 .reveal img, .reveal video, .reveal iframe {
+  display: block;
   max-width: 100%;
   max-height: 500px;
-  margin: 0.3em 0;
+  margin: 0.3em auto;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -163,7 +164,9 @@ html, body, .reveal-viewport { background: var(--bg); }
 }
 .reveal img.plain { background: none; border: 0; }
 .reveal .fig { margin: 0.2em 0 0; }
-.reveal svg.diagram { display: block; width: 100%; height: auto; max-height: 550px; }
+.reveal .logo-chip { display: inline-block; margin-top: 0.6em; padding: 0.55em 1em; background: #121b25; border-radius: var(--radius); }
+.reveal .logo-chip img { display: block; height: 1.7em; max-height: none; margin: 0; background: none; border: 0; }
+.reveal svg.diagram { display: block; width: 100%; height: auto; max-height: 550px; margin: 0 auto; }
 .reveal .dense { font-size: 0.82em; }
 .reveal .dense h3 { font-size: 1.25em; }
 .reveal hr { border: 0; border-top: 1px solid var(--line); margin: 0.8em 0; }
@@ -273,7 +276,7 @@ html, body, .reveal-viewport { background: var(--bg); }
   transform: translateY(-50%);
   font-size: 2.1em;
 }
-.reveal section.statement h2 em { font-style: normal; color: var(--accent-ink); }
+.reveal section.statement h2 em { display: block; margin-top: 1.2em; font-style: normal; color: var(--accent-ink); }
 
 /* ---------- chrome ---------- */
 .reveal .progress { height: 4px; color: var(--accent); background: rgba(18, 27, 37, 0.08); }

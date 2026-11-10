@@ -13,11 +13,11 @@
       "description": "A platform that turns requests from humans or agents into compliant, observable environments with clear cost attribution. The concept, then the architecture with an MCP server as the front door and agentgateway as the policy gate, how it connects to the software and AI factories, and where AI agents do their work inside it.",
       "theme": "light",
       "draft": false,
-      "slides": 26,
+      "slides": 28,
       "url": "https://infrastructure-factory.com/presentations/devrel-foundation/",
       "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/devrel-foundation/slides.md",
       "pdf": "https://infrastructure-factory.com/presentations/devrel-foundation/devrel-foundation.pdf",
-      "pageHash": "3047baaf95da",
+      "pageHash": "99d86b080102",
       "pdfHash": "3047baaf95da"
     },
     {
@@ -35,7 +35,7 @@
       "url": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/",
       "source": "https://github.com/mkorbi/infrastructure-factory/blob/main/presentations/the-infrastructure-factory/slides.md",
       "pdf": "https://infrastructure-factory.com/presentations/the-infrastructure-factory/the-infrastructure-factory.pdf",
-      "pageHash": "a4f1dcef3798",
+      "pageHash": "7b87d833e77d",
       "pdfHash": "a4f1dcef3798"
     }
   ]
